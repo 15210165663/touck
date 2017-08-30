@@ -100,7 +100,13 @@ For a better experience using this site, please upgrade to a modern web browser.
 					<li class="current"><a href="{{url('project/portfolio')}}"><font color="red">股票列表</font></a></li>
 					<li><a href="{{url('project/blog')}}"><font color="red">持股大师</font></a></li>
 					<li ><a href="{{url('project/contact')}}"><font color="red">评论</font></a></li>
-					<li><a href="{{url('project/login')}}"><font color="red">登录</font></a></li>
+					<li>
+						@if($name != null)
+							<a style="cursor:pointer;">欢迎<font color="red">{{ $name }}</font>登录</a>
+						@else
+							<a href="{{url('project/login')}}"><font color="red">企业登录</font></a>
+						@endif
+					</li>
 			  </ul>
 			</nav>
 	
