@@ -36,8 +36,8 @@
 
 		<div class="header-logo-container ">
 			<div class="logo-container">	
-				<a href="{{url('project/centre')}}" class="logo" rel="home" title="Home">
-					<p style="font-size: 28px">请登录</p>
+				<a class="logo" rel="home" title="Home">
+					<p style="font-size: 28px">欢迎</p>
 				</a>
 			</div>
 		</div>
@@ -53,7 +53,7 @@
 					<li ><a href="{{url('project/contact')}}"><font color="red">评论</font></a></li>
 					@if(Auth::user())
 			<li>
-			<a style="cursor:pointer;">欢迎<font color="red">{{Auth::user()->name }}</font>登录</a>
+			<a  href="{{url('project/centre')}}" style="cursor:pointer;">欢迎<font color="red">{{Auth::user()->name }}</font>登录</a>
 			<a style="cursor:pointer;" href="{{url('/auth/logout')}}">退出登录</a>
 
 			</li>			

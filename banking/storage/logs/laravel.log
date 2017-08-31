@@ -5925,3 +5925,6 @@ Stack trace:
 #65 D:\phpStudy\WWW\xiangmu\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php(99): Illuminate\Foundation\Http\Kernel->sendRequestThroughRouter(Object(Illuminate\Http\Request))
 #66 D:\phpStudy\WWW\xiangmu\public\index.php(54): Illuminate\Foundation\Http\Kernel->handle(Object(Illuminate\Http\Request))
 #67 {main}  
+[2017-08-31 01:37:44] local.ERROR: exception 'Symfony\Component\Debug\Exception\FatalErrorException' with message 'syntax error, unexpected end of file' in D:\WWW\xutao\touck\banking\storage\framework\views\74784afe205e99d76eed4cfd886540fa6ea81e27.php:414
+Stack trace:
+#0 {main}  
