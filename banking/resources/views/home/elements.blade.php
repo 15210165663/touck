@@ -95,11 +95,23 @@ For a better experience using this site, please upgrade to a modern web browser.
 			<nav id="main-nav">
 				<ul class="sf-menu clearfix">
 					<li><a href="{{url('project/index')}}"><font color="red">首页</font></a></li>
-					<!-- <li class="current"><a href="{{url('project/elements')}}"><font color="red">股票详情</font></a></li> -->
+					<!-- <li><a href="{{url('project/elements')}}"><font color="red">股票详情</font></a></li> -->
 					<li><a href="{{url('project/portfolio')}}"><font color="red">股票列表</font></a></li>
 					<li><a href="{{url('project/blog')}}"><font color="red">持股大师</font></a></li>
-					<li ><a href="{{url('project/contact')}}"><font color="red">评论</font></a></li>
-					<li><a href="{{url('project/login')}}"><font color="red">登录</font></a></li>
+					<li class="current"><a href="{{url('project/contact')}}"><font color="red">评论</font></a></li>
+							@if(Auth::user())
+			<li>
+			<a href="{{url('project/centre')}}" style="cursor:pointer;">欢迎<font color="red">{{Auth::user()->name }}</font>登录</a>
+			<a style="cursor:pointer;" href="{{url('/auth/logout')}}">退出登录</a>
+
+			</li>			
+
+					@else
+								<li><a href="{{url('project/login')}}"><font color="red">企业登录</font></a></li>
+					<li><a href="{{url('/auth/login')}}"><font color="red">个人登录</font></a></li>
+
+					@endif
+
 			  </ul>
 			</nav>
 			
