@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
  	<head>
 		<title>Solana - Responsive Multipurpose HTML Template</title>
@@ -21,33 +21,31 @@
 	
 <div id="wrap" class="boxed">
 <div class="grey-bg">
-<header id="header" >
-	<div class="container clearfix">
-		<div class="sixteen columns">
-			<div class="header-container m-top-30 clearfix">
-				<div class="header-menu-container right">
+	<header id="header" >
+		<div class="container clearfix">
+			<div class="sixteen columns">
+				<div class="header-container m-top-30 clearfix">
+					<div class="header-menu-container right">
+					</div>
 				</div>
 			</div>
 		</div>
-	</div>
-
-</header>
-
-<!-- PAGE TITLE -->
+	</header>
+	<!-- PAGE TITLE -->
 	<div class="container m-bot-35 clearfix">
 		<div class="sixteen columns">
 			<div class="page-title-container clearfix">
-				<h1 class="page-title"><font color="red">企业用户管理中心</font></h1>
+				<h1 class="page-title">企业用户管理中心</h1>
 			</div>	
 		</div>
 	</div>	
-	
 </div>	<!-- Grey bg end -->	
 
 <!-- CONTENT -->
-<div class="container m-bot-35 clearfix">
-<div class="row">
-	<div class="eight columns">
+	<div class="container m-bot-35 clearfix">
+
+				<div class="row">
+					<div class="eight columns">
 		<div class="caption-container-main m-bot-30">
 			<div class="caption-text-container">管理中心</div>
 			<div class="content-container-white caption-bg "></div>
@@ -87,22 +85,22 @@
 			</li>
 		</ul>
 	</div>
-	<div class="eight columns">
-		<div class="caption-container-main m-bot-30">
-			<div class="caption-text-container">信息</div>
-			<div class="content-container-white caption-bg "></div>
-		</div>
-		<div id="skill-bars">
-			<div class="skill-bar"><div class="skill-bar-content" data-percentage="80"></div><span class="skill-title">0&nbsp;元</span></div>
-			<div class="skill-bar"><div class="skill-bar-content" data-percentage="90"></div><span class="skill-title">共&nbsp;0&nbsp;元</span></div>
-			<div class="skill-bar"><div class="skill-bar-content" data-percentage="85"></div><span class="skill-title">共&nbsp;0&nbsp;元</span></div>
-			<div class="skill-bar"><div class="skill-bar-content" data-percentage="75"></div><span class="skill-title">共&nbsp;0&nbsp;元</span></div>
-		</div>
+					<div class="eight columns">
+						<div class="caption-container-main m-bot-30">
+							<div class="caption-text-container">出售股票</div>
+							<div class="content-container-white caption-bg "></div>
+						</div>
+						<div id="skill-bars">
+							<p style="font-size: 18px">股票名称&nbsp;:&nbsp;</p><br>
+							<p style="font-size: 18px">出售个数&nbsp;:&nbsp;<input type="text" name="sum" style="height: 22px;width:200px"></p><br>
+							<p style="font-size: 18px">股票单价&nbsp;:&nbsp;</p><br>
+							<button style="width:100px;height: 42px;font-size: 18px">出售</button>
+						</div>
+					</div>
+				</div>
+			
+
 	</div>
-</div>
-
-
-</div>
 	
 	<div class="container clearfix">
 		

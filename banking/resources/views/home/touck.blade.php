@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
  	<head>
 		<title>Solana - Responsive Multipurpose HTML Template</title>
@@ -21,33 +21,30 @@
 	
 <div id="wrap" class="boxed">
 <div class="grey-bg">
-<header id="header" >
-	<div class="container clearfix">
-		<div class="sixteen columns">
-			<div class="header-container m-top-30 clearfix">
-				<div class="header-menu-container right">
+	<header id="header" >
+		<div class="container clearfix">
+			<div class="sixteen columns">
+				<div class="header-container m-top-30 clearfix">
+					<div class="header-menu-container right">
+					</div>
 				</div>
 			</div>
 		</div>
-	</div>
-
-</header>
-
-<!-- PAGE TITLE -->
+	</header>
+	<!-- PAGE TITLE -->
 	<div class="container m-bot-35 clearfix">
 		<div class="sixteen columns">
 			<div class="page-title-container clearfix">
-				<h1 class="page-title"><font color="red">企业用户管理中心</font></h1>
+				<h1 class="page-title">企业用户管理中心</h1>
 			</div>	
 		</div>
 	</div>	
-	
 </div>	<!-- Grey bg end -->	
 
 <!-- CONTENT -->
 <div class="container m-bot-35 clearfix">
-<div class="row">
-	<div class="eight columns">
+	<div class="row">
+		<div class="eight columns">
 		<div class="caption-container-main m-bot-30">
 			<div class="caption-text-container">管理中心</div>
 			<div class="content-container-white caption-bg "></div>
@@ -87,21 +84,37 @@
 			</li>
 		</ul>
 	</div>
-	<div class="eight columns">
-		<div class="caption-container-main m-bot-30">
-			<div class="caption-text-container">信息</div>
-			<div class="content-container-white caption-bg "></div>
-		</div>
-		<div id="skill-bars">
-			<div class="skill-bar"><div class="skill-bar-content" data-percentage="80"></div><span class="skill-title">0&nbsp;元</span></div>
-			<div class="skill-bar"><div class="skill-bar-content" data-percentage="90"></div><span class="skill-title">共&nbsp;0&nbsp;元</span></div>
-			<div class="skill-bar"><div class="skill-bar-content" data-percentage="85"></div><span class="skill-title">共&nbsp;0&nbsp;元</span></div>
-			<div class="skill-bar"><div class="skill-bar-content" data-percentage="75"></div><span class="skill-title">共&nbsp;0&nbsp;元</span></div>
+		<div class="eight columns">
+			<div class="caption-container-main m-bot-30">
+				<div class="caption-text-container">股票信息</div>
+				<div class="content-container-white caption-bg "></div>
+			</div>
+			<div id="skill-bars">
+				<table border="1">
+					<tr>
+						<td style="width:182px;height:35px;"  align="center">股票名称</td>
+						<td style="width:182px;height:35px;"  align="center">股票图片</td>
+						<td style="width:182px;height:35px;"  align="center">股票介绍</td>
+						<td style="width:182px;height:35px;"  align="center">股票市值</td>
+						<td style="width:182px;height:35px;"  align="center">股票总量</td>
+						<td style="width:182px;height:35px;"  align="center">股票分类</td>
+						<td style="width:182px;height:35px;"  align="center">操作</td>
+					</tr>
+					@foreach($list as $val)
+					<tr>
+						<td align="center">{{ $val['stock_name'] }}</td>
+						<td align="center"><img src="{{ URL::asset($val['stock_imgurl']) }}" alt=""></td>
+						<td align="center">{{ $val['stock_text'] }}</td>
+						<td align="center">{{ $val['stock_price'] }}</td>
+						<td align="center">{{ $val['stock_number'] }}</td>
+						<td align="center">{{ $val['stock_type'] }}</td>
+						<td align="center">修改&nbsp;删除</td>
+					</tr>
+					@endforeach
+				</table>
+			</div>
 		</div>
 	</div>
-</div>
-
-
 </div>
 	
 	<div class="container clearfix">

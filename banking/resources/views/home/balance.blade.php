@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
  	<head>
 		<title>Solana - Responsive Multipurpose HTML Template</title>
@@ -21,33 +21,31 @@
 	
 <div id="wrap" class="boxed">
 <div class="grey-bg">
-<header id="header" >
-	<div class="container clearfix">
-		<div class="sixteen columns">
-			<div class="header-container m-top-30 clearfix">
-				<div class="header-menu-container right">
+	<header id="header" >
+		<div class="container clearfix">
+			<div class="sixteen columns">
+				<div class="header-container m-top-30 clearfix">
+					<div class="header-menu-container right">
+					</div>
 				</div>
 			</div>
 		</div>
-	</div>
-
-</header>
-
-<!-- PAGE TITLE -->
+	</header>
+	<!-- PAGE TITLE -->
 	<div class="container m-bot-35 clearfix">
 		<div class="sixteen columns">
 			<div class="page-title-container clearfix">
-				<h1 class="page-title"><font color="red">企业用户管理中心</font></h1>
+				<h1 class="page-title">企业用户管理中心</h1>
 			</div>	
 		</div>
 	</div>	
-	
 </div>	<!-- Grey bg end -->	
 
 <!-- CONTENT -->
-<div class="container m-bot-35 clearfix">
-<div class="row">
-	<div class="eight columns">
+	<div class="container m-bot-35 clearfix">
+
+				<div class="row">
+					<div class="eight columns">
 		<div class="caption-container-main m-bot-30">
 			<div class="caption-text-container">管理中心</div>
 			<div class="content-container-white caption-bg "></div>
@@ -89,44 +87,82 @@
 	</div>
 	<div class="eight columns">
 		<div class="caption-container-main m-bot-30">
-			<div class="caption-text-container">信息</div>
+			<div class="caption-text-container">发布股票</div>
 			<div class="content-container-white caption-bg "></div>
 		</div>
 		<div id="skill-bars">
-			<div class="skill-bar"><div class="skill-bar-content" data-percentage="80"></div><span class="skill-title">0&nbsp;元</span></div>
-			<div class="skill-bar"><div class="skill-bar-content" data-percentage="90"></div><span class="skill-title">共&nbsp;0&nbsp;元</span></div>
-			<div class="skill-bar"><div class="skill-bar-content" data-percentage="85"></div><span class="skill-title">共&nbsp;0&nbsp;元</span></div>
-			<div class="skill-bar"><div class="skill-bar-content" data-percentage="75"></div><span class="skill-title">共&nbsp;0&nbsp;元</span></div>
+		<form action="{{url('project/balanceadd')}}" method="post" enctype="multipart/form-data">
+			{!!csrf_field()!!}
+			<table>
+				<tr>
+					<td style="font-size: 18px;">股票名称：</td>
+					<td><input style="height: 22px;width:300px; margin-bottom:20px;" type="text" name="Stock_name"></td>
+				</tr>
+				<tr>
+					<td style="font-size: 18px">股票图片：</td>
+					<td><input style="height: 22px;width:300px; margin-bottom:20px;" type="file" name="img" /></textarea></td>
+				</tr>
+				<tr>
+					<td style="font-size: 18px">股票介绍：</td>
+					<td><textarea name="Stock_text" cols="44" rows=""></textarea></td>
+				</tr>
+				<tr>
+					<td style="font-size: 18px">股票市值：</td>
+					<td><input style="height: 22px;width:300px; margin-bottom:20px; margin-top:20px;" type="text" name="Stock_price"><span class="span"></span></td>
+				</tr>
+				<tr>
+					<td style="font-size: 18px">股票总量：</td>
+					<td><input style="height: 22px;width:300px; margin-bottom:20px;" type="text" name="Stock_number"></td>
+				</tr>
+				<tr>
+					<td style="font-size: 18px">股票分类：</td>
+					<td>
+						<select name="Stock_type" style="height: 33px;width:200px; margin-bottom:20px;">
+							<option value="0">请选择</option>
+						@foreach($list as $val)
+							<option value="{{$val['stock_id']}}">{{$val['stock_name']}}</option>
+						@endforeach
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td><input style="width:100px;height: 42px;font-size: 18px; cursor:pointer;" type="submit" value="发布"></td>
+				</tr>
+			</table>
+		</form>
 		</div>
 	</div>
 </div>
-
-
+<script src="{{ URL::asset('jquery.js') }}"></script>
+<script>
+	$(function(){
+		$('table tr:eq(3) td input').blur(function(){
+			var price = $(this).val();
+			var _this = $(this)
+			if(price > '100000'){
+				$(this).val(' ');
+				alert('股票市值最大10W');
+				window.getSelection().removeAllRanges();
+			}
+		})
+	})
+</script>
 </div>
-	
 	<div class="container clearfix">
-		
-		
 			<div class="sixteen columns">
-			
-						<div class="caption-container-main m-bot-30">
-							<div class="caption-text-container">OUR TEAM</div>
-							<div class="content-container-white caption-bg "></div>
-						</div>
-			
+				<div class="caption-container-main m-bot-30">
+					<div class="caption-text-container">OUR TEAM</div>
+					<div class="content-container-white caption-bg "></div>
+				</div>
 			</div>
-		
-
-		
-			
 			<div class="four columns">
 				<div class="content-container-white m-bot-35 clearfix">	
 					<img alt="" src="images/content/member.jpg">
-								<ul class="social-links clearfix">
-									<li><a class="facebook-link" target="_blank" title="Facebook" href="http://themeforest.net/item/solana-responsive-html5-template/5590059?ref=abcgomel"></a></li>
-									<li><a class="twitter-link" target="_blank" title="Twitter" href="http://themeforest.net/item/solana-responsive-html5-template/5590059?ref=abcgomel"></a></li>
-									<li><a class="linkedin-link" target="_blank" title="Dribbble" href="http://themeforest.net/item/solana-responsive-html5-template/5590059?ref=abcgomel"></a></li>
-								</ul>
+						<ul class="social-links clearfix">
+							<li><a class="facebook-link" target="_blank" title="Facebook" href="http://themeforest.net/item/solana-responsive-html5-template/5590059?ref=abcgomel"></a></li>
+							<li><a class="twitter-link" target="_blank" title="Twitter" href="http://themeforest.net/item/solana-responsive-html5-template/5590059?ref=abcgomel"></a></li>
+							<li><a class="linkedin-link" target="_blank" title="Dribbble" href="http://themeforest.net/item/solana-responsive-html5-template/5590059?ref=abcgomel"></a></li>
+						</ul>
 					<div class="lw-item-caption-container">
 						<div class="team-name">
 							<h5>John Doe</h5>
@@ -138,11 +174,11 @@
 			<div class="four columns">
 				<div class="content-container-white m-bot-35 clearfix">	
 					<img alt="" src="images/content/member.jpg">
-								<ul class="social-links clearfix">
-									<li><a class="facebook-link" target="_blank" title="Facebook" href="http://themeforest.net/item/solana-responsive-html5-template/5590059?ref=abcgomel"></a></li>
-									<li><a class="twitter-link" target="_blank" title="Twitter" href="http://themeforest.net/item/solana-responsive-html5-template/5590059?ref=abcgomel"></a></li>
-									<li><a class="linkedin-link" target="_blank" title="Dribbble" href="http://themeforest.net/item/solana-responsive-html5-template/5590059?ref=abcgomel"></a></li>
-								</ul>
+						<ul class="social-links clearfix">
+							<li><a class="facebook-link" target="_blank" title="Facebook" href="http://themeforest.net/item/solana-responsive-html5-template/5590059?ref=abcgomel"></a></li>
+							<li><a class="twitter-link" target="_blank" title="Twitter" href="http://themeforest.net/item/solana-responsive-html5-template/5590059?ref=abcgomel"></a></li>
+							<li><a class="linkedin-link" target="_blank" title="Dribbble" href="http://themeforest.net/item/solana-responsive-html5-template/5590059?ref=abcgomel"></a></li>
+						</ul>
 					<div class="lw-item-caption-container">
 						<div class="team-name">
 							<h5>John Doe</h5>
@@ -154,11 +190,11 @@
 			<div class="four columns">
 				<div class="content-container-white m-bot-35 clearfix">	
 					<img alt="" src="images/content/member.jpg">
-								<ul class="social-links clearfix">
-									<li><a class="facebook-link" target="_blank" title="Facebook" href="http://themeforest.net/item/solana-responsive-html5-template/5590059?ref=abcgomel"></a></li>
-									<li><a class="twitter-link" target="_blank" title="Twitter" href="http://themeforest.net/item/solana-responsive-html5-template/5590059?ref=abcgomel"></a></li>
-									<li><a class="linkedin-link" target="_blank" title="Dribbble" href="http://themeforest.net/item/solana-responsive-html5-template/5590059?ref=abcgomel"></a></li>
-								</ul>
+						<ul class="social-links clearfix">
+							<li><a class="facebook-link" target="_blank" title="Facebook" href="http://themeforest.net/item/solana-responsive-html5-template/5590059?ref=abcgomel"></a></li>
+							<li><a class="twitter-link" target="_blank" title="Twitter" href="http://themeforest.net/item/solana-responsive-html5-template/5590059?ref=abcgomel"></a></li>
+							<li><a class="linkedin-link" target="_blank" title="Dribbble" href="http://themeforest.net/item/solana-responsive-html5-template/5590059?ref=abcgomel"></a></li>
+						</ul>
 					<div class="lw-item-caption-container">
 						<div class="team-name">
 							<h5>John Doe</h5>
@@ -170,11 +206,11 @@
 			<div class="four columns">
 				<div class="content-container-white m-bot-35 clearfix">	
 					<img alt="" src="images/content/member.jpg">
-								<ul class="social-links clearfix">
-									<li><a class="facebook-link" target="_blank" title="Facebook" href="http://themeforest.net/item/solana-responsive-html5-template/5590059?ref=abcgomel"></a></li>
-									<li><a class="twitter-link" target="_blank" title="Twitter" href="http://themeforest.net/item/solana-responsive-html5-template/5590059?ref=abcgomel"></a></li>
-									<li><a class="linkedin-link" target="_blank" title="Dribbble" href="http://themeforest.net/item/solana-responsive-html5-template/5590059?ref=abcgomel"></a></li>
-								</ul>
+						<ul class="social-links clearfix">
+							<li><a class="facebook-link" target="_blank" title="Facebook" href="http://themeforest.net/item/solana-responsive-html5-template/5590059?ref=abcgomel"></a></li>
+							<li><a class="twitter-link" target="_blank" title="Twitter" href="http://themeforest.net/item/solana-responsive-html5-template/5590059?ref=abcgomel"></a></li>
+							<li><a class="linkedin-link" target="_blank" title="Dribbble" href="http://themeforest.net/item/solana-responsive-html5-template/5590059?ref=abcgomel"></a></li>
+						</ul>
 					<div class="lw-item-caption-container">
 						<div class="team-name">
 							<h5>John Doe</h5>
@@ -183,28 +219,7 @@
 					</div>
 				</div>
 			</div>
-			
-			
-			
-			
-		
-		
 	</div>
-			
-			
-			
-			
-			
-
-
-
-
-
-<!-- LATEST WORK -->
-	
-<!-- OUR PROJECTS End -->
-
-
 <!-- NEWS LETTER -->
 <div class="dark-grey-bg">
 	<div class="container m-bot-20 clearfix">

@@ -84,9 +84,11 @@ For a better experience using this site, please upgrade to a modern web browser.
 
 		<div class="header-logo-container ">
 			<div class="logo-container">	
-				<a href="index.html" class="logo" rel="home" title="Home">
-					<img src="images/logo-retina.png" alt="solana" >
-				</a>
+				@if($name != null)
+				<a href="{{url('project/about')}}" class="logo" rel="home" title="Home"><font color="red">企业中心</font></a>
+			@else
+				<img style="margin-top:18px;margin-left:15px;" src="images/logo-retina.png" alt="solana" >
+			@endif
 			</div>
 		</div>
 
@@ -101,7 +103,8 @@ For a better experience using this site, please upgrade to a modern web browser.
 					<li ><a href="{{url('project/contact')}}"><font color="red">评论</font></a></li>
 					<li>
 						@if($name != null)
-							<a style="cursor:pointer;">欢迎<font color="red">{{ $name }}</font>登录</a>
+							<a style="cursor:pointer;">欢迎<font color="red">{{ $name }}</font>企业登录</a>
+							<a href="{{url('project/del_login')}}"><font color="red">退出登录</font></a>
 						@else
 							<a href="{{url('project/login')}}"><font color="red">企业登录</font></a>
 						@endif

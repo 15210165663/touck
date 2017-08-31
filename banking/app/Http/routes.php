@@ -32,6 +32,15 @@ Route::group(['middleware' => ['web'],'namespace' => 'Home'], function () {
     Route::get("project/portfolio", ['uses' => 'ProjectController@portfolio']);
     Route::get('project/blog', ['uses' => 'ProjectController@blog']);
     Route::get('project/contact', ['uses' => 'ProjectController@contact']);
+    Route::get('project/del_login', ['uses' => 'ProjectController@del_login']);
+    Route::get('project/about', ['uses' => 'AboutController@about']);
+    Route::get('project/balance', ['uses' => 'UserController@balance']);
+    Route::get('project/touck', ['uses' => 'UserController@touck']);
+    Route::get('project/sell', ['uses' => 'UserController@sell']);
+    Route::get('project/upload', ['uses' => 'FileController@upload']);
+    Route::any('project/info', ['uses' => 'FileController@info']);
+    Route::any('project/balanceadd', ['uses' => 'SharesController@balanceadd']);
+    // Route::get('project/about', ['uses' => 'UserController@about']);
     Route::any('project/login', function () {
     	return view('home.login');
     });

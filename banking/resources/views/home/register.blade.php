@@ -11,6 +11,18 @@
 <body>
 <h1>企 业 注 册</h1>
 <div class="container w3layouts agileits">
+	<!-- 成功提示框 -->
+	@if(Session::has('hasSuccess'))
+	<div class="alert alert-success alert-dismissible" role="alert">
+		<font color="red">{{Session::get('hasSuccess')}}</font>
+	</div>
+	@endif
+	<!-- 失败提示框 -->
+	@if(Session::has('hasExists'))
+	<div class="alert alert-danger alert-dismissible" role="alert">
+		<font color="red"><strong>Error</strong> - {{Session::get('hasExists')}}</font>
+	</div>
+	@endif
 	<form action="{{url('project/registers')}}" method="post">
 		<input type="hidden" name="_token" value="{{ csrf_token() }}" />
 		<input type="text" Name="Name" placeholder="用户名" required="">

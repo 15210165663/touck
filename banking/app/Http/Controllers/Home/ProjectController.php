@@ -5,7 +5,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use App\Users;
+use App\Models\Users;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Cookie;
 class ProjectController extends Controller
@@ -49,11 +49,9 @@ class ProjectController extends Controller
     	$phone_number = $res->input('Phone_Number');
     	$list = DB::insert('insert into users(name,email,password,phone_number) values(?,?,?,?)',[$name,$email,$pwd,$phone_number]);
     	if($list){
-    		echo "成功".'<br>';
-    		echo "<a href=".'login'.">点击返回登录页面</a>";
+    		return redirect('project/login');
     	}else{
-    		echo "失败".'<br>';
-    		echo "<a href=".'login'.">点击返回登录页面</a>";
+    		return redirect('project/login')->with('hasExists','注册失败');
     	}
     }
     //登录
@@ -67,16 +65,22 @@ class ProjectController extends Controller
     	$lists = Users::first()->toArray();
     	if($name == $lists['name'] && $pwd == $lists['password']){
 	    	$login->session()->put('Password',$pwd);
-	    	$login->session()->put('Username',$name);
+            $login->session()->put('Username',$name);
+	    	$login->session()->put('id',$lists['id']);
 			if($brand != ' '){
                 $login->session()->put('pwd',$pwd);
                 $login->session()->put('name',$name);
 			}
-	    	echo "登陆成功".'<br>';
-    		echo "<a href=".'index'.">首页</a>";
+            return redirect('project/about');
     	}else{
-    		echo "用户名或密码错误".'<br>';
-    		echo "<a href=".'login'.">首页</a>";
+    		return redirect('project/login')->with('hasExists','用户名或密码错误');
     	}
+    }
+    // 退出登录
+    public function del_login()
+    {
+        \Session::forget('Username');
+        \Session::forget('Password');
+        return redirect('project/index');
     }
 }
