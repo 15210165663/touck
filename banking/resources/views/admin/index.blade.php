@@ -39,7 +39,7 @@
     <ul id="mini-nav" class="clearfix">
       <li class="list-box">
         <a href="#">
-          <i class="fa fa-user text-warning"></i> <span class="text-white">zm9999</span>
+          <i class="fa fa-user text-warning"></i> <span class="text-white"><?php echo $value = session('username'); ?></span>
         </a>
       </li>
       <li class="list-box hidden-xs">
@@ -79,7 +79,7 @@
         </a>
         <ul class="dropdown-menu server-activity">
           <li>
-            <p class="center-align-text">欢迎您, <b>zm9999</b> !</p>
+            <p class="center-align-text">欢迎您, <b><?php echo $value; ?></b> !</p>
           </li>
           <li>
             <p><i class="fa fa-rmb text-info"></i><span>我的钱包</span></p>
@@ -93,7 +93,7 @@
           <li>
             <div class="demo-btn-group clearfix">
               <button class="btn btn-danger">
-                安全退出
+                <a href="{{URL('/admin/loginout')}}">安全退出</a>
               </button>
             </div>
           </li>
@@ -111,7 +111,7 @@
     <div id="cssmenu"><div id="menu-button">Menu</div>
       <ul>
       <li class="active">
-          <a href="/admin/show">
+          <a href="javascript:void(0);">
             <i class="fa fa-sign-out"></i>
             首页
           </a>

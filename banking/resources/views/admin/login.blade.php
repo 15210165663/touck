@@ -45,6 +45,7 @@
             <label for="username">会员编号</label>
             <span class="field-validation-valid"></span>
             <input class="form-control" maxlength="20" name="username" placeholder="用户名" type="text">
+            <input type="hidden" name="_token"         value="{csrf_token()}"/>
           </div>
           <div class="form-group">
             <label for="username">登录密码</label>
@@ -63,7 +64,7 @@
           </div> -->
           <div class="actions">
             <input class="btn btn-success" name="Login" type="submit" value="登录">
-            <a href="#" class="link">忘记密码?</a>
+            <a href="{{URL('/admin/login')}}" class="link">忘记密码?</a>
             <a href="{{URL('/admin/register')}}" class="link">注册</a>
             <div class="clearfix"></div>
           </div>

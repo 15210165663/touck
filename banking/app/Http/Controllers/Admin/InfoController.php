@@ -13,23 +13,23 @@ class InfoController extends CommonController
 	*/
 	public function index()
 	{
-		$datas = DB::table('authority')->get();
-		$data =  json_decode( json_encode( $datas),true);
-		foreach ($data as $k => $v) {
-			if($v['father_id'] == 0){
-				$list[$k] = $v;
-			}
-		}
-		foreach ($list as $key => $value) {
-			foreach ($data as $kk => $vv) {
-				if($value['authority_id'] == $vv['father_id']){
-					$value[$key]['value'][] = $vv;
-					$lists[$key] = $value;
-				}
-			}
-		}
+		// $datas = DB::table('authority')->get();
+		// $data =  json_decode( json_encode( $datas),true);
+		// foreach ($data as $k => $v) {
+		// 	if($v['father_id'] == 0){
+		// 		$list[$k] = $v;
+		// 	}
+		// }
+		// foreach ($list as $key => $value) {
+		// 	foreach ($data as $kk => $vv) {
+		// 		if($value['authority_id'] == $vv['father_id']){
+		// 			$value[$key]['value'][] = $vv;
+		// 			$lists[$key] = $value;
+		// 		}
+		// 	}
+		// }->with('data',$lists)
 		// print_r($lists/);die;
-		return view('admin.index')->with('data',$lists);
+		return view('admin.index');
 	}
 	/**
 	 * 递归 无限极分类

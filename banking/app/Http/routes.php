@@ -48,6 +48,8 @@ Route::group(['middleware'=>'web','namespace' => 'Admin'], function(){
 	Route::match(['get','post'],'/login','LoginController@login');
 	//验证登录
 	Route::match(['get','post'],'/loginin','LoginController@loginin');
+	//退出登录
+	Route::match(['get','post'],'/loginout','LoginController@loginout');
 	//注册页面
 	Route::match(['get','post'],'/register','LoginController@register');
 	//注册入库
