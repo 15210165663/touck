@@ -47,8 +47,8 @@ Designed & Coded by Abcgomel
 	
 				<div class="header-logo-container ">
 					<div class="logo-container">	
-						<a href="index.html" class="logo" rel="home" title="Home">
-							<img src="images/logo-retina.png" alt="solana" >
+						<a href="{{url('project/centre')}}" class="logo" rel="home" title="Home">
+							<p style="font-size: 28px">请登录</p>
 						</a>
 					</div>
 				</div>
@@ -58,7 +58,7 @@ Designed & Coded by Abcgomel
 			<nav id="main-nav">
 				<ul class="sf-menu clearfix">
 					<li><a href="{{url('project/index')}}"><font color="red">首页</font></a></li>
-					<li><a href="{{url('project/elements')}}"><font color="red">股票详情</font></a></li>
+					<!-- <li><a href="{{url('project/elements')}}"><font color="red">股票详情</font></a></li> -->
 					<li><a href="{{url('project/portfolio')}}"><font color="red">股票列表</font></a></li>
 					<li><a href="{{url('project/blog')}}"><font color="red">持股大师</font></a></li>
 					<li class="current"><a href="{{url('project/contact')}}"><font color="red">评论</font></a></li>
