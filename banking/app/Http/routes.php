@@ -102,6 +102,8 @@ Route::group(['middleware'=>'web','namespace' => 'Admin'], function(){
     Route::match(['get','post'],'/wheel','WheelController@wheel');
     //轮播图添加
     Route::match(['get','post'],'/wheeladd','WheelController@wheeladd');
+        //轮播图添加
+    Route::match(['get','post'],'/wheeladdd','WheelController@wheeladdd');
     //日志管理
     Route::match(['get','post'],'/log','LogController@log');
     });

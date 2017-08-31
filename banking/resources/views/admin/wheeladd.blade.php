@@ -194,34 +194,39 @@
     </div>
     <!-- Sub Nav End -->
 <div class="dashboard-wrapper">
-      <form class="form-horizontal" method="post">
+  <form class="form-horizontal" action="{{url('/admin/wheeladdd')}}" method="post" enctype="multipart/form-data">
     <div id="pd_add_form" class="panel panel-default">
       <div class="panel-heading">
-        <h3 class="panel-title">EP购买</h3>
+        <h3 class="panel-title">EP购买(本页面只允许使用谷歌浏览器)</h3>
       </div>
       <div class="panel-body">
         <div class="form-group">
-          <label class="col-sm-2 control-label" for="firstname">购买数额</label>
+          <label class="col-sm-2 control-label" for="firstname">图片</label>
           <div class="col-sm-5">
-            <input class="form-control valid" type="text" value="">
+            <input class="form-control valid" type="file" name="show_url">
           </div>
           <div class="col-sm-5 col-msg"><span class="field-validation-valid"></span></div>
         </div>
         <div class="form-group">
-          <label class="col-sm-2 control-label" for="firstname">二级密码</label>
+          <label class="col-sm-2 control-label" for="firstname">状态</label>
           <div class="col-sm-5">
-            <input class="form-control valid" type="password">
+            不显示<input type="radio" value="0" name="Static">
+            显示<input type="radio" value="1" name="Static">
           </div>
           <div class="col-sm-5 col-msg"><span class="field-validation-valid"></span></div>
         </div>
+
         <div class="form-group">
           <div class="col-sm-offset-2 col-sm-6">
-            <button type="submit" class="btn btn-danger" id="buy_submit">确定购买</button>
+            <button type="submit" class="btn btn-danger" id="buy_submit">确定</button>
           </div>
         </div>
+
       </div>
     </div>
+
   </form>
+
 </div>
 <footer>
   <p>© Gold International 2016</p>

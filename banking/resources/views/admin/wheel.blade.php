@@ -221,6 +221,21 @@
           <th>轮播图状态</th>
           <th width="120px">操作</th>
         </tr>
+        <?php foreach($data as $k=>$v){ ?>
+        <tr>
+          <th><?php echo $v['show_id'] ?></th>
+          <th><img src="../uploads/<?= $v['show_url'] ?>" width='200' height='200'/></th>
+          <th><?php echo $v['show_url'] ?></th>
+          <th><?php if ($v['static']==1) {
+                echo "不显示";
+                }else{
+                  echo "显示";
+                }
+
+              ?>
+          </th>
+        </tr>
+      <?php } ?>
       </thead>
       <tbody>
       </tbody>
