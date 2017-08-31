@@ -10,11 +10,33 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Cookie;
 class ProjectController extends Controller
 {
-	//首页
-    public function index(Request $login)
+    /**
+     * 首页显示股票
+     * @return [type] [description]
+     */
+    public function index()
     {
-        $name = $login->session()->get('Username');
-    	return view('index.index',['name'=>$name]);
+        //测试数据显示首页股票
+        $market = DB::select('select stock_id,stock_name,stock_imgurl from stock_market limit ?',[8]);
+        $market =  json_decode(json_encode($market),true);
+        foreach ($market as $k => $v) {
+            if($k<=3) $market1[] = $v;
+            if($k>3) $market2[] = $v;  
+        }
+        return view('home.index',['market1'=>$market1,'market2'=>$market2]);
+    }
+    /**
+     * 股票详情页
+     * @param  [type] $id [description]
+     * @return [type]     [description]
+     */
+    public function info($id)
+    {
+        //展示股票详情
+        $market = DB::table('market')->where('stock_id',$id)->first();
+        $market =  json_decode(json_encode($market),true);
+        return view('home.elements',$market);
+
     }
     //股票详情
     public function elements(Request $login)
@@ -28,11 +50,19 @@ class ProjectController extends Controller
         $name = $login->session()->get('Username');
         return view('portfolio.portfolio',['name'=>$name]);
     }
+    //预约
+    public function blog_single()
+    {
+        return view('blog.blog-single');
+    }
     //持股大师
     public function blog(Request $login)
     {
         $name = $login->session()->get('Username');
-        return view('blog.blog',['name'=>$name]);
+        $master_array = DB::select('select * from stock_master');
+        $master_array =  json_decode( json_encode( $master_array), true);
+        // print_r($master_array);die;
+        return view('blog.blog',['name'=>$name, 'master_array' => $master_array]);
     }
     //评论
     public function contact(Request $login)

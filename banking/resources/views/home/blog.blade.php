@@ -100,13 +100,7 @@ Designed & Coded by Abcgomel
 					<li><a href="{{url('project/portfolio')}}"><font color="red">股票列表</font></a></li>
 					<li class="current"><a href="{{url('project/blog')}}"><font color="red">持股大师</font></a></li>
 					<li ><a href="{{url('project/contact')}}"><font color="red">评论</font></a></li>
-					<li>
-						@if($name != null)
-							<a style="cursor:pointer;">欢迎<font color="red">{{ $name }}</font>登录</a>
-						@else
-							<a href="{{url('project/login')}}"><font color="red">企业登录</font></a>
-						@endif
-					</li>
+					<li><a href="{{url('project/login')}}"><font color="red">登录</font></a></li>
 				</ul>
 			</nav>
 					
@@ -129,7 +123,7 @@ Designed & Coded by Abcgomel
 <div class="container m-bot-35 clearfix">
 <div class="sixteen columns">
 <div class="page-title-container clearfix">
-	<h1 class="page-title">炒股大师</h1>
+	<h1 class="page-title">BLOG</h1>
 </div>	
 </div>
 </div>	
@@ -140,7 +134,7 @@ Designed & Coded by Abcgomel
 <div class="container clearfix">
 <div class="eleven columns m-bot-25">
 <!-- BLOG ITEM -->
-<!-- <div class="blog-item m-bot-35 clearfix">
+<div class="blog-item m-bot-35 clearfix">
 			<div class="hover-item">
 				<div class="clearfix">
 					<div class="blog-item-date-inf-container left">
@@ -185,14 +179,14 @@ Designed & Coded by Abcgomel
 				<a href="blog-single.html" class="button medium r-m-plus r-m-full">READ MORE</a>
 			</div>
 
-</div> -->
+</div>
 <!-- BLOG ITEM -->
-<!-- <div class="blog-item m-bot-35 clearfix">
+<div class="blog-item m-bot-35 clearfix">
 			<div class="hover-item">
 				<div class="clearfix">
 					<div class="blog-item-date-inf-container left">
 							<div class="blog-item-date-cont">
-								<div class="blog-item-date">21</div>
+								<div class="blog-item-date">17</div>
 								<div class="blog-item-mounth">OCT</div>
 							</div>
 							<div>
@@ -232,16 +226,15 @@ Designed & Coded by Abcgomel
 				<a href="blog-single.html" class="button medium r-m-plus r-m-full">READ MORE</a>
 			</div>
 
-</div> -->
-<?php foreach ($master_array as $key => $v) {?>
+</div>
 <!-- BLOG ITEM -->
 <div class="blog-item m-bot-35 clearfix">
 			<div class="hover-item">
 				<div class="clearfix">
 					<div class="blog-item-date-inf-container left">
 							<div class="blog-item-date-cont">
-								<div class="blog-item-date"><?=$v['master_name']?></div>
-								<div class="blog-item-mounth">SSS</div>
+								<div class="blog-item-date">10</div>
+								<div class="blog-item-mounth">OCT</div>
 							</div>
 							<div>
 								<div class="blog-item-category-img">
@@ -251,15 +244,15 @@ Designed & Coded by Abcgomel
 					</div>
 					
 					<div class="view view-first">
-						<img src="<?=$v['master_img']?>" alt="Ipsum" >
+						<img src="images/content/post-2-3.jpg" alt="Ipsum" >
 						<div class="mask"></div>	
 						<div class="abs">
-							<a href="<?=$v['master_img']?>" class="lightbox zoom info"></a><a href="blog-single.html" class="link info"></a>
+							<a href="images/content/post-2-3.jpg" class="lightbox zoom info"></a><a href="blog-single.html" class="link info"></a>
 						</div>	
 					</div>
 				</div>	
 				<div class="blog-item-caption-container">
-							<a class="a-invert" href="{{url('project/blog_single')}}" ><span class="bold"><?=$v['master_name']?></span> <?=$v['master_suffer']?>年</a>
+							<a class="a-invert" href="blog-single.html" ><span class="bold">Lorem</span> Ipsum</a>
 						<div class="lp-item-container-border clearfix">
 							<div class="blog-info-container">
 									<ul class="clearfix">
@@ -273,15 +266,14 @@ Designed & Coded by Abcgomel
 				</div>
 			</div>
 			<div class="blog-item-text-container">
-				<p><?php echo $v['master_text'];?></p>
+				<p>Luctus et ultrices posuere cubilia Curae. Donec nibh sapien, molestie quis elementum et, dignissim non ipsum. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Donec sed mauris lorem. Sed sit amet mauris eu purus consectetur blandit sed et lacus. Cras tellus enim, sagittis a varius faucibus, molestie in dolor. Mauris mollis adipiscing elit, in vulputate est volutpat vitae. Donec nibh sapien, molestie quis elementum et, dignissim non ipsum. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Donec nibh sapien, molestie quis elementum et, dignissim non ipsum. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas...</p>
 
 			</div>
 			<div class="lp-r-m-container right">
-				<a href="blog-single.html" class="button medium r-m-plus r-m-full">预约</a>
+				<a href="blog-single.html" class="button medium r-m-plus r-m-full">READ MORE</a>
 			</div>
 
 </div>
-<?php }?>
 <!-- PAGINATION -->
 <div class="pagination-1-container ">
 	<ul class="pagination-1">
