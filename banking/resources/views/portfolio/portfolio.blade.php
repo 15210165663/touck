@@ -86,7 +86,7 @@ For a better experience using this site, please upgrade to a modern web browser.
 <div class="header-logo-container ">
 	<div class="logo-container">	
 		<a href="{{url('project/centre')}}" class="logo" rel="home" title="Home">
-			<p style="font-size: 28px">请登录</p>
+			<p style="font-size: 28px">欢迎</p>
 		</a>
 	</div>
 </div>
@@ -100,16 +100,10 @@ For a better experience using this site, please upgrade to a modern web browser.
 					<li class="current"><a href="{{url('project/portfolio')}}"><font color="red">股票列表</font></a></li>
 					<li><a href="{{url('project/blog')}}"><font color="red">持股大师</font></a></li>
 					<li ><a href="{{url('project/contact')}}"><font color="red">评论</font></a></li>
-					<li>
-						@if($name != null)
-							<a style="cursor:pointer;">欢迎<font color="red">{{ $name }}</font>登录</a>
-						@else
-							<a href="{{url('project/login')}}"><font color="red">企业登录</font></a>
-						@endif
-					</li>
+					
 					@if(Auth::user())
 			<li>
-			<a style="cursor:pointer;">欢迎<font color="red">{{Auth::user()->id }}</font>登录</a>
+			<a href="{{url('project/centre')}}" style="cursor:pointer;">欢迎<font color="red">{{Auth::user()->name }}</font>登录</a>
 			<a style="cursor:pointer;" href="{{url('/auth/logout')}}">退出登录</a>
 
 			</li>			

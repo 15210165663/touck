@@ -63,11 +63,6 @@ Route::group(['middleware' => ['web'],'namespace' => 'Home'], function () {
 });
 
 
-
-
-Route::group(['middleware' => ['web']], function () {
-
-});
 /**
  * 后台
  */
