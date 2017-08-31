@@ -112,7 +112,7 @@
     <div id="cssmenu"><div id="menu-button">Menu</div>
       <ul>
       <li class="">
-          <a href="/admin/show">
+          <a href="{{url('/admin/show')}}">
             <i class="fa fa-sign-out"></i>
             首页
           </a>
@@ -123,49 +123,50 @@
             权限管理
           </a>
           <ul>
-             <li><a href="/admin/limits">权限列表</a></li>
-             <li><a href="/admin/limitsadd">权限添加</a></li>
+             <li><a href="{{url('/admin/limits')}}">权限列表</a></li>
+             <li><a href="{{url('/admin/limitsadd')}}">权限添加</a></li>
+             <li><a href="{{url('admin/adminshow')}}">管理员列表</a></li>
           </ul>
        </li>
         <li class="has-sub"><span class="submenu-button"></span>
           <a href="javascript:void(0);"><i class="fa fa-signal"></i>用户管理</a>
           <ul>
-             <li><a href="/admin/user">用户列表</a></li>
-             <li><a href="/admin/useradd">用户添加</a></li>
+             <li><a href="{{url('/admin/user')}}">用户列表</a></li>
+             <li><a href="{{url('/admin/useradd')}}">用户添加</a></li>
           </ul>
        </li>
         <li class="has-sub"><span class="submenu-button"></span>
           <a href="javascript:void(0);"><i class="fa fa-users"></i>企业管理</a>
           <ul>
-             <li><a href="/admin/firm">企业列表</a></li>
-             <li><a href="/admin/firmadd">企业添加</a></li>
+             <li><a href="{{url('/admin/firm')}}">企业列表</a></li>
+             <li><a href="{{url('/admin/firmadd')}}">企业添加</a></li>
           </ul>
         </li>
         <li class="has-sub"><span class="submenu-button"></span>
           <a href="javascript:void(0);"><i class="fa fa-sitemap"></i>股票管理</a>
           <ul>
-             <li><a href="/admin/touck">股票列表</a></li>
-             <li><a href="/admin/touckadd">股票添加</a></li>
+             <li><a href="{{url('/admin/touck')}}">股票列表</a></li>
+             <li><a href="{{url('/admin/touckadd')}}">股票添加</a></li>
           </ul>
         </li>
         <li class="has-sub"><span class="submenu-button"></span>
           <a href="javascript:void(0);"><i class="fa fa-bar-chart-o"></i>分类管理</a>
           <ul>
-            <li><a href="/admin/type">分类列表</a></li>
-            <li><a href="/admin/typeadd">分类添加</a></li>
+            <li><a href="{{url('/admin/type')}}">分类列表</a></li>
+            <li><a href="{{url('/admin/typeadd')}}">分类添加</a></li>
           </ul>
         </li>
         <li class="has-sub"><span class="submenu-button"></span>
           <a href="javascript:void(0);"><i class="fa fa-comments"></i>轮播图管理</a>
           <ul>
-             <li><a href="/admin/wheel">轮播图列表</a></li>
-             <li><a href="/admin/wheeladd">轮播图添加</a></li>
+             <li><a href="{{url('/admin/wheel')}}">轮播图列表</a></li>
+             <li><a href="{{url('/admin/wheeladd')}}">轮播图添加</a></li>
           </ul>
         </li>
         <li class="active has-sub"><span class="submenu-button"></span>
           <a href="javascript:void(0);"><i class="fa fa-fire"></i>日志管理</a>
           <ul>
-             <li><a href="/admin/log">日志列表</a></li>
+             <li><a href="{{url('/admin/log')}}">日志列表</a></li>
           </ul>
         </li>
       </ul>
