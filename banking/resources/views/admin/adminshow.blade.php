@@ -8,7 +8,7 @@
 <meta content="yes" name="apple-mobile-web-app-capable">
 <meta content="black" name="apple-mobile-web-app-status-bar-style">
 <meta content="IE=9; IE=8; IE=7; IE=EDGE" http-equiv="X-UA-Compatible">
-<title>企业列表</title>
+<title>权限列表</title>
 <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"> 
 <link rel="stylesheet" type="text/css" href="css/new.css">  
 <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">    
@@ -117,56 +117,56 @@
             首页
           </a>
         </li>
-     <li class="has-sub"><span class="submenu-button"></span>
+     <li class="active has-sub"><span class="submenu-button"></span>
           <a href="javascript:void(0);">
             <i class="fa fa-home"></i>
             权限管理
           </a>
           <ul>
-             <li><a href="{{url('admin/limits')}}">权限列表</a></li>
-             <li><a href="{{url('admin/limitsadd')}}">权限添加</a></li>
+             <li><a href="{{url('/admin/limits')}}">权限列表</a></li>
+             <li><a href="{{url('/admin/limitsadd')}}">权限添加</a></li>
              <li><a href="{{url('admin/adminshow')}}">管理员列表</a></li>
           </ul>
        </li>
         <li class="has-sub"><span class="submenu-button"></span>
           <a href="javascript:void(0);"><i class="fa fa-signal"></i>用户管理</a>
           <ul>
-             <li><a href="{{url('admin/user')}}">用户列表</a></li>
-             <li><a href="{{url('admin/useradd')}}">用户添加</a></li>
+             <li><a href="{{url('/admin/user')}}">用户列表</a></li>
+             <li><a href="{{url('/admin/useradd')}}">用户添加</a></li>
           </ul>
        </li>
-        <li class="active has-sub"><span class="submenu-button"></span>
+        <li class="has-sub"><span class="submenu-button"></span>
           <a href="javascript:void(0);"><i class="fa fa-users"></i>企业管理</a>
           <ul>
-             <li><a href="{{url('admin/firm')}}">企业列表</a></li>
-             <li><a href="{{url('admin/firmadd')}}">企业添加</a></li>
+             <li><a href="{{url('/admin/firm')}}">企业列表</a></li>
+             <li><a href="{{url('/admin/firmadd')}}">企业添加</a></li>
           </ul>
         </li>
         <li class="has-sub"><span class="submenu-button"></span>
           <a href="javascript:void(0);"><i class="fa fa-sitemap"></i>股票管理</a>
           <ul>
-             <li><a href="{{url('admin/touck')}}">股票列表</a></li>
-             <li><a href="{{url('admin/touckadd')}}">股票添加</a></li>
+             <li><a href="{{url('/admin/touck')}}">股票列表</a></li>
+             <li><a href="{{url('/admin/touckadd')}}">股票添加</a></li>
           </ul>
         </li>
         <li class="has-sub"><span class="submenu-button"></span>
           <a href="javascript:void(0);"><i class="fa fa-bar-chart-o"></i>分类管理</a>
           <ul>
-            <li><a href="{{url('admin/type')}}">分类列表</a></li>
-            <li><a href="{{url('admin/typeadd')}}">分类添加</a></li>
+            <li><a href="{{url('/admin/type')}}">分类列表</a></li>
+            <li><a href="{{url('/admin/typeadd')}}">分类添加</a></li>
           </ul>
         </li>
         <li class="has-sub"><span class="submenu-button"></span>
           <a href="javascript:void(0);"><i class="fa fa-comments"></i>轮播图管理</a>
           <ul>
-             <li><a href="{{url('admin/wheel')}}">轮播图列表</a></li>
-             <li><a href="{{url('admin/wheeladd')}}">轮播图添加</a></li>
+             <li><a href="{{url('/admin/wheel')}}">轮播图列表</a></li>
+             <li><a href="{{url('/admin/wheeladd')}}">轮播图添加</a></li>
           </ul>
         </li>
         <li class="has-sub"><span class="submenu-button"></span>
           <a href="javascript:void(0);"><i class="fa fa-fire"></i>日志管理</a>
           <ul>
-             <li><a href="{{url('admin/log')}}">日志列表</a></li>
+             <li><a href="{{url('/admin/log')}}">日志列表</a></li>
           </ul>
         </li>
       </ul>
@@ -216,30 +216,38 @@
     <table class="table table-striped table-bordered td-center" id="data-lists">
       <thead>
         <tr>
-          <th>企业编号</th>
-          <th>企业用户名</th>
-          <th>企业名称</th>
-          <th>企业负责人</th>
-          <th>负责人联系方式</th>
-          <th>企业邮箱</th>
-          <th>企业地址</th>
-          <th>企业状态</th>
+          <th>权限编号</th>
+          <th>权限名称</th>
           <th width="120px">操作</th>
         </tr>
       </thead>
-      <tbody>
-      </tbody>
+      <?php foreach($data['data'] as $k=>$v){?>
+      
+        <tr>
+          <th><?php echo $v['admin_id']?></th>
+          <th><?php echo $v['adminname']?></th>
+          <th width="160px"><a href="">配置权限</a>&nbsp;|&nbsp;<a href="">删除</a></th>
+        </tr>
+      
+      <?php }?> </tbody>     
     </table>
   </div>
     <div class="data-page">
   <ul class="pagination no-margin pull-right">
-      <li><a class="disabled">首页</a></li>
-        <li><a class="disabled">上一页</a></li>
-    <li class="active"><a href="/index.php?r=pmr&amp;txpgs=1&amp;StartDate=&amp;EndDate=">1</a></li>
-    <li><a class="disabled">下一页</a></li>
-  <li><a class="disabled">尾页</a></li>
+      <li><a href="{{url('admin/adminshow?page=1')}}" class="disabled">首页</a></li>
+        <li><a href="<?php echo $data['prev_page_url']?>" class="disabled">上一页</a></li>
+    <?php for($i=1;$i<=$data['last_page'];$i++){?>
+      <?php if($i==$data['current_page']){?>
+      <li class="active">
+      <?php }else{?>
+      <li>
+      <?php }?>
+    <a href="{{url('admin/adminshow?page=')}}<?php echo $i?>"><?php echo $i?></a></li>
+    <?php }?>
+    <li><a href="<?php echo $data['next_page_url']?>" class="disabled">下一页</a></li>
+  <li><a href="{{url('admin/adminshow?page=')}}<?php echo $data['last_page']?>">尾页</a></li>
       </ul>
-    <div class="btn-group-sm"><button class="btn btn-default">第1页/共1页</button></div>
+    <div class="btn-group-sm"><button class="btn btn-default">第<?php echo $data['current_page']?>页/共<?php echo $data['last_page']?>页</button></div>
 </div>
   <script src="js/zebra.datepicker.min.js"></script>
   <script type="text/javascript">

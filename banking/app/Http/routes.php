@@ -104,5 +104,7 @@ Route::group(['middleware'=>'web','namespace' => 'Admin'], function(){
     Route::match(['get','post'],'/wheeladd','WheelController@wheeladd');
     //日志管理
     Route::match(['get','post'],'/log','LogController@log');
+    //管理员列表
+    Route::match(['get','post'],'/adminshow','LimitsController@adminshow');
     });
 });
