@@ -26,43 +26,54 @@ Route::get('/', function () {
 |
 */
 
-Route::group(['middleware' => ['web'],'namespace' => 'Home'], function () {
-    Route::get('project/index', ['uses' => 'ProjectController@index']);
-    Route::get('project/elements', ['uses' => 'ProjectController@elements']);
-    Route::get("project/portfolio", ['uses' => 'ProjectController@portfolio']);
-    Route::get('project/blog', ['uses' => 'ProjectController@blog']);
-    Route::get('project/blog_single', ['uses' => 'ProjectController@blog_single']);
-    Route::get('project/contact', ['uses' => 'ProjectController@contact']);
-    Route::get('project/balance', ['uses' => 'UserController@balance']);
-    Route::get('project/touck', ['uses' => 'UserController@touck']);
-    Route::get('project/sell', ['uses' => 'UserController@sell']);
-    Route::get('project/about', ['uses' => 'UserController@about']);
-    Route::get('project/info/{id}','ProjectController@info');
-    Route::any('project/login', function () {
-    	return view('home.login');
+// Route::group(['middleware' => ['web'],'namespace' => 'Home'], function () {
+//     Route::get('project/index', ['uses' => 'ProjectController@index']);
+//     Route::get('project/elements', ['uses' => 'ProjectController@elements']);
+//     Route::get("project/portfolio", ['uses' => 'ProjectController@portfolio']);
+//     Route::get('project/blog', ['uses' => 'ProjectController@blog']);
+//     Route::get('project/blog_single', ['uses' => 'ProjectController@blog_single']);
+//     Route::get('project/contact', ['uses' => 'ProjectController@contact']);
+//     Route::get('project/balance', ['uses' => 'UserController@balance']);
+//     Route::get('project/touck', ['uses' => 'UserController@touck']);
+//     Route::get('project/sell', ['uses' => 'UserController@sell']);
+//     Route::get('project/about', ['uses' => 'UserController@about']);
+//     Route::get('project/info/{id}','ProjectController@info');
+//     Route::any('project/login', function () {
+//     	return view('home.login');
+//     });
+//     Route::get('project/register', function () {
+//     	return view('home.register');
+//     });
+//     Route::get('project/centre', function () {
+//         return view('home.centre');
+//     });
+//     Route::post('project/registers', ['uses' => 'ProjectController@registers']);
+//     Route::any('project/logins', ['uses' => 'ProjectController@logins']);
+//     //加入订单
+//     Route::post('project/indent', ['uses' => 'IndentController@indent']);
+
+
+//     Route::get('/auth/login',  'Auth\AuthController@getLogin');
+//     Route::post('/auth/login','Auth\AuthController@postLogin');
+//     Route::get('/auth/register','Auth\AuthController@getRegister');
+//     Route::post('/auth/register', 'Auth\AuthController@postRegister');
+//     Route::get('/auth/logout', 'Auth\AuthController@logout');
+
+
+// });
+/**
+ * 前台
+ */
+Route::group(['middleware'=>'web','namespace' => 'Home'], function(){
+    Route::group(['prefix'=>'project'],function(){
+        //首页
+        Route::match(['get','post'],'/show','InfoController@index');
+        //美国股市页面
+        Route::match(['get','post'],'/meigu','MeiguController@index');
+        //美股详情页
+        Route::match(['get','post'],'/firmshow','MeiguController@index');
     });
-    Route::get('project/register', function () {
-    	return view('home.register');
-    });
-    Route::get('project/centre', function () {
-        return view('home.centre');
-    });
-    Route::post('project/registers', ['uses' => 'ProjectController@registers']);
-    Route::any('project/logins', ['uses' => 'ProjectController@logins']);
-    //加入订单
-    Route::post('project/indent', ['uses' => 'IndentController@indent']);
-
-
-    Route::get('/auth/login',  'Auth\AuthController@getLogin');
-    Route::post('/auth/login','Auth\AuthController@postLogin');
-    Route::get('/auth/register','Auth\AuthController@getRegister');
-    Route::post('/auth/register', 'Auth\AuthController@postRegister');
-    Route::get('/auth/logout', 'Auth\AuthController@logout');
-
-
 });
-
-
 /**
  * 后台
  */
