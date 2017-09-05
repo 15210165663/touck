@@ -1,10 +1,10 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <!-- saved from url=(0026)http://q.10jqka.com.cn/usa -->
 <html lang="en">
 <base href="{{URL::asset('Home/index').'/'}}">
 <head><meta http-equiv="Content-Type" content="text/html; charset=GBK">
     
-    <title>顺子财经网</title>
+    <title>同花顺财经网</title>
     <meta name="keywords" content="金融,金融网">
     <meta name="description" content="核新同花顺网络信息股份有限公司。">
     <link rel="stylesheet" href="./cd/cb">
@@ -18,13 +18,14 @@
         </div>
 
         <div class="nav">
-            <a href="{{url('project/show')}}" data-type="hssc" class="cur">首页</a>
-            <a href="{{url('project/meigu')}}" >美国市场</a>
+            <a href="{{url('project/show')}}" data-type="hssc">首页</a>
+            <a href="http://q.10jqka.com.cn/usa/" class="cur">美国市场</a>
             <a href="http://q.10jqka.com.cn/global/">财务分析</a>
             <a href="http://q.10jqka.com.cn/gn/" data-type="bk">资金流向</a>
             <a href="http://q.10jqka.com.cn/xsb/" target="_blank">炒股大师</a>
         </div>
-        
+
+
         <div class="login-box hide">
 
             <a href="http://upass.10jqka.com.cn/login?redir=HTTP_REFERER" target="_blank">登录</a>
@@ -139,62 +140,6 @@
             </div>      
         </div>
         <div class="m-pager-box0" board="zgg">
-            <div class="top_title2">
-                <div class="left_border"></div>
-                <p>中概股涨跌排行榜</p>
-                <span class="more"><a href="http://q.10jqka.com.cn/usa/detail/board/zgg/" target="_blank">更多&gt;&gt;</a>
-                </span>
-            </div>
-
-            <p class="check">
-                颜色配置：
-                <input type="radio" name="red_green" checked="checked" id="red_check">红涨绿跌
-                <input type="radio" name="red_green" id="green_check">绿涨红跌
-            </p>  
-
-            <div class="zgg_maincont">
-                              
-                <table class="m-table m-pager-table">
-                    <thead>
-                        <tr>
-                            <th style="width:4%">序号</th>
-                            <th style="width:6%"><a href="javascript:void(0)" field="stockcode">代码<i></i></a></th>
-                            <th style="width:10%">名称</th>
-                            <th style="width:6%"><a href="javascript:void(0)" field="xj">现价<i></i></a></th>
-                            <th style="width:9%" class="cur"><a href="javascript:void(0)" field="zdf" order="desc" class="desc">涨跌幅(%)<i></i></a></th>
-                            <th style="width:6%"><a href="javascript:void(0)" field="zd">涨跌<i></i></a></th>
-                            <th style="width:7%"><a href="javascript:void(0)" field="hs">换手(%)<i></i></a></th>
-                            <th style="width:10%"><a href="javascript:void(0)" field="cjl">成交量<i></i></a></th>
-                            <th style="width:7%"><a href="javascript:void(0)" field="syl">市盈率<i></i></a></th>
-                            <th style="width:7%"><a href="javascript:void(0)" field="zs">昨收<i></i></a></th>
-                            <th style="width:7%"><a href="javascript:void(0)" field="kpj">开盘价<i></i></a></th>
-                            <th style="width:7%"><a href="javascript:void(0)" field="zgj">最高价<i></i></a></th>
-                            <th style="width:7%"><a href="javascript:void(0)" field="zdj">最低价<i></i></a></th>
-                            <th style="width:7%">加自选</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td><a href="http://stockpage.10jqka.com.cn/HLG/" target="_blank">HLG</a></td>
-                            <td><a href="http://stockpage.10jqka.com.cn/HLG/" target="_blank">海亮教育集团</a></td>
-                            <td class="c-fall">18.71</td>
-                            <td class="c-fall">11.37</td>
-                            <td class="c-fall">1.91</td>
-                            <td>0.17</td>
-                            <td>4.46万</td>
-                            <td>23.21</td>
-                            <td>16.80</td>
-                            <td>16.80</td>
-                            <td>20.25</td>
-                            <td>16.47</td>
-                            <td><a class="j_addStock" title="加自选" href="javascript:void(0);"><img src="./img/plus_logo.png" alt=""></a></td>
-                        </tr>               
-                    </tbody>
-                </table>
-                <input type="hidden" id="baseUrl" value="usa/index">                
-                        </div>
-        </div>
 
 <div class="mar m-pager-box1" board="all">
             <div class="top_title2" style="margin-bottom: 30px">
@@ -206,192 +151,51 @@
                 <table class="m-table m-pager-table">
                     <thead>
                         <tr>
-                            <th style="width:4%">序号</th>
-                            <th style="width:6%"><a href="javascript:void(0)" field="stockcode">代码<i></i></a></th>
-                            <th style="width:10%">名称</th>
-                            <th style="width:6%"><a href="javascript:void(0)" field="xj">现价<i></i></a></th>
-                            <th style="width:9%" class="cur"><a href="javascript:void(0)" field="zdf" order="desc" class="desc">涨跌幅(%)<i></i></a></th>
-                            <th style="width:6%"><a href="javascript:void(0)" field="zd">涨跌<i></i></a></th>
-                            <th style="width:7%"><a href="javascript:void(0)" field="hs">换手(%)<i></i></a></th>
-                            <th style="width:10%"><a href="javascript:void(0)" field="cjl">成交量<i></i></a></th>
-                            <th style="width:7%"><a href="javascript:void(0)" field="syl">市盈率<i></i></a></th>
-                            <th style="width:7%"><a href="javascript:void(0)" field="zs">昨收<i></i></a></th>
-                            <th style="width:7%"><a href="javascript:void(0)" field="kpj">开盘价<i></i></a></th>
-                            <th style="width:7%"><a href="javascript:void(0)" field="zgj">最高价<i></i></a></th>
-                            <th style="width:7%"><a href="javascript:void(0)" field="zdj">最低价<i></i></a></th>
+                            <th style="width:15%"><a href="javascript:void(0)" field="stockcode">名称<i></i></a></th>
+                            <th style="width:7%">行业版块</th>
+                            <th style="width:6%"><a href="javascript:void(0)" field="xj">代码<i></i></a></th>
+                            <th style="width:6%"><a href="javascript:void(0)" field="zd">涨跌额<i></i></a></th>
+                            <th style="width:6%"><a href="javascript:void(0)" field="zd">涨跌幅<i></i></a></th>
+                            <th style="width:7%"><a href="javascript:void(0)" field="hs">昨收<i></i></a></th>
+                            <th style="width:7%"><a href="javascript:void(0)" field="cjl">今开<i></i></a></th>
+                            <th style="width:7%"><a href="javascript:void(0)" field="syl">最高价<i></i></a></th>
+                            <th style="width:7%"><a href="javascript:void(0)" field="zs">最低价<i></i></a></th>
+                            <th style="width:7%"><a href="javascript:void(0)" field="kpj">振幅<i></i></a></th>
+                            <th style="width:7%"><a href="javascript:void(0)" field="zgj">成交量<i></i></a></th>
+                            <th style="width:7%"><a href="javascript:void(0)" field="zdj">市值<i></i></a></th>
+                            <th style="width:7%"><a href="javascript:void(0)" field="zdj">上市地<i></i></a></th>
                             <th style="width:7%">加自选</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td><a href="http://stockpage.10jqka.com.cn/APVO/" target="_blank">APVO</a></td>
-                            <td><a href="http://stockpage.10jqka.com.cn/APVO/" target="_blank">Aptevo Therapeutics</a></td>
-                            <td class="c-fall">2.11</td>
-                            <td class="c-fall">58.65</td>
-                            <td class="c-fall">0.78</td>
-                            <td>49.92</td>
-                            <td>1069.16万</td>
-                            <td>--</td>
-                            <td>1.33</td>
-                            <td>2.42</td>
-                            <td>2.47</td>
-                            <td>2.05</td>
+                    <?php foreach($data as $k=>$v){?>
+                        <?php if($v['diff']<0){?>
+                        <tr style="color:green">
+                        <?php }else{?>
+                        <tr style="color:red">
+                        <?php }?>
+                            <td><a href="{{url('project/firmshow')}}?code=<php echo $v['symbol']>"><?php echo $v['cname']?></a></td>
+                            <td><?php echo $v['category']?></td>
+                            <td><?php echo $v['symbol']?></td>
+                            <td><?php echo $v['price']?></td>
+                            <td><?php echo $v['diff']?></td>
+                            <td><?php echo $v['chg']?></td>
+                            <td><?php echo $v['open']?></td>
+                            <td><?php echo $v['high']?></td>
+                            <td><?php echo $v['low']?></td>
+                            <td><?php echo $v['amplitude']?></td>
+                            <td><?php echo round($v['volume']/10000,2)?>万</td>
+                            <td><?php echo round($v['mktcap']/100000000,2)?>亿</td>
+                            <td><?php echo $v['market']?></td>
                             <td><a class="j_addStock" title="加自选" href="javascript:void(0);"><img src="./img/plus_logo.png" alt=""></a></td>
-                        </tr>                   
+                        </tr>  
+                    <?php }?>                 
                     </tbody>
                 </table>
             </div>
         </div>
         
-        <div class="mar m-pager-box2" board="dqs">
-            <div class="top_title2" style="margin-bottom: 30px">
-                <div class="left_border"></div>
-                <p>道琼斯涨跌排行榜</p><span class="more"><a href="http://q.10jqka.com.cn/usa/detail/board/dqs/" target="_blank">更多&gt;&gt;</a></span>
-            </div>
-
-            <div class="dqs_maincont">               
-                <table class="m-table m-pager-table">
-                    <thead>
-                        <tr>
-                            <th style="width:4%">序号</th>
-                            <th style="width:6%"><a href="javascript:void(0)" field="stockcode">代码<i></i></a></th>
-                            <th style="width:10%">名称</th>
-                            <th style="width:6%"><a href="javascript:void(0)" field="xj">现价<i></i></a></th>
-                            <th style="width:9%" class="cur"><a href="javascript:void(0)" field="zdf" order="desc" class="desc">涨跌幅(%)<i></i></a></th>
-                            <th style="width:6%"><a href="javascript:void(0)" field="zd">涨跌<i></i></a></th>
-                            <th style="width:7%"><a href="javascript:void(0)" field="hs">换手(%)<i></i></a></th>
-                            <th style="width:10%"><a href="javascript:void(0)" field="cjl">成交量<i></i></a></th>
-                            <th style="width:7%"><a href="javascript:void(0)" field="syl">市盈率<i></i></a></th>
-                            <th style="width:7%"><a href="javascript:void(0)" field="zs">昨收<i></i></a></th>
-                            <th style="width:7%"><a href="javascript:void(0)" field="kpj">开盘价<i></i></a></th>
-                            <th style="width:7%"><a href="javascript:void(0)" field="zgj">最高价<i></i></a></th>
-                            <th style="width:7%"><a href="javascript:void(0)" field="zdj">最低价<i></i></a></th>
-                            <th style="width:7%">加自选</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td><a href="http://stockpage.10jqka.com.cn/GE/" target="_blank">GE</a></td>
-                            <td><a href="http://stockpage.10jqka.com.cn/GE/" target="_blank">通用电气</a></td>
-                            <td class="c-fall">25.14</td>
-                            <td class="c-fall">2.40</td>
-                            <td class="c-fall">0.59</td>
-                            <td>0.68</td>
-                            <td>5884.22万</td>
-                            <td>29.88</td>
-                            <td>24.55</td>
-                            <td>24.60</td>
-                            <td>25.30</td>
-                            <td>24.49</td>
-                            <td>
-                                <a class="j_addStock" title="加自选" href="javascript:void(0);"><img src="./img/plus_logo.png" alt=""></a>
-                            </td>
-                        </tr>
-                                                
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
-        <div class="mar m-pager-box3" board="bp">
-            <div class="top_title2" style="margin-bottom: 30px">
-                <div class="left_border"></div>
-                <p>标普500涨跌排行榜</p><span class="more"><a href="http://q.10jqka.com.cn/usa/detail/board/bp/" target="_blank">更多&gt;&gt;</a></span>
-            </div>
-
-            <div class="bp_maincont">               
-                <table class="m-table m-pager-table">
-                    <thead>
-                        <tr>
-                            <th style="width:4%">序号</th>
-                            <th style="width:6%"><a href="javascript:void(0)" field="stockcode">代码<i></i></a></th>
-                            <th style="width:10%">名称</th>
-                            <th style="width:6%"><a href="javascript:void(0)" field="xj">现价<i></i></a></th>
-                            <th style="width:9%" class="cur"><a href="javascript:void(0)" field="zdf" order="desc" class="desc">涨跌幅(%)<i></i></a></th>
-                            <th style="width:6%"><a href="javascript:void(0)" field="zd">涨跌<i></i></a></th>
-                            <th style="width:7%"><a href="javascript:void(0)" field="hs">换手(%)<i></i></a></th>
-                            <th style="width:10%"><a href="javascript:void(0)" field="cjl">成交量<i></i></a></th>
-                            <th style="width:7%"><a href="javascript:void(0)" field="syl">市盈率<i></i></a></th>
-                            <th style="width:7%"><a href="javascript:void(0)" field="zs">昨收<i></i></a></th>
-                            <th style="width:7%"><a href="javascript:void(0)" field="kpj">开盘价<i></i></a></th>
-                            <th style="width:7%"><a href="javascript:void(0)" field="zgj">最高价<i></i></a></th>
-                            <th style="width:7%"><a href="javascript:void(0)" field="zdj">最低价<i></i></a></th>
-                            <th style="width:7%">加自选</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td><a href="http://stockpage.10jqka.com.cn/COG/" target="_blank">COG</a></td>
-                            <td><a href="http://stockpage.10jqka.com.cn/COG/" target="_blank">卡波特油气</a></td>
-                            <td class="c-fall">26.87</td>
-                            <td class="c-fall">5.17</td>
-                            <td class="c-fall">1.32</td>
-                            <td>2.17</td>
-                            <td>1005.09万</td>
-                            <td>--</td>
-                            <td>25.55</td>
-                            <td>25.55</td>
-                            <td>26.95</td>
-                            <td>25.55</td>
-                            <td><a class="j_addStock" title="加自选" href="javascript:void(0);"><img src="./img/plus_logo.png" alt=""></a></td>
-                        </tr>                       
-                        </tbody>
-                </table>
-            </div>
-        </div>
-
-        <div class="mar m-pager-box4" board="nsdk">
-            <div class="top_title2" style="margin-bottom: 30px">
-                <div class="left_border"></div>
-                <p>纳斯达克指数涨跌排行榜</p><span class="more"><a href="http://q.10jqka.com.cn/usa/detail/board/nsdk/" target="_blank">更多&gt;&gt;</a></span>
-            </div>
-
-            <div class="nsdk_maincont">               
-                <table class="m-table m-pager-table">
-                    <thead>
-                        <tr>
-                            <th style="width:4%">序号</th>
-                            <th style="width:6%"><a href="javascript:void(0)" field="stockcode">代码<i></i></a></th>
-                            <th style="width:10%">名称</th>
-                            <th style="width:6%"><a href="javascript:void(0)" field="xj">现价<i></i></a></th>
-                            <th style="width:9%" class="cur"><a href="javascript:void(0)" field="zdf" order="desc" class="desc">涨跌幅(%)<i></i></a></th>
-                            <th style="width:6%"><a href="javascript:void(0)" field="zd">涨跌<i></i></a></th>
-                            <th style="width:7%"><a href="javascript:void(0)" field="hs">换手(%)<i></i></a></th>
-                            <th style="width:10%"><a href="javascript:void(0)" field="cjl">成交量<i></i></a></th>
-                            <th style="width:7%"><a href="javascript:void(0)" field="syl">市盈率<i></i></a></th>
-                            <th style="width:7%"><a href="javascript:void(0)" field="zs">昨收<i></i></a></th>
-                            <th style="width:7%"><a href="javascript:void(0)" field="kpj">开盘价<i></i></a></th>
-                            <th style="width:7%"><a href="javascript:void(0)" field="zgj">最高价<i></i></a></th>
-                            <th style="width:7%"><a href="javascript:void(0)" field="zdj">最低价<i></i></a></th>
-                            <th style="width:7%">加自选</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td><a href="http://stockpage.10jqka.com.cn/WYNN/" target="_blank">WYNN</a></td>
-                            <td><a href="http://stockpage.10jqka.com.cn/WYNN/" target="_blank">永利度假村</a></td>
-                            <td class="c-fall">143.42</td>
-                            <td class="c-fall">3.19</td>
-                            <td class="c-fall">4.43</td>
-                            <td>2.94</td>
-                            <td>301.41万</td>
-                            <td>54.06</td>
-                            <td>138.99</td>
-                            <td>141.40</td>
-                            <td>144.81</td>
-                            <td>140.85</td>
-                            <td><a class="j_addStock" title="加自选" href="javascript:void(0);"><img src="./img/plus_logo.png" alt=""></a></td>
-                        </tr>                   
-                        </tbody>
-                </table>
-            </div>
-        </div>
-
-
+        
             <div class="cf">
                 <div class="news_l ">
                 <div class="top_title2">
