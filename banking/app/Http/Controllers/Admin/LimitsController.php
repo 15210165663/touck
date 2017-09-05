@@ -21,7 +21,39 @@ class LimitsController extends CommonController
 	 */
 	public function limitsadd()
 	{
-		return view('admin.limitsadd');
+		$data = DB::table('type')->where('father_id','0')->get();
+		$data =  json_decode( json_encode( $data),true);
+		// print_r($data);die;
+		return view('admin.limitsadd')->with('data',$data);;
+	}
+	/**
+	 * 权限添加入库
+	 * @return [type] [description]
+	 */
+	public function limitsin()
+	{
+		$colename = $_POST['colename'];
+		$coleurl = $_POST['coleurl'];
+		$data = DB::insert('insert into stock_authority(authority_name,sole_url) value(?,?)',[$colename,$coleurl]);
+		if($data){
+			return redirect('admin/limits');
+		}else{
+			echo "<script>alert('添加权限失败')</script>";
+		}
+	}
+	/**
+	 * 权限删除
+	 * @return [type] [description]
+	 */
+	public function limitsdel()
+	{
+		$id = $_GET['id'];
+		$data = DB::delete('delete from stock_authority where authority_id=?',[$id]);
+		if($data){
+			return redirect('admin/limits');
+		}else{
+			echo "<script>alert('删除失败')</script>";
+		}
 	}
 	/**
 	 * 管理员列表
@@ -31,9 +63,27 @@ class LimitsController extends CommonController
 	{
 		$datas = DB::table('admin')->paginate(10);
 		$data =  json_decode( json_encode( $datas),true);
-		// echo '<pre>';
-		// print_r($data);die;
 		return view('admin.adminshow')->with('data',$data);
+	}
+	/**
+	 * 分配权限页面
+	 * @return [type] [description]
+	 */
+	public function allot()
+	{
+		$id = $_GET['id'];
+		$data = DB::table('admin_authority')->where('admin_id',$id)->get();
+		$data =  json_decode( json_encode( $data),true);
+		$arr = '';
+		foreach ($data as $k => $v) {
+			$arr .= $v['authority_id'].',';
+		}
+		$arrs = substr($arr,0,-1);
+		$list = DB::select('select * from stock_authority where authority_id in('.$arrs.')');
+		$list =  json_decode( json_encode( $list),true);
+		$listshow = DB::select('select * from stock_authority');
+		$listshow =  json_decode( json_encode( $listshow),true);
+		return view('admin.listshow')->with(['data'=>$list,'list'=>$listshow]);
 	}
 }
 ?>

@@ -98,7 +98,7 @@ For a better experience using this site, please upgrade to a modern web browser.
 					<!-- <li><a href="{{url('project/elements')}}"><font color="red">股票详情</font></a></li> -->
 					<li><a href="{{url('project/portfolio')}}"><font color="red">股票列表</font></a></li>
 					<li><a href="{{url('project/blog')}}"><font color="red">持股大师</font></a></li>
-					<li class="current"><a href="{{url('project/contact')}}"><font color="red">评论</font></a></li>
+					<li><a href="{{url('project/contact')}}"><font color="red">评论</font></a></li>
 							@if(Auth::user())
 			<li>
 			<a href="{{url('project/centre')}}" style="cursor:pointer;">欢迎<font color="red">{{Auth::user()->name }}</font>登录</a>
@@ -134,7 +134,7 @@ For a better experience using this site, please upgrade to a modern web browser.
 <div class="container m-bot-35 clearfix">
 <div class="sixteen columns">
 <div class="page-title-container clearfix">
-<h1 class="page-title">{{$stock_name}}</h1><span class="page-title">详情</span>
+<h1 class="page-title">{{$market[0]['stock_name']}}</h1><span class="page-title">详情</span>
 </div>	
 </div>
 </div>	
@@ -146,76 +146,144 @@ For a better experience using this site, please upgrade to a modern web browser.
 
 
 
+<input type="hidden" class="price" value="<?php echo $prices?>">
+<input type="hidden" class="qwert" value="<?php echo $qwerts?>">
+<script type="text/javascript" src="quxian/ichart.1.2.min.js"></script>
+<link rel="stylesheet" href="quxian/demo.css" type="text/css"/>
+<script type="text/javascript">
+	$(function(){
+		var price = $('.price').val();
+		//alert(price);
+		var	arr=[]
+		arr=price.split(",");
+        //alert(arr)
+		var qwert = $('.qwert').val();
+		var flow=[];
 
+      	for (var i = 0;i < arr.length;  i++) {
+     
+      		flow.push(arr[i]);
+      	}
+	 
+		var data = [
+		         	{
+		         		name : 'PV',
+		         		value:flow,
+		         		color:'#0d8ecf',
+		         		line_width:2
+		         	}
+		         ];
+		var labels = [];
+		res=qwert.split(",");
 
-
+      	for (var i = 0;i < res.length;  i++) {
+     
+      		labels.push(res[i]);
+      	}
+		var chart = new iChart.LineBasic2D({
+			render : 'canvasDiv',
+			data: data,
+			align:'center',
+			title : {
+				text:'股票最近涨跌',
+				fontsize:22,
+				color:'#f7f7f7'
+			},
+			subtitle : {
+				text:'',
+				color:'#f1f1f1'
+			},
+			footnote : {
+				text:'',
+				color:'#f1f1f1'
+			},
+			width : 630,
+			height : 360,
+			shadow:true,
+			shadow_color : '#20262f',
+			shadow_blur : 4,
+			shadow_offsetx : 0,
+			shadow_offsety : 2,
+			background_color:'#383e46',
+			tip:{
+				enable:true,
+				shadow:true
+			},
+			crosshair:{
+				enable:true,
+				line_color:'#62bce9'
+			},
+			sub_option : {
+				label:false,
+				hollow_inside:false,
+				point_size:8
+			},
+			coordinate:{
+				width:540,
+				height:260,
+				grid_color:'#cccccc',
+				axis:{
+					color:'#cccccc',
+					width:[0,0,2,2]
+				},
+				grids:{
+					vertical:{
+						way:'share_alike',
+				 		value:5
+					}
+				},
+				scale:[{
+					 position:'left',	
+					 start_scale:0,
+					 end_scale:100,
+					 scale_space:30,
+					 scale_size:2,
+					 label : {color:'#ffffff',fontsize:11},
+					 scale_color:'#9f9f9f'
+				},{
+					 position:'bottom',	
+					 label : {color:'#ffffff',fontsize:11},
+					 labels:labels
+				}]
+			}
+		});
+		
+		//开始画图
+		chart.draw();
+	});
+	</script>
 <div class="row" >
 <!-- Alert box -->
 <div class="one-third column">
-	<h3 class="title-block">{{$stock_name}}</h3>
-	<div class="styled-box iconed-box success"><strong>股票市值</strong> - {{$stock_price}}!</div>
-	<div class="styled-box iconed-box error"><strong>股票总量</strong> - {{$stock_number}}!</div>
-	<div class="styled-box iconed-box info"><strong>卖出数量</strong> - {{$stock_sale}}!</div>
-	<div class="styled-box iconed-box notice"><strong>分类</strong> - {{$stock_type}}!</div>
+	<h3 class="title-block">{{$market[0]['stock_name']}}</h3>
+	<div class="styled-box iconed-box success"><strong>股票市值</strong> &nbsp;:&nbsp; {{$market[0]['stock_price']}}&nbsp;元</div>
+	<div class="styled-box iconed-box error"><strong>股票总量</strong>&nbsp;:&nbsp;  {{$market[0]['stock_number']}}&nbsp;个</div>
+	<div class="styled-box iconed-box info"><strong>卖出数量</strong> &nbsp;:&nbsp;  {{$market[0]['stock_sale']}}&nbsp;个</div>
+	<div class="styled-box iconed-box notice"><strong>分类</strong> &nbsp;:&nbsp;  {{$market[0]['names']}}</div>
+	<div class="styled-box iconed-box">
+		<form action="{{url('project/indent')}}" method="post">
+			<span style="font-size: 18px">购买</span>&nbsp;：&nbsp;<input type="text" style="width:50px" value="数量" name="sum">
+			{!!csrf_field()!!}
+			<input type="hidden" name="price" value="{{$market[0]['stock_price']}}">
+			<input type="hidden" name="stock_id" value="{{$market[0]['stock_id']}}">
+			<input type="hidden" name="stock_name" value="{{$market[0]['stock_name']}}">
+			<input type="submit" value="加入订单">
+		</form>
+	</div>
 </div>
 <!-- Dropcaps -->
 <div class="one-third column">
-	<h3 class="title-block">Dropcaps</h3>
-	<!-- <p><span class="dropcap1">P</span>ras aliquet. Integer faucibus, eros ac molestie placerat, enim tellus varius lacus, nec dictum nunc tortor id urna eros ac molestie placerat, enim tellus.</p>
-	<p><span class="dropcap2">P</span>ras aliquet. Integer faucibus, eros ac molestie placerat, enim tellus varius lacus, nec dictum nunc tortor id urna eros ac molestie placerat, enim tellus. Nec dictum nunc tortor id urna eros ac molestie placerat, enim tellus.</p>
-	<p><span class="dropcap3">P</span>ras aliquet. Integer faucibus, eros ac molestie placerat, enim tellus varius lacus, nec dictum nunc tortor id urna eros ac molestie placerat, enim tellus.</p>
-	<p><span class="dropcap4">P</span>ras aliquet. Integer faucibus, eros ac molestie placerat, enim tellus varius lacus, nec dictum nunc tortor id urna eros ac molestie placerat, enim tellus.</p> -->
-	<img src="{{url::asset('Home').'/uploads/logo/tline.png'}}">
-</div>
-<!-- List styles -->
-<div class="one-third column">
-
-	<h3 class="title-block">资讯</h3>
-<!-- TABS -->
-
-
-	<ul class="tabs-nav">
-		<li class="active">
-			<a href="#tab1">个股要闻</a>
-		</li>
-		<li class="">
-			<a href="#tab2">行业要闻</a>
-		</li>
-		<li class="">
-			<a href="#tab3">公司公告</a>
-		</li>
-	</ul>
-	<div class="content-container-white tab-main-container">
-		<div id="tab1" class="tab-content" >
-			<ul class="tab-post-container text">
-				<li>
-					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean nisl orci, condim entum ultrices consequat eu, vehicula. Aenean nisl orci.<br><br>
-					Aenean nisl orci, condim entum ultrices consequat eu, vehicula ac. Lorem ipsum dolor sit amet.</p>
-				</li>
-				
-			</ul>
-		</div>
-		<div id="tab2" class="tab-content" >
-			<ul class="tab-post-container text">
-				<li>
-					<p>Aenean nisl orci, condim entum ultrices consequat eu, vehicula ac. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean nisl orci.<br><br>
-					Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean nisl orci, condim entum ultrices consequat eu, vehicula.</p>
-				</li>
-			</ul>
-		</div>
-		<div id="tab3" class="tab-content" >
-			<ul class="tab-post-container text">
-				<li>
-					<p>Ut adipiscing, leo nec. Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Ut adipiscing, leo nec. Aenean nisl orci.<br><br>
-					Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean nisl orci, condim entum ultrices consequat eu, vehicula.</p>
-				</li>
-			</ul>
-		</div>
+	<h3 class="title-block">市场分析</h3>
+<div id='canvasDiv'>
+	<div class='ichartjs_info'>
+		<span class='ichartjs_btn' onmouseover="this.style.color='#2f99ff'" onmouseout="this.style.color='#0b2946'" onclick="window.top.viewCode(document);">View Code</span>
 	</div>
-	
-	
-	
 </div>
+</div>
+
+
+<!-- List styles -->
+
 </div>
 
 
@@ -223,9 +291,9 @@ For a better experience using this site, please upgrade to a modern web browser.
 <div class="row">
 <!-- Typography -->
 <div class="sixteen columns">
-	<h3 class="title-block">企业介绍</h3>
+	<h3 class="title-block">股票介绍</h3>
 		<p>
-		{!!$stock_text!!}
+		{!!$market[0]['stock_text']!!}
 		</p>
 </div>
 </div>

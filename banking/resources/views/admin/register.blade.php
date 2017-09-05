@@ -44,7 +44,7 @@
           <div class="form-group">
             <label for="username">会员编号</label>
             <span class="field-validation-valid"></span>
-            <input class="form-control" maxlength="20" name="username" placeholder="用户名" type="text">
+            <input class="form-control" maxlength="20" name="adminname" placeholder="用户名" type="text">
           </div>
           <div class="form-group">
             <label for="username">登录密码</label>
