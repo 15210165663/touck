@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Users;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Cookie;
+header('content-type:text/html;charset=utf-8');
 class ProjectController extends Controller
 {
     /**
@@ -17,13 +18,16 @@ class ProjectController extends Controller
     public function index()
     {
         //测试数据显示首页股票
-        $market = DB::select('select stock_id,stock_name,stock_imgurl from stock_market limit ?',[8]);
-        $market =  json_decode(json_encode($market),true);
-        foreach ($market as $k => $v) {
-            if($k<=3) $market1[] = $v;
-            if($k>3) $market2[] = $v;  
+        $market = DB::select('select * from stock_market inner join stock_type where stock_type.type_id=stock_market.stock_type');
+        $data =  json_decode(json_encode($market),true);
+        $i=0;
+        foreach ($data as $k => $v) {
+            if($k%4==0){
+                $i++;
+            }
+            $list[$i][$k]=$v;
         }
-        return view('home.index',['market1'=>$market1,'market2'=>$market2]);
+        return view('home.index',['data'=>$list]);
     }
     /**
      * 股票详情页
@@ -33,9 +37,20 @@ class ProjectController extends Controller
     public function info($id)
     {
         //展示股票详情
-        $market = DB::table('market')->where('stock_id',$id)->first();
+        $market = DB::select('select * from stock_market inner join stock_type on stock_type.type_id=stock_market.stock_type where stock_id='.$id);
+        $data = DB::table('change')->where('market_id',$id)->get();
         $market =  json_decode(json_encode($market),true);
-        return view('home.elements',$market);
+        // print_r($market);die;
+        // echo '<pre>';
+        // print_r($market);
+        $change =  json_decode(json_encode($data),true);
+        foreach ($change as $k => $v) {
+            $price[$k] = $v['change_price']*1;
+            $qwert[$k]= date('m-d',$v['change_time']);
+        }
+         $prices = implode(',',$price);
+         $qwerts = implode(',',$qwert);
+        return view('home.elements',['market'=>$market,'prices'=>$prices,'qwerts'=>$qwerts]);
 
     }
     //股票详情

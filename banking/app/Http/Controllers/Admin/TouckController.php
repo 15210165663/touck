@@ -11,8 +11,13 @@ class TouckController extends CommonController
 	 */
 	public function touck()
 	{
-		return view('admin.touck');
+		$res = DB::table('market')->paginate(3);
+		// print_r($res);die;
+		// $ren = DB::select("SELECT * from stock_market a INNER JOIN stock_type b on a.firm_id = b.tier_id");
+		// print_r($ren);die;
+		return view('admin.touck',['ren'=>$res]);
 	}
+
 	/**
 	 * 股票添加
 	 * @return [type] [description]
@@ -22,5 +27,8 @@ class TouckController extends CommonController
 		return view('admin.touckadd');
 	}
 
+	PUBLIC function delete(){
+		echo '123';
+	}
 }
 ?>

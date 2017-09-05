@@ -132,19 +132,6 @@ For a better experience using this site, please upgrade to a modern web browser.
 
 </header>
 
-<!-- PAGE TITLE -->
-<div class="container m-bot-35 clearfix">
-<div class="sixteen columns">
-<div class="page-title-container clearfix">
-<h1 class="page-title">PORTFOLIO</h1>
-<ul id="filter"> 
-<li class="current all"><a href="#">All</a></li> 
-<li class="category1"><a href="#">Web</a></li> 
-<li class="category2"><a href="#">Tehnology</a></li> 
-<li class="category3"><a href="#">Photo</a></li> 
-</ul>
-</div>	
-
 
 
 </div>

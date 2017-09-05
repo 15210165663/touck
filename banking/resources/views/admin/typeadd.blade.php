@@ -32,54 +32,86 @@
 
 <body>
 <header>
-  <a href="#" class="logo">
+  <a href="#" class="pull-left">
     <img src="images/logo.png" alt="Gold International">
   </a>
+  <div id="cssmenu" class="pull-left" style=""><div id="menu-button">Menu</div>
+      <ul>
+      <li class="" style="background:#1ab394">
+          <a href="{{url('admin/show')}}">
+            <i class="fa fa-sign-out"></i>
+            首页
+          </a>
+        </li>
+     <li class="has-sub"  style="background:#1ab394"><span class="submenu-button"></span>
+          <a href="javascript:void(0);">
+            <i class="fa fa-home"></i>
+            权限管理
+          </a>
+          <ul>
+             <li><a href="{{url('admin/limits')}}">权限列表</a></li>
+             <li><a href="{{url('admin/limitsadd')}}">权限添加</a></li>
+             <li><a href="{{url('admin/adminshow')}}">管理员列表</a></li>
+          </ul>
+       </li>
+        <li class="has-sub" style="background:#1ab394"><span class="submenu-button"></span>
+          <a href="javascript:void(0);"><i class="fa fa-signal"></i>用户管理</a>
+          <ul>
+             <li><a href="{{url('admin/user')}}">用户列表</a></li>
+             <li><a href="{{url('admin/useradd')}}">用户添加</a></li>
+          </ul>
+       </li>
+        <li class="has-sub" style="background:#1ab394"><span class="submenu-button"></span>
+          <a href="javascript:void(0);"><i class="fa fa-users"></i>企业管理</a>
+          <ul>
+             <li><a href="{{url('admin/firm')}}">企业列表</a></li>
+             <li><a href="{{url('admin/firmadd')}}">企业添加</a></li>
+          </ul>
+        </li>
+        <li class="has-sub" style="background:#1ab394"><span class="submenu-button"></span>
+          <a href="javascript:void(0);"><i class="fa fa-sitemap"></i>股票管理</a>
+          <ul>
+             <li><a href="{{url('admin/touck')}}">股票列表</a></li>
+             <li><a href="{{url('admin/touckadd')}}">股票添加</a></li>
+          </ul>
+        </li>
+        <li class="active has-sub" style="background:#1ab394"><span class="submenu-button"></span>
+          <a href="javascript:void(0);"><i class="fa fa-bar-chart-o"></i>分类管理</a>
+          <ul>
+            <li><a href="{{url('admin/type')}}">分类列表</a></li>
+            <li><a href="{{url('admin/typeadd')}}">分类添加</a></li>
+          </ul>
+        </li>
+        <li class="has-sub" style="background:#1ab394"><span class="submenu-button"></span>
+          <a href="javascript:void(0);"><i class="fa fa-comments"></i>轮播图管理</a>
+          <ul>
+             <li><a href="{{url('admin/wheel')}}">轮播图列表</a></li>
+             <li><a href="{{url('admin/wheeladd')}}">轮播图添加</a></li>
+          </ul>
+        </li>
+        <li class="has-sub" style="background:#1ab394"><span class="submenu-button"></span>
+          <a href="javascript:void(0);"><i class="fa fa-fire"></i>日志管理</a>
+          <ul>
+             <li><a href="{{url('admin/log')}}">日志列表</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div> 
   <div class="pull-right">
     <ul id="mini-nav" class="clearfix">
-      <li class="list-box">
-        <a href="#">
-          <i class="fa fa-user text-warning"></i> <span class="text-white">zm9999</span>
-        </a>
-      </li>
-      <li class="list-box hidden-xs">
-        <a href="#" title="取现积分">
-          <i class="fa">EP</i> <span class="badge facebook-bg">0.00</span>
-        </a>
-      </li>
-      <li class="list-box hidden-xs">
-        <a href="#" title="理财积分">
-          <i class="fa">GP</i> <span class="badge warning-bg">0.00</span>
-        </a>
-      </li>
-      <li class="list-box hidden-xs">
-        <a href="#" title="购股排队">
-          <i class="fa">购股排队</i> <span class="badge warning-bg">0.00 GP</span>
-        </a>
-      </li>
-      <li class="list-box hidden-xs">
-        <a href="#" title="注册积分">
-          <i class="fa">MP</i> <span class="badge success-bg">0.00</span>
-        </a>
-      </li>
-      <li class="list-box hidden-xs">
-        <a href="#" title="股票">
-          <i class="fa">股票</i> <span class="badge danger-bg">0.00</span>
-        </a>
-      </li>
-      <li class="list-box">
-        <a href="#">
-          <i class="fa fa-envelope"></i>
-        </a>
-        <span class="info-label success-bg">0</span>
-      </li>
       <li class="list-box user-profile">
         <a id="drop7" href="#" role="button" class="dropdown-toggle user-avtar" data-toggle="dropdown">
           <img src="images/user5.png" alt="zm9999">
         </a>
         <ul class="dropdown-menu server-activity">
           <li>
-            <p class="center-align-text">欢迎您, <b>zm9999</b> !</p>
+            <p class="center-align-text"><b>
+            <?php if(session('adminname')==''){?>
+              您好,请登录
+            <?php }else{?>
+                欢迎您, <?php echo session('adminname')?>
+            <?php }?>
+            </b></p>
           </li>
           <li>
             <p><i class="fa fa-rmb text-info"></i><span>我的钱包</span></p>
@@ -93,7 +125,7 @@
           <li>
             <div class="demo-btn-group clearfix">
               <button class="btn btn-danger">
-                安全退出
+                <a href="{{url('/admin/loginout')}}">安全退出</a>
               </button>
             </div>
           </li>
@@ -102,127 +134,34 @@
     </ul>
   </div>
 </header>
-
-<!-- Main Container start -->
-<div class="dashboard-container">
-
-  <div class="container">
-    <!-- Top Nav Start -->
-    <div id="cssmenu"><div id="menu-button">Menu</div>
-           <ul>
-      <li class="">
-          <a href="{{url('/admin/show')}}">
-            <i class="fa fa-sign-out"></i>
-            首页
-          </a>
-        </li>
-     <li class="has-sub"><span class="submenu-button"></span>
-          <a href="javascript:void(0);">
-            <i class="fa fa-home"></i>
-            权限管理
-          </a>
-          <ul>
-             <li><a href="{{url('/admin/limits')}}">权限列表</a></li>
-             <li><a href="{{url('/admin/limitsadd')}}">权限添加</a></li>
-             <li><a href="{{url('admin/adminshow')}}">管理员列表</a></li>
-          </ul>
-       </li>
-        <li class="has-sub"><span class="submenu-button"></span>
-          <a href="javascript:void(0);"><i class="fa fa-signal"></i>用户管理</a>
-          <ul>
-             <li><a href="{{url('/admin/user')}}">用户列表</a></li>
-             <li><a href="{{url('/admin/useradd')}}">用户添加</a></li>
-          </ul>
-       </li>
-        <li class="has-sub"><span class="submenu-button"></span>
-          <a href="javascript:void(0);"><i class="fa fa-users"></i>企业管理</a>
-          <ul>
-             <li><a href="{{url('/admin/firm')}}">企业列表</a></li>
-             <li><a href="{{url('/admin/firmadd')}}">企业添加</a></li>
-          </ul>
-        </li>
-        <li class="has-sub"><span class="submenu-button"></span>
-          <a href="javascript:void(0);"><i class="fa fa-sitemap"></i>股票管理</a>
-          <ul>
-             <li><a href="{{url('/admin/touck')}}">股票列表</a></li>
-             <li><a href="{{url('/admin/touckadd')}}">股票添加</a></li>
-          </ul>
-        </li>
-        <li class="active has-sub"><span class="submenu-button"></span>
-          <a href="javascript:void(0);"><i class="fa fa-bar-chart-o"></i>分类管理</a>
-          <ul>
-            <li><a href="{{url('/admin/type')}}">分类列表</a></li>
-            <li><a href="{{url('/admin/typeadd')}}">分类添加</a></li>
-          </ul>
-        </li>
-        <li class="has-sub"><span class="submenu-button"></span>
-          <a href="javascript:void(0);"><i class="fa fa-comments"></i>轮播图管理</a>
-          <ul>
-             <li><a href="{{url('/admin/wheel')}}">轮播图列表</a></li>
-             <li><a href="{{url('/admin/wheeladd')}}">轮播图添加</a></li>
-          </ul>
-        </li>
-        <li class="has-sub"><span class="submenu-button"></span>
-          <a href="javascript:void(0);"><i class="fa fa-fire"></i>日志管理</a>
-          <ul>
-             <li><a href="{{url('/admin/log')}}">日志列表</a></li>
-          </ul>
-        </li>
-      </ul>
-    </div>    <!-- Top Nav End -->
-    <div class="sub-nav hidden-sm hidden-xs">
-      <ul>
-        <li><a href="https://vip.hjb100.net/" class="heading">EP交易</a></li>
-        <li class="hidden-sm hidden-xs">
-          <a href="https://vip.hjb100.net/" class="selected">交易大厅</a>
-        </li>
-        <li class="hidden-sm hidden-xs">
-          <a href="https://vip.hjb100.net/index.php?r=pcm" class="">EP购买</a>
-        </li>
-        <li class="hidden-sm hidden-xs">
-          <a href="https://vip.hjb100.net/index.php?r=gcm" class="">EP挂售</a>
-        </li>
-        <li class="hidden-sm hidden-xs">
-          <a href="https://vip.hjb100.net/index.php?r=pmr" class="">购买记录</a>
-        </li>
-        <li class="hidden-sm hidden-xs">
-          <a href="https://vip.hjb100.net/index.php?r=gmr" class="">挂售记录</a>
-        </li>
-     </ul>
-      <div class="custom-search hidden-sm hidden-xs">
-        <a href="https://vip.hjb100.net/">Home</a> &gt; <a>EP交易</a>
-      </div>
-    </div>
     <!-- Sub Nav End -->
 <div class="dashboard-wrapper">
-      <form class="form-horizontal" method="post">
-    <div id="pd_add_form" class="panel panel-default">
-      <div class="panel-heading">
-        <h3 class="panel-title">EP购买</h3>
-      </div>
-      <div class="panel-body">
-        <div class="form-group">
-          <label class="col-sm-2 control-label" for="firstname">购买数额</label>
-          <div class="col-sm-5">
-            <input class="form-control valid" type="text" value="">
-          </div>
-          <div class="col-sm-5 col-msg"><span class="field-validation-valid"></span></div>
-        </div>
-        <div class="form-group">
-          <label class="col-sm-2 control-label" for="firstname">二级密码</label>
-          <div class="col-sm-5">
-            <input class="form-control valid" type="password">
-          </div>
-          <div class="col-sm-5 col-msg"><span class="field-validation-valid"></span></div>
-        </div>
-        <div class="form-group">
-          <div class="col-sm-offset-2 col-sm-6">
-            <button type="submit" class="btn btn-danger" id="buy_submit">确定购买</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </form>
+  <div class="table-responsive">
+    <form action="{{ URL('admin/update') }}" method="post">
+        <table class="table table-striped table-bordered td-center" id="data-lists">
+        @foreach($res as $p)
+        <input type="hidden" name="_token" value="{!! csrf_token() !!}" />
+        <input type="hidden" name="up_id" value="{{$p['type_id']}}" />
+            <tr>
+              <td>分类名称：</td>
+              <td><input type="text" name="up_name" value="{{$p['type_name']}}" /></td>
+            </tr>
+            <tr>
+              <td>分类简介：</td>
+              <td><textarea name="up_center" cols="30" rows="10">{{$p['type_center']}}</textarea></td>
+            </tr>
+            <tr>
+              <td><input type="submit" value="修改" /></td>
+            </tr>
+        @endforeach
+      </table>
+    </form>
+  </div>
+  <script src="js/zebra.datepicker.min.js"></script>
+  <script type="text/javascript">
+    $('#StartDate').Zebra_DatePicker({ pair: $('#EndDate') });
+    $('#EndDate').Zebra_DatePicker();
+</script>
 </div>
 <footer>
   <p>© Gold International 2016</p>

@@ -20,17 +20,18 @@ class LoginController extends Controller
 	 * 验证登录
 	 * @return [type] [description]
 	 */
-	public function loginin()
+	public function loginin(Request $request)
 	{
-		$username = $_POST['username'];
-		$password = $_POST['password'];
-		$data = DB::table('admin')->get();
-		$list =  json_decode( json_encode( $data),true);
-		if($username==$list[0]['adminname'] && $password==$list[0]['password']){
-			// $request->session->put('admin',$list);
-			echo "<script>alert('恭喜，登陆成功');location.href=('/admin/show')</script>";
+		$adminname = isset($_POST['adminname'])?$_POST['adminname']:null;
+		$password = isset($_POST['password'])?$_POST['password']:null;
+		$list = DB::table('admin')->where('adminname', "$adminname")->first();
+		if($list){
+			if ($adminname==$list->adminname && $password==$list->password) {
+				$request->session()->put('adminname',"$adminname");
+				return view('admin.index');
+			}		  
 		}else{
-			echo "<script>alert('登录失败，请重新登陆');location.href=('/admin/login')</script>";
+			return '登录失败，请重新登陆';
 		}
 	}
 	/**
@@ -39,19 +40,39 @@ class LoginController extends Controller
 	 */
 	public function register()
 	{
-		// $admin = $request->session->get('admin');
-		// print_r($admin);die;
 		return view('admin.register');
 	}
-	public function registerin()
+	/**
+	 * 注册
+	 * @return [type] [description]
+	 */
+	public function registerin(Request $request)
 	{
-		$username = $_POST['username'];
-		$pass = $_POST['pass'];
-		$word = $_POST['word'];
+		$adminname=$request->input('adminname');
+		$pass = $request->input('pass');
+		$word = $request->input('word');
 		if($pass == $word){
-
+          $list = DB::table('admin')->where('adminname', "$adminname")->first();
+          if ($list) {
+          	return '账户已被注册';
+          }else{
+          	$arr=DB::table('admin')->insert(
+               ['adminname' => "$adminname",'password' => "$pass"]
+               );
+          	return view('admin.login');
+          }
 		}else{
-			echo "<script>alert('两次密码输入不一致,请重新输入');location.href=('/admin/register')</script>";
+			return '两次密码输入不一致,请重新输入';
 		}
+	}
+	/**
+	 * 退出登录
+	 * @param  Request $request [description]
+	 * @return [type]           [description]
+	 */
+	public function loginout(Request $request)
+	{
+		$value = $request->session()->pull('adminname');
+			return redirect('admin/login');
 	}
 }

@@ -89,15 +89,15 @@
 <div class="flex-container">
 <div class="flexslider loading">
 <ul class="slides">
-<li style="background:url(images/sliders/slider-1/slider-bg-1.jpg) no-repeat;background-position:50% 0">
+<li style="background:url(images/sliders/slider-1/22.jpg) no-repeat;background-position:50% 0">
 
 <div class="container">
 <div class="sixteen columns contain">
 
-<h2 data-toptitle="36%">MULTIPURPOSE THEME</h2>
-<p data-bottomtext="39%">CRAS JUSTO ODIO, DAPIBUS AC FACILISIS </p>
+<h2 data-toptitle="36%">东方财富</h2>
+<p data-bottomtext="39%">Eastmoney </p>
 <div class="links" data-bottomlinks="30%">
-<a class="button medium r-m-plus r-m-full" href="blog-single.html">READ MORE</a>
+<a class="button medium r-m-plus r-m-full" href="http://www.eastmoney.com/">进入官网</a>
 </div>
 
 <img src="images/sliders/slider-1/slider-item-1.png" class="item" alt="slide-item"  data-topimage="21%"/>
@@ -108,15 +108,15 @@
 </li><!-- End item -->
 
 
-<li style="background:url(images/sliders/slider-1/slider-bg-2.jpg) no-repeat; background-position:50% 0">
+<li style="background:url(images/sliders/slider-1/33.jpg) no-repeat; background-position:50% 0">
 
 <div class="container">
 <div class="sixteen columns contain">
 
-<h2 data-toptitle="36%">LOREM IPSUM</h2>
-<p data-bottomtext="39%">CRAS JUSTO ODIO, DAPIBUS AC FACILISIS </p>
+<h2 data-toptitle="36%">天天基金网</h2>
+<p data-bottomtext="39%">Daily fund network</p>
 <div class="links" data-bottomlinks="30%">
-<a class="button medium r-m-plus r-m-full" href="blog-single.html">READ MORE</a>
+<a class="button medium r-m-plus r-m-full" href="http://fund.eastmoney.com/">进入官网</a>
 </div>
 
 </div>
@@ -125,7 +125,7 @@
 </li><!-- End item -->
 
 
-<li style="background:url(images/sliders/slider-1/slider-bg-3.jpg) no-repeat; background-position:50% 0">
+<li style="background:url(images/sliders/slider-1/ba0208.jpg) no-repeat; background-position:50% 0">
 
 <div class="container">
 <div class="sixteen columns contain">
@@ -133,7 +133,7 @@
 <h2 data-toptitle="36%">ALES MAECENAS</h2>
 <p data-bottomtext="39%">CRAS JUSTO ODIO, DAPIBUS AC FACILISIS </p>
 <div class="links" data-bottomlinks="30%">
-<a class="button medium r-m-plus r-m-full" href="blog-single.html">READ MORE</a>
+<a class="button medium r-m-plus r-m-full" href="http://www.eastmoney.com/">READ MORE</a>
 </div>
 
 <img src="images/sliders/slider-1/slider-item-2.png" class="item" alt="slide-item" data-topimage="24%"/>
@@ -156,40 +156,129 @@
 </div>	<!-- Grey bg end -->	
 
 
+	<div class="container clearfix m-bot-35 min-m-top-75">
+		<div class="sixteen columns m-bot-15">
+		<!-- BLOCK -->
+			<div class="block-4-col m-bot-20 ca-menu">
+				<div class="block-0-content-container">
+						<div class="block-text">
+							炒股大师<br>
+							<strong>Stock master</strong>
+						</div>
+						<div class="block-r-m-container">
+							<a class="button medium r-m-plus r-m-full" href="{{url('project/blog')}}">进入页面</a>
+						</div>
+				</div>		
+			</div>
+		<!-- BLOCK -->
+			<div class="block-4-col m-bot-20 ca-menu">
+				<div class="block-1-content-container">
+					<a class=" clearfix" href="">
+						<div class="ca-icon">
+							<img src="{{url::asset('Home/uploads/logo/gaoji.jpg')}}" alt="icon-comp">
+						</div>
+						<div class="ca-content">
+							<h2 class="ca-main">高级大师</h2>
+							<h3 class="ca-sub">Senior master</h3>
+						</div>
+					</a>	
+				</div>		
+			</div>
+			
+		<!-- BLOCK -->
+			<div class="block-4-col m-bot-20 ca-menu">
+				<div class="block-2-content-container">
+					<a class=" clearfix" href="">
+						<div class="ca-icon">
+							<img src="{{url::asset('Home/uploads/logo/gaoji.jpg')}}" alt="icon-gears">
+						</div>
+						<div class="ca-content">
+							<h2 class="ca-main">中级大师</h2>
+							<h3 class="ca-sub">Intermediate master</h3>
+						</div>
+					</a>	
+				</div>		
+			</div>
+		<!-- BLOCK -->
+			<div class="block-4-col m-bot-20 ca-menu">
+				<div class="block-3-content-container">
+					<a class=" clearfix" href="">
+						<div class="ca-icon">
+							<img src="{{url::asset('Home/uploads/logo/gaoji.jpg')}}" alt="icon-plane">
+						</div>
+						<div class="ca-content">
+							<h2 class="ca-main">初级大师</h2>
+							<h3 class="ca-sub">Junior master</h3>
+						</div>
+					</a>	
+				</div>		
+			</div>
+			
+
+		</div>
+	</div>
+	
+</div>	
+
+
+<div class="dark-grey-bg">
+	<div class="container  clearfix dark-grey-bg">
+		<div class="sixteen columns">
+			<div class="buy-container clearfix">
+				<div class="buy-img-container">
+					<a href="{{url('project/portfolio')}}"><img src="images/icon-buy.png" alt="buy"></a>
+				</div>
+				<div class="buy-text-container">
+					<div class="buy-text">
+						<h2>
+							<span class="bold">股票显示</span> Stock display
+						</h2>
+						<span class="buy-now-slogan">Easy Customizable, Retina Ready, Cross-Browser Compatible, Unlimited Colors</span>
+					</div>
+				</div>
+				<div class="button-buy-container">
+					<a class="" href="{{url('project/portfolio')}}">股票首页</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
 <!-- LATEST WORK -->
 <div class="container clearfix m-top-120">
 <!-- jCAROUSEL -->
+
+<?php foreach($data as $k=>$v){?>
 <div class="jcarousel latest-work-jc m-bot-30" >
 <ul class="clearfix">
 <!-- LATEST WORK ITEM -->
-@foreach($market1 as  $k=>$v)
+<?php foreach($v as $kk=>$vv){?>
 <li class="four columns">
 	<div class="hover-item">
-		<div class="view view-first">
 
-			<img src="{{url::asset('Home/uploads/logo').'/'.$v['stock_imgurl']}}" alt="Ipsum" >
+			<a href="{{url('project/info')}}/{{$vv['stock_id']}}"><img src="{{url::asset('Home/uploads/logo').'/'.$vv['stock_imgurl']}}"></a>
 			<div class="mask"></div>	
 			<div class="abs">
-				<a href="{{$v['stock_imgurl']}}" class="lightbox zoom info"></a><a href="portfolio-single.html" class="link info"></a>
+				<a href="{{url('project/info')}}/{{$vv['stock_id']}}" class="lightbox zoom info"></a><a href="portfolio-single.html" class="link info"></a>
 			</div>
 		</div>
 		<div class="lw-item-caption-container">
-			<a class="a-invert" href="{{url('project/info')}}/{{$v['stock_id']}}" >
+			<a class="a-invert" href="{{url('project/info')}}/{{$vv['stock_id']}}" >
 				<div class="item-title-main-container clearfix">
 					<div class="item-title-text-container">
-						<span class="bold">{{$v['stock_name']}}</span>
+						<span class="bold"><?php echo $vv['stock_name']?></span>
 					</div>
 				</div>
 			</a>
 			<div class="item-caption">web design</div>
-		</div>
 	</div>
 </li>
-@endforeach
+<?php }?>
 <!-- LATEST WORK ITEM -->
 
 </ul>
 </div>
+<?php }?>
 <!-- jCAROUSEL End -->
 </div>	
 <!-- OUR PROJECTS End -->
@@ -200,59 +289,236 @@
 <!-- FEATURES 2 -->
 
 
-<!-- LATEST NEWS -->
-<div class="container clearfix m-top-60">
-<!-- jCAROUSEL -->
-<div class="jcarousel latest-posts-jc m-bot-50" >
-<ul class="clearfix">
-<!-- LATEST NEWS ITEM -->
-@foreach($market2 as  $k=>$v)
-<li class="four columns">
-	<div class="hover-item">
-		<div class="view view-first">
-			<img src="{{url::asset('Home/uploads/logo').'/'.$v['stock_imgurl']}}" alt="Ipsum" >
-			<div class="mask"></div>
-			<div class="abs">
-				<a href="{{$v['stock_imgurl']}}" class="lightbox zoom info"></a><a href="blog-single.html" class="link info"></a>
-			</div>
-		</div>
-		<div class="lp-item-caption-container">
-					<a class="a-invert" href="{{url('project/info')}}/{{$v['stock_id']}}" ><span class="bold">{!!$v['stock_name']!!}</span></a>
-				<div class="lp-item-container-border clearfix">
-					<div class="lp-item-info-container">
-						10 Okt 2013 | 7 Comments 
+
+<!-- 大师 -->
+<div class="dark-grey-bg">
+	<div class="container  clearfix dark-grey-bg">
+		<div class="sixteen columns">
+			<div class="buy-container clearfix">
+				<div class="buy-img-container">
+					<img src="images/icon-buy.png" alt="buy">
+				</div>
+				<div class="buy-text-container">
+					<div class="buy-text">
+						<h2>
+							<span class="bold">大师显示</span> Master display
+						</h2>
+						<span class="buy-now-slogan">Easy Customizable, Retina Ready, Cross-Browser Compatible, Unlimited Colors</span>
 					</div>
 				</div>
+				<div class="button-buy-container">
+					<a class="" href="{{url('project/blog')}}">大师首页</a>
+				</div>
+			</div>
 		</div>
 	</div>
-</li>
-@endforeach
-</ul>
 </div>
-<!-- jCAROUSEL End -->
-</div>	
-<!-- OUR NEWS End -->
 
 
+<div class="container clearfix m-top-60">
+		<div class="four columns carousel-intro m-bot-33">
+
+						<div class="caption-container m-bot-20">
+							<div class="title-block-text">
+								STAY TUNED.<br>
+								READ OUR<br>
+								<strong>NEWS</strong>
+							</div>
+							
+							<div class="carousel-navi jcarousel-scroll">
+								<div class="jcarousel-prev"></div>
+								<div class="jcarousel-next"></div>
+							</div>
+						</div>
+			
+		</div>
+
+		<div class="jcarousel latest-posts-jc m-bot-50" >
+			<ul class="clearfix">
+				<!-- LATEST NEWS ITEM -->
+				<li class="four columns">
+						<div class="hover-item">
+							<div class="view view-first">
+								<img src="images/content/post-2-1.jpg" alt="Ipsum" >
+								<div class="mask"></div>	
+								<div class="abs">
+									<a href="images/content/post-2-1.jpg" class="lightbox zoom info"></a><a href="blog-single.html" class="link info"></a>
+								</div>	
+							</div>
+							<div class="lp-item-caption-container">
+										<a class="a-invert" href="blog-single.html" ><span class="bold">Craes</span> Nustro</a>
+									<div class="lp-item-container-border clearfix">
+										<div class="lp-item-info-container">
+											10 Okt 2013 | 7 Comments 
+										</div>
+									</div>
+							</div>
+						</div>
+						<div class="lp-item-text-container">
+							<p>Lorem ipsum dolor sit amet, consec at adipiscing elit. Fusce varius lobortis tur pis, eu eleifend odio pharetra sit amet. Aliquam...</p>
+
+						</div>
+						<div class="lp-r-m-container">
+							<a href="blog-single.html" class="r-m-plus-small">READ MORE</a>
+						</div>	
+				</li>
+
+				<!-- LATEST NEWS ITEM -->
+				<li class="four columns">
+						<div class="hover-item">
+							<div class="view view-first">
+								<img src="images/content/post-2-2.jpg" alt="Ipsum" >
+								<div class="mask"></div>	
+								<div class="abs">
+									<a href="images/content/post-2-2.jpg" class="lightbox zoom info"></a><a href="blog-single.html" class="link info"></a>
+								</div>	
+							</div>
+							<div class="lp-item-caption-container">
+										<a class="a-invert" href="blog-single.html" ><span class="bold">Sed</span> Lectus</a>
+									<div class="lp-item-container-border clearfix">
+										<div class="lp-item-info-container">
+											10 Okt 2013 | 7 Comments 
+										</div>
+									</div>
+							</div>
+						</div>
+						<div class="lp-item-text-container">
+							<p>Lorem ipsum dolor sit amet, consec at adipiscing elit. Fusce varius lobortis tur pis, eu eleifend odio pharetra sit amet. Aliquam...</p>
+
+						</div>
+						<div class="lp-r-m-container">
+							<a href="blog-single.html" class="r-m-plus-small">READ MORE</a>
+						</div>	
+				</li>
+
+				<!-- LATEST NEWS ITEM -->
+				<li class="four columns">
+						<div class="hover-item">
+							<div class="view view-first">
+								<img src="images/content/post-2-3.jpg" alt="Ipsum" >
+								<div class="mask"></div>	
+								<div class="abs">
+									<a href="images/content/post-2-3.jpg" class="lightbox zoom info"></a><a href="blog-single.html" class="link info"></a>
+								</div>	
+							</div>
+							<div class="lp-item-caption-container">
+										<a class="a-invert" href="blog-single.html" ><span class="bold">Lorem</span> Ipsum</a>
+									<div class="lp-item-container-border clearfix">
+										<div class="lp-item-info-container">
+											10 Okt 2013 | 7 Comments 
+										</div>
+									</div>
+							</div>
+						</div>
+						<div class="lp-item-text-container">
+							<p>Lorem ipsum dolor sit amet, consec at adipiscing elit. Fusce varius lobortis tur pis, eu eleifend odio pharetra sit amet. Aliquam...</p>
+
+						</div>
+						<div class="lp-r-m-container">
+							<a href="blog-single.html" class="r-m-plus-small">READ MORE</a>
+						</div>	
+				</li>
+
+				<!-- LATEST NEWS ITEM -->
+				<li class="four columns">
+						<div class="hover-item">
+							<div class="view view-first">
+								<img src="images/content/post-2-4.jpg" alt="Ipsum" >
+								<div class="mask"></div>	
+								<div class="abs">
+									<a href="images/content/post-2-4.jpg" class="lightbox zoom info"></a><a href="blog-single.html" class="link info"></a>
+								</div>	
+							</div>
+							<div class="lp-item-caption-container">
+										<a class="a-invert" href="blog-single.html" ><span class="bold">Lorem</span> Ipsum</a>
+									<div class="lp-item-container-border clearfix">
+										<div class="lp-item-info-container">
+											10 Okt 2013 | 7 Comments 
+										</div>
+									</div>
+							</div>
+						</div>
+						<div class="lp-item-text-container">
+							<p>Lorem ipsum dolor sit amet, consec at adipiscing elit. Fusce varius lobortis tur pis, eu eleifend odio pharetra sit amet. Aliquam...</p>
+
+						</div>
+						<div class="lp-r-m-container">
+							<a href="blog-single.html" class="r-m-plus-small">READ MORE</a>
+						</div>	
+				</li>
+
+				<!-- LATEST NEWS ITEM -->
+				<li class="four columns">
+						<div class="hover-item">
+							<div class="view view-first">
+								<img src="images/content/post-2-5.jpg" alt="Ipsum" >
+								<div class="mask"></div>	
+								<div class="abs">
+									<a href="images/content/post-2-5.jpg" class="lightbox zoom info"></a><a href="blog-single.html" class="link info"></a>
+								</div>	
+							</div>
+							<div class="lp-item-caption-container">
+										<a class="a-invert" href="blog-single.html" ><span class="bold">Lorem</span> Ipsum</a>
+									<div class="lp-item-container-border clearfix">
+										<div class="lp-item-info-container">
+											10 Okt 2013 | 7 Comments 
+										</div>
+									</div>
+							</div>
+						</div>
+						<div class="lp-item-text-container">
+							<p>Lorem ipsum dolor sit amet, consec at adipiscing elit. Fusce varius lobortis tur pis, eu eleifend odio pharetra sit amet. Aliquam...</p>
+
+						</div>
+						<div class="lp-r-m-container">
+							<a href="blog-single.html" class="r-m-plus-small">READ MORE</a>
+						</div>	
+				</li>
+
+			</ul>
+		</div>
+		<!-- jCAROUSEL End -->
+	</div>
+
+
+
+<!-- 底部 -->
+<div class="light-grey-bg m-top-30">
+	<div class="container clearfix pad-t-b-30">
+		
+			<div class=" clearfix">	
+				<div class="eight columns">
+					<div class="features-2-container-img">
+						<img src="images/features-icon.png" alt="features">
+					</div>
+				</div>
+				<div class="four columns features-demo">
+					<div class="features-2-text">
+						FULLY<br>
+						<strong>RESPONSIVE</strong>
+					</div>			
+				</div>
+				<div class="four columns columns features-demo">
+					<ul class="features-check-list check-icon">
+						<li >Fully Responsive</li>
+						<li >Retina Ready</li>
+						<li >SEO Optimized</li>
+						<li >Easy to Customize</li>
+					</ul>
+				</div>	
+			</div>	
+		
+	</div>
+</div>
 
 <!-- NEWS LETTER -->
 <div class="dark-grey-bg">
 <div class="container m-bot-20 clearfix">
 <div class="sixteen columns">
 <div class="newsletter-container clearfix">
-<div class="nl-img-container">
-<img src="images/icon-mail.png" alt="mail">
-</div>
+
 <div class="nl-text-container clearfix">
-<div class="caption">
-	<span class="bold">NEWS</span> LETTER
-</div>
-<div class="nl-text">Stay up-to date with the latest news and other stuffs, Sign Up today!</div>
-<div class="nl-form-container">
-	<form class="newsletterform" method="post" action="#">
-		<input type="text" onblur="if(this.value=='')this.value='Your email here...';" onfocus="if(this.value=='Your email here...')this.value='';" value="Your email here..." name="email"><button class="nl-button">SIGN UP</button>
-	</form>
-</div>	
+
 </div>
 </div>
 </div>
