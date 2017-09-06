@@ -1,0 +1,116 @@
+@charset "utf-8";
+.aBtn {display: inline-block;*display: inline;*zoom: 1; text-align: center; background: url("img/btns.png") no-repeat;}
+/*-- pop box --*/
+
+.collectBoxNL,.collectBox {width: 335px; float:left; margin-left:80px; position: fixed; z-index:10; }
+/*收藏按钮样式*/
+.collectBtn {width: 60px; height: 60px; position: fixed; float:left; margin-top:40px; background: url("img/collect.png") no-repeat;}
+.collectBtn:hover {background: url("img/collect-hover.png") no-repeat;}
+.collect-icon {cursor:pointer;}
+/*-- common --*/
+/* head */
+.cb-head {width: 335px; height: 66px; background: url("img/head.png") no-repeat; position: relative;}
+.cb-headClose {width: 43px; height: 30px; background-position:  0 -186px; position: absolute;right: 5px; top: 5px;}
+.cb-headSide {width: 23px; height: 36px; background: url("img/head-side.png") no-repeat; position: absolute;left: -23px; top: 32px;}
+/* foot */
+.cb-foot {width: 335px; height: 38px; background: url("img/foot.png") no-repeat; text-align: center; line-height: 38px; font-size: 14px;}
+.cb-footLink {color: #fff;}
+/*-- collectBoxNL --*/
+.cb-headTip {color: #fff; font-size: 14px; width: 150px; padding-left: 10px; margin-top: 13px;}
+.cb-headBtns {width: 114px; height: 34px; margin-top: 17px; background-position:  0 -146px; text-align: center; line-height: 34px;}
+.cb-headBtns a {font-size: 16px; color: #fff;}
+.cb-con {background-color: #fff; border-left: 1px solid #b6273f; border-right: 1px solid #b6273f;}
+.collectBoxNL .cb-con {height: 390px; text-align: center; font-size: 14px; color: #333;}
+.floater {float: left; height: 50%; margin-bottom: -72px;}
+.cb-conNL {height: 130px; clear: both;position: relative; line-height: 45px;}
+/*-- collectBox --*/
+.cb-headAvatar {width: 54px; height: 54px; vertical-align: middle; margin: 7px 0 0 7px;}
+.cb-headBtn {width: 146px; height: 34px; background-position: 0 0; vertical-align: middle; margin-top: 7px; font-size: 19px; color: #fff; line-height: 34px;}
+.cb-collect {height: 65px; padding: 10px 0; color: #555; font-size: 14px; text-align: center;}
+.cb-ccBtn {width: 103px; height: 29px; background-position: 0 -43px; color: #fff; line-height: 29px;}
+.cb-ccBtn:hover {background-position: -121px -43px;}
+.cb-nccBtn {width: 103px; height: 29px; background-position: 0 -78px; color: #fff; line-height: 29px;}
+.cb-nccBtn:hover {background-position: -121px -78px;}
+.cb-history {height: 35px; border-top: 1px solid #b6273f; border-bottom: 1px solid #b6273f; color: #b6273f; font-size: 14px; line-height: 35px; background-color: #f9f1f1; padding-left: 13px; font-weight: bold;}
+.cb-tabMenu {padding-top: 10px; border-bottom: 1px solid #b6273f; margin: 0 5px;}
+.cb-tm {width: 124px; height: 31px; display: inline-block;*display: inline;*zoom: 1; background: #fff url("img/icons.png") no-repeat -133px -44px; font-size: 14px; line-height: 31px; color: #555; text-align: center; margin-bottom: -1px; border-bottom: 1px solid #b6273f; cursor: pointer;}
+.cb-tm.selected {background-position: 0 -44px; color: #b6273f; font-weight: bold; border-bottom: 1px solid #fff;}
+.cb-tabCon {height: 260px; margin: 0 5px; overflow: hidden; padding-top: 10px;}
+/* tab content item */
+.cb-tcItem {height: 50px; border-bottom: 1px dotted #c1bbb0;}
+.cb-tci-icon {width: 20px; height: 0; display: block; background: url("img/icons.png"); padding-top: 29px; overflow: hidden;}
+.cb-tci-i01 {background-position: -1px -83px;}
+.cb-tci-i02 {background-position: -38px -85px;}
+.cb-tci-i03 {background-position: -76px -84px;}
+.cb-tci-i04 {background-position: -117px -86px;}
+.cb-tci-i05 {background-position: -160px -86px;}
+.cb-tci-i06 {background-position: -204px -88px;}
+.cb-tci-i07 {background-position: -3px -134px;}
+.cb-tci-i08 {background-position: -39px -133px;}
+.cb-tci-i09 {background-position: -79px -133px;}
+.cb-tci-i10 {background-position: -118px -136px;}
+.cb-tci-Link {display: block; width: 275px; line-height: 29px; color: #333;}
+.cb-tci-Link:hover {text-decoration: underline;}
+.cb-tci-Delete {width: 12px; height: 29px; background: url("img/icons.png") -250px -88px;}
+.cb-tci-Time {color: #999; text-align: right;}
+/* end tab content item */
+.cb-more {padding: 25px 0; text-align: center;}
+.cb-moreBtn {width: 96px; height: 28px; background-position: 0 -112px; color: #9a2135; line-height: 28px;}
+.cb-moreBtn:hover {background-position: -121px -112px;}
+/*-- my collect --*/
+#head {width: 1000px; height: 117px; margin: 0 auto; background-color: #f3f3f3;}
+#content {width: 1000px; margin: 0 auto;}
+.logo {width: 145px; height: 117px; background: #c02942 url("img/logo.png") no-repeat 20px 35px; font-size: 30px; color: #fff; line-height: 110px; padding-left: 68px;}
+.myAvatar {width: 84px; height: 84px; margin-left: 30px; margin-top: 15px;}
+.myInfo {margin-left: 20px; margin-top: 26px;}
+.myInfo h1 {font-size: 18px; color: #555; line-height: 38px;}
+.mc-tip {height: 50px; color: #c02942; line-height: 50px;}
+.mc-tabMenu {border-bottom: 1px solid #dadada;}
+.mc-tm {width: 153px; height: 33px; display: inline-block;*display: inline;*zoom: 1; background: #fff url("img/icons.png") no-repeat -175px -177px; font-size: 16px; line-height: 32px; color: #999; text-align: center; margin-bottom: -1px; border-bottom: 1px solid #dadada; cursor: pointer;}
+.mc-tm.selected {background-position: 0 -177px; color: #555; font-weight: bold; border-bottom: 1px solid #fff;}
+.mc-tcSubject {display: none;}
+/* tab content subject item */
+.mc-tcItem {height: 110px; border-bottom: 1px dotted #dbdbdb;}
+.mc-tci-con {width: 770px; padding-top: 15px;}
+.mc-tci-operate {width: 220px; padding-top: 15px; text-align: right;}
+.mc-tci-icon {width: 20px; height: 0; display: inline-block;*display: inline;*zoom: 1; background: url("img/icons.png"); padding-top: 20px; overflow: hidden; vertical-align: middle;}
+.mc-tci-i01 {background-position: -158px -139px;}
+.mc-tci-i02 {background-position: -244px -139px;}
+.mc-tci-i03 {background-position: -281px -139px;}
+.mc-tci-i04 {background-position: -281px -139px;}
+.mc-tci-i05 {background-position: -315px -139px;}
+.mc-tci-i06 {background-position: -315px -139px;}
+.mc-tci-i07 {background-position: -203px -139px;}
+.mc-tci-i08 {background-position: -38px -139px;}
+.mc-tci-i09 {background-position: -75px -139px;}
+.mc-tci-i10 {background-position: -116px -139px;}
+.mc-tci-Link {width: 740px; line-height: 50px; color: #333; font-size: 18px; display: inline-block;*display: inline;*zoom: 1; vertical-align: middle;}
+.mc-tci-Link:hover {text-decoration: underline;}
+.mc-tci-Time {color: #777; font-size: 14px;}
+.mc-opeBtn {width: 100px; height: 32px; background-position: 0 -220px; color: #333; line-height: 32px;}
+.mc-opeBtn:hover {background-position: -120px -220px; color: #fff;}
+.mc-opeShare {width: 208px; height: 32px; background: url("img/btns.png") 0 -256px; line-height: 32px; font-size: 16px; color: #fff; padding-right: 5px; display: none;}
+.mc-tci-share {width: 23px; height: 0; display: inline-block;*display: inline;*zoom: 1; background: url("img/icons.png"); padding-top: 23px; overflow: hidden; vertical-align: middle;}
+.mc-tci-wei {background-position: 0 -217px;}
+.mc-tci-ten {background-position: -34px -217px;}
+.mc-tci-qq {background-position: -66px -217px;}
+.mc-tci-dou {background-position: -97px -217px;}
+.mc-tci-ren {background-position: -128px -217px;}
+/* end tab content subject item */
+/* tab content article item */
+.mc-tcArticleItem {border-bottom: 1px dotted #dbdbdb; padding: 25px 0;}
+.mc-tcArticleItem .mc-tci-operate {padding-top: 10px;}
+.mc-tcArticleItem .mc-tci-Link {width: 900px;}
+.mc-tci-article {color: #333; line-height: 24px;}
+.mc-tci-stock {color: #c02942; font-size: 14px;}
+.mc-tci-st {padding-top: 42px;}
+.mc-tci-articlePic {max-width: 960px; max-height: 600px;}
+/* end tab content article item */
+/* succeed tip */
+.collectSucceed {width: 259px; position: fixed;text-align: left; height: 245px; background: url("img/succeed-bg.png") no-repeat; padding: 16px 16px 0 16px; font-family: "宋体",serif;}
+.collectSucceed h1 {height: 30px; padding-left: 28px; color: #333; font-weight: bold;line-height: 24px; font-size: 14px;}
+.collectSucceed a {color: #07519a; text-decoration: underline;}
+.succeed-con {line-height: 20px; padding-top: 12px; color: #333;}
+.succeed-con p {text-align: left;}
+.succeed-tip {margin: 5px 0 0 54px;}
+.succeed-close {width: 15px; height: 14px; background: url("img/succeed-close.png") no-repeat; position: absolute; top: 5px; right: 5px;}

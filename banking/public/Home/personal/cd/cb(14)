@@ -1,0 +1,203 @@
+﻿//@charset "utf-8";
+/* 引用CSS文件 */
+document.write("<link rel=\"stylesheet\" type=\"text\/css\" href=\"http:\/\/s.thsi.cn\/css/collect\/page.css\"> <\/link>");
+
+$(function(){
+    //dialog
+    //tab切换
+    $(document).on('click', ".J-tmSubject", function(){
+        var ele = $(".J_tcSubject");
+        if(!ele){return this;}
+        ele.show().siblings().hide();
+        $(this).addClass("selected").siblings().removeClass("selected");
+    });
+    $(document).on('click', ".J-tmArticle", function(){
+        var ele = $(".J-tcArticle");
+        if(!ele){return this;}
+        ele.show().siblings().hide();
+        $(this).addClass("selected").siblings().removeClass("selected");
+    });
+    function closeBox(box){
+        $(document).on('click', ".cb-headClose", function(){
+            box.hide();
+        });
+        $(document).on('click', '.cb-nccBtn', function(){
+        	TA.log({'id':'sc_kjgb','nj':1})
+        	box.hide();
+        })
+    }
+    
+    $(document).on('click', ".J_succeedClose", function(){
+    	$(".collectSucceed").remove();
+    })
+    
+    //弹框中的删除收藏
+    $(document).on('click', ".J_tcDelete", function(){
+    	var cid = $(this).attr('dataid');
+    	var coll = new Collect();
+    	var recordEle = $(this).parent().parent();
+    	coll.cancle(cid, recordEle);
+    });
+    //my collection
+    $(".J_shareBtn").bind('mouseenter', function(){
+        var ele = $(this).siblings(".J_opeShare");
+        if(!ele){return this;}
+        ele.show();
+        $(this).hide();
+    });
+    $(".J_opeShare").bind('mouseleave', function(){
+        var ele = $(this).siblings(".J_shareBtn");
+        if(!ele){return this;}
+        ele.show();
+        $(this).hide();
+
+    });
+    $(document).on('click', "#diaryLink", function(){
+    	TA.log({'id':'sc_kfdrj','nj':1});
+    	var util = external.createObject('Util');
+    	util.postCommand(1,31313);
+    });
+	//弹框交互
+    $(".collectBtn").click(function(){
+    	TA.log({'id':'sc_kj','nj':1})
+    	if ($(".collectPop").is(":visible")) {
+    		$(".collectPop").hide();
+    	} else {
+	    	var url = "http://comment.10jqka.com.cn/collect/index.php?act=pop&jsoncallback=?";
+	    	var data = {};
+	    	$.getJSON(url, data, function(retdata){
+			　　if (retdata.success) {
+					$("#collectComponent").append(retdata.data);
+			　　}
+				//关闭弹框
+				$(".collectPop").each(function(){
+					closeBox($(this));
+				})
+			});
+    	}
+    });
+});
+/**
+ * 收藏JS类
+ */
+function Collect()
+{
+	this.attach = function(title, data, sourceId, stock){
+		var url = window.location.href;
+		
+		var _t = this;
+    	$(document).on('click', '.cb-ccBtn', function(){
+    		TA.log({'id':'sc_kjsc','nj':1})
+    		_t.submit(title, url, data, sourceId, stock);
+    	})
+	}
+	this.submit = function(title, url, data, sourceId, stock) {
+		var requestUri = "http://comment.10jqka.com.cn/collect/index.php?act=addCollect&jsoncallback=?&title="
+			+encodeURI(title)+"&data="+encodeURI(data)+"&stock="+stock+"&sourceId="+sourceId+"&url="+encodeURIComponent(url);
+		
+		$.getJSON(requestUri, function(retdata){
+		　　if (retdata.success) {
+				if (sourceId == 7 || sourceId == 8) {
+					var stockname = retdata.stockname;
+					var tipHtml = "<div class=\"collectSucceed\">"
+				        +"<h1>成功收藏到<a href=\"javascript:void(0);\" id=\"diaryLink\">股市日记</a>！</h1>"
+				        +"<div class=\"succeed-con\">"
+				        +"<p>如何查看收藏？</p>"
+				        +"<p>1.客户端（行情/列表/F10页）点击鼠标右键</p>"
+				        +"<p>2.弹出菜单选择“股市日记”</p>"
+				        +"<img class=\"succeed-tip\" src=\"http://i.thsi.cn/images/article/collect-tip-pic.png\">"
+				        +"</div>"
+				        +"<a class=\"succeed-close J_succeedClose\" href=\"javascript:void(0)\"></a>"
+				        +"</div>";
+						
+					$('body').append(tipHtml);
+					var height = $('.collectSucceed').height();
+					var width = $('.collectSucceed').width();
+					var top = $('.collect-icon').position().top+25;
+					var left = $('.collect-icon').position().left+20;
+					$('.collectSucceed').css({"left":left,"top":top});
+				} else {
+					alert(retdata.msg);
+					//关闭弹框
+					$(".collectPop").each(function(){
+						$(this).hide();
+					})
+				}
+				
+		　　} else {
+				alert(retdata.msg);
+		　　}
+		});
+	}
+	this.cancle = function(cid, ele){
+		var requestUri = "http://comment.10jqka.com.cn/collect/index.php?act=delCollect&jsoncallback=?&cid="+cid;
+		$.getJSON(requestUri, function(retdata){
+		　　if (retdata.success) {
+				ele.remove();
+		　　} else {
+				alert(retdata.msg);
+		　　}
+		});
+	}
+	this.loadNum = function (urlco, action) {
+		var geturl = 'http://comment.10jqka.com.cn/collectp/'+urlco+'.txt';
+		$.ajax({url: geturl,dataType: "jsonp",cache: true,jsonp: false,jsonpCallback: "collectp",
+    		success: function(json){
+				if (json) {
+					if (typeof(action) == 'object') { 
+						return action.render(json);
+					} else {
+						return json;
+					}
+				}
+			}
+		});
+  	}
+}
+
+/**
+ * 分享
+ */
+function shareToSinaWb(title, url)
+{
+	var param = {url:url, type:'2',count:'0', appkey:'728253910', title:title, pic:'',ralateUid:'', rnd:new Date().valueOf()};
+	var temp = [];for( var p in param ){temp.push(p+'='+encodeURIComponent(param[p]||''));}
+	var _u = 'http://service.weibo.com/share/share.php?'+temp.join('&');
+	openShareWindow(_u);
+}
+function shareToQQWb(title, url)
+{
+	var _t = encodeURI(title);
+	var _url = encodeURIComponent(url); 
+	var _appkey = '333cf198acc94876a684d043a6b48e14'; 
+	var _site = encodeURI; 
+	var _pic = ''; 
+	var _u = 'http://v.t.qq.com/share/share.php?title='+_t+'&url='+_url+'&appkey='+_appkey+'&site='+_site+'&pic='+_pic; 
+	openShareWindow(_u);
+}
+function shareToQQZone(title, url) {
+	var title = encodeURI(title);
+	var url = encodeURIComponent(url); 
+	var picurl = '';
+	var _u='http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?summary='+title+'&url='+url+'&pics='+picurl;
+	openShareWindow(_u);
+}
+function shareToDouban(title, url)
+{
+	var url = encodeURIComponent(url); 
+	var picurl = '';
+	var d=document,e=encodeURIComponent,s1=window.getSelection,s2=d.getSelection,s3=d.selection,s=s1?s1():s2?s2():s3?s3.createRange().text:''
+	var _u = 'http://www.douban.com/recommend/?url='+e(url)+'&title='+e(title)+'&sel='+e(s)+'&v=1';
+	openShareWindow(_u);
+}
+function shareToRenren(title, url)
+{
+	var title = encodeURI(title);
+	var url = encodeURIComponent(url); 
+	var _u = 'http://widget.renren.com/dialog/share?resourceUrl='+url+'&srcUrl='+url+'&title='+title+'&description=';
+	openShareWindow(_u);
+}
+function openShareWindow(_url){
+	TA.log({'id':'sc_fx','nj':1})
+	window.open(_url,'', 'width=700, height=580, top=150, left=300, toolbar=no, menubar=no, scrollbars=no, location=yes, resizable=no, status=no' );
+}

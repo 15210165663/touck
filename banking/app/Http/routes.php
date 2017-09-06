@@ -72,6 +72,25 @@ Route::group(['middleware'=>'web','namespace' => 'Home'], function(){
         Route::match(['get','post'],'/meigu','MeiguController@index');
         //美股详情页
         Route::match(['get','post'],'/firmshow','MeiguController@index');
+        //登录
+        Route::match(['get','post'],'/login','LoginController@index');
+        //登录验证
+        Route::match(['get','post'],'/logins','LoginController@logins');
+        //注册验证
+        Route::match(['get','post'],'/registers','LoginController@registers');
+        //退出登录
+        Route::match(['get','post'],'/del_login','LoginController@del_login');
+        //个人中心
+        Route::match(['get','post'],'/personal','LoginController@personal');
+        //个人资料
+        Route::match(['get','post'],'/ge','LoginController@ge');
+        //登录
+        Route::match(['get','post'],'/register','LoginController@register');
+        //上传文件
+        Route::match(['get','post'], '/info','FileController@info');
+        //上传文件
+        Route::match(['get','post'], '/ajax','loginController@ajax');
+
     });
 });
 /**

@@ -11,8 +11,10 @@ class InfoController extends CommonController
 	 * 首页
 	 * @return [type] [description]
 	 */
-	public function index()
+	public function index(Request $request)
 	{
-		return view('home.index');
+		$name = $request->session()->get('Username');
+		// echo $name;die;
+		return view('home.index',['name'=>$name]);
 	}
 }
