@@ -1,0 +1,179 @@
+$(function() {
+	var browser=navigator.appName;
+	if(browser=="Microsoft Internet Explorer"){
+		var b_version=navigator.appVersion;
+		var version=b_version.split(";");
+		var trim_Version=version[1].replace(/[ ]/g,"");
+		if(trim_Version=="MSIE6.0" || trim_Version=="MSIE7.0")
+		{
+			alert("请使用高版本浏览器！");
+			$(".zhu").html('<p>浏览器版本太低，图像无法显示。</p><br/><a href="http://rj.baidu.com/soft/detail/14917.html?ald">点击此处进行升级</a>').css({'color':'red','font-size':'16px','text-align':'center'});
+			$(".zhu a").css({'color':'blue'});
+			$(".zhu p").css({'margin-top':'95px'});
+		}
+		
+	}
+	
+    function setData(ret) {
+    	var url = window.location.href;
+        var urlArr = url.split('/');
+        var temp = ret;
+        $("#sz").html(temp.szNum);
+        $("#xd").html(temp.xdNum);
+        $("#pp").html(temp.ppNum);
+
+        var colors = ['#59b881', '#d75442','#000'],
+            categories = ['09:30', '10:00', '13:00', '19:00'],
+            name = 'Browser brands',
+            data = [{
+                y: temp.zdfb[0],
+                color: colors[0],
+                drilldown: {
+                    name: 'MSIE versions',
+                    categories: [0],
+                    data: [10.85, 7.35, 33.06, 2.81],
+                    color: colors[0]
+                }
+            }, {
+                y: temp.zdfb[1],
+                color: colors[0],
+                drilldown: {
+                    name: 'Firefox versions',
+                    categories: [1],
+                    data: [0.20, 0.83, 1.58, 13.12, 5.43],
+                    color: colors[1]
+                }
+            }, {
+                y: temp.zdfb[2],
+                color: colors[0],
+                drilldown: {
+                    name: 'Chrome versions',
+                    categories: [2],
+                    data: [0.12, 0.19, 0.12, 0.36, 0.32, 9.91, 0.50, 0.22],
+                    color: colors[2]
+                }
+            }, {
+                y: temp.zdfb[3],
+                color: colors[0],
+                drilldown: {
+                    name: 'Safari versions',
+                    categories: [3],
+                    data: [4.55, 1.42, 0.23, 0.21, 0.20, 0.19, 0.14],
+                    color: colors[3]
+                }
+            }, {
+                y: temp.zdfb[4],
+                color: colors[1],
+                drilldown: {
+                    name: 'Opera versions',
+                    categories: [4],
+                    data: [0.12, 0.37, 1.65],
+                    color: colors[4]
+                }
+            }, {
+                y: temp.zdfb[5],
+                color: colors[1],
+                drilldown: {
+                    name: 'Opera versions',
+                    categories: [5],
+                    data: [0.12, 0.37, 1.65],
+                    color: colors[4]
+                }
+            }, {
+                y: temp.zdfb[6],
+                color: colors[1],
+                drilldown: {
+                    name: 'Opera versions',
+                    categories: [6],
+                    data: [0.12, 0.37, 1.65],
+                    color: colors[4]
+                }
+            }, {
+                y: temp.zdfb[7],
+                color: colors[1],
+                drilldown: {
+                    name: 'Opera versions',
+                    categories: [7],
+                    data: [0.12, 0.37, 1.65],
+                    color: colors[4]
+                }
+            }];
+
+        function setChart(name, categories, data, color) {
+            chart.xAxis[0].setCategories(categories, false);
+            chart.series[0].remove(false);
+            chart.addSeries({
+                name: name,
+                data: data,
+                color: color || 'white'
+            }, false);
+            chart.redraw();
+        }
+
+        var chart = $('#container').highcharts({
+                chart: {
+                    type: 'column',
+                    marginBottom: 60,
+                    marginTop: 40
+                },
+                title: {
+                    text: ''
+                },
+                subtitle: {
+                    text: ''
+                },
+                credits: {
+                    enabled: false
+                },
+                xAxis: {
+                    categories: ['-∞~-9%', '-9%~-6%', '-6%~-3%', '-3%~-0%','0%~3%', '3%~6%', '6%~9%','9%~∞%']
+                },
+                yAxis: {
+                    title: {
+                        text: ''
+                    }
+                },
+                legend: {
+                    enabled: false
+                },
+                plotOptions: {
+                    column: {
+                        cursor: 'pointer'
+                    }
+                },
+                tooltip: {
+                    formatter: function() {
+                        var point = this.point,
+                            s = this.y;                   
+                        return s;
+                    }
+                },
+                series: [{
+                    name: name,
+                    data: data,
+                    color: 'white'
+                }],
+                exporting: {}
+            })
+            .highcharts();
+    }
+    
+    var url = window.location.href;
+    var urlArr = url.split('/');
+    if (urlArr[3].toLowerCase() == 'hk') {
+    	var ajaxUrl = 'http://q.10jqka.com.cn/api.php?t=hkscflash';
+    } else {
+    	var ajaxUrl = 'http://q.10jqka.com.cn/api.php?t=mgscflash';
+    }
+    $.ajax({
+        url: ajaxUrl,
+        type: 'GET',
+        dataType: 'json',
+        success: function(ret) {
+            try {
+                setData(ret);
+            } catch (e) {}
+        }
+    });
+
+});
