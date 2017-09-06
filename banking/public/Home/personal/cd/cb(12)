@@ -1,0 +1,993 @@
+//@charset "gbk";
+var perTable = {
+    openflag:true,
+    allloadflag:true,
+    tabTable:$(".colums"),
+    basicurl:"http://d.10jqka.com.cn/multimarketreal/",
+    basicend:"/1968584_13_19_3541450_526792_6_7_8_9_10_2034120_199112_264648",
+    selfurl:"http://pop.10jqka.com.cn/getselfstockinfo.php",
+    selfStockData:null,
+    retryNum : 0,
+    totalNUm : 0,
+    secNum:50,
+    curload:0,
+    container:$(".data_panel"),
+    freshTimer:null,
+
+    //获取资讯股详细信息的地址
+    init:function(){
+        this.expandTable();
+        this.leftSlide();
+        this.rightSlide();
+        this.removeTr();
+        this.tableSort();
+        this.hoverStockTable();
+        this.freshTable();
+        this.timerFresh();
+        this.arrangeTable();
+    },
+    arrangeTable : function(){
+        var that = perTable;
+        var tds = that.container.find("tbody td").not(".operate");
+        that.container.delegate(("tbody td"),"mousedown",function(e){
+            var cur = $(this);
+            if(!cur.hasClass("operate")){
+                var tr = cur.parents("tr");
+                var idx = tr.index();
+                document.onselectstart = new Function("return false");
+                clearInterval(that.freshTimer);
+                that.trMove(tr,idx,e);
+            }
+        });
+    },
+    trMove:function(item,idx,e){
+        var that = perTable;
+        var  div = that.getCopyDiv(item,idx);
+        var oft = e.pageY,
+            bft = div.offset().top;
+        div.removeAttr("sortid");
+        $(document).on("mousemove",function(o){
+            $("body").css("cursor","move");
+            var oeft = o.pageY-oft+bft;
+            var stick = $(".codename tbody").offset().top;
+            var stickbtm = stick + $(".codename tbody").height()- $(o.target).height();
+            if(oeft <= stick ){
+                oeft = stick;
+            }else if(oeft >= stickbtm){
+                oeft = stickbtm;
+            }
+            div.css("top",oeft);
+            that.findBounder(oeft,div);
+            document.onselectstart = new Function("return false");
+            window.getSelection ? window.getSelection().removeAllRanges() : document.selection.empty();
+        });
+        $(document).on("mouseup",function(t){
+            $(document).unbind("mousemove");
+            $(document).unbind("mouseup");
+            $("body").css("cursor","default");
+            if(div.attr("sortid") && div.attr("oldid")!=div.attr("sortid")){
+                perTable.resetCode(div);
+            }
+            perTable.clearCopy(div);
+            that.timerFresh();
+        });
+    },
+    findBounder :function(dis,div){
+        var trs = this.container.find("tbody").eq(0).find("tr");
+        var first = div.attr("startid");
+        trs.each(function(){
+            var cur = $(this);
+            var ost = cur.offset().top;
+            var idx = cur.index();
+            var start = div.attr("startid");
+            if(ost <= dis+cur.height()*1/5 && ost+cur.height()*4/5 > dis && start!=idx){
+                div.attr("sortid",idx);
+                if(first != idx){
+                    div.attr("oldid",first);
+                    perTable.reSortTr(div);
+                    //cur.removeClass("selected");
+                    div.attr("startid",idx);
+                }
+            }
+        });
+    },
+    clearCopy : function(div){
+        var tbl = div.find("table");
+        this.container.find(".selected").removeClass("selected");
+        tbl.remove();
+        div.addClass("hide");
+    },
+    reSortTr:function(item){
+        var start = item.attr("startid");
+        var sort = item.attr("sortid");
+        var tbls = this.container.find("tbody");
+        tbls.each(function(i,v){
+            var cur = $(v),
+                rowa = cur.find("tr").eq(start),
+                rowb = cur.find("tr").eq(sort);
+            start > sort ? rowa.insertBefore(rowb) : rowa.insertAfter(rowb);
+        });
+        this.resetColor();
+    },
+    resetCode:function(item){
+        var code = item.find(".code").html().replace('<i>', '').replace('</i>', '');
+        var idx = parseInt(item.attr("sortid"))+1;
+        var codeTag = code.substring(0, 2).toUpperCase();
+        if ('HK' != codeTag) {
+            code = codeTag == 'US' ? code.substring(3) : code.substring(2);
+        }
+        $.ajax({
+            url:"http://stock.10jqka.com.cn/self.php?stockcode="+code+"&op=exc&pos="+idx+"&jsonp=callbacknew",
+            dataType:"jsonp",
+            jsonpCallback:"callbacknew",
+            success:function(data){
+                dialog.init({
+                    "subtitle":"新列表已保存"
+                });
+            },
+            error:function(e,b,c){
+                dialog.init({
+                    "subtitle":"保存失败"
+                });
+            }
+        });
+    },
+    getCopyDiv:function(item,idx){
+        var cont = perTable.container;
+        if($("#copyTr").length == 0){
+            var copy = $('<div id="copyTr" class="copyTr"></div>');
+            $("body").append(copy);
+        }
+        var div = $("#copyTr");
+        div.removeClass("hide").css({
+            "left":cont.offset().left,
+            "top": item.offset().top
+        }).attr("startid",idx);
+        var tables = cont.find("table");
+        for (var i = 0 ; i < tables.length ; i++ ){
+            var cls = tables.eq(i).attr("class");
+            var tbl = $("<table class='"+cls+"'></table>");
+            var tr = tables.eq(i).find("tbody tr").eq(idx).clone();
+            tbl.append(tr);
+            div.append(tbl);
+        }
+        return div;
+    },
+    timerFresh:function(){
+        var that = this;
+        that.freshTimer = setInterval(function(){
+            that.freshload({}, true);
+        },30000);
+    },
+    getSelfStock : function(param, callback, refresh){
+        if(!this.selfStockData || refresh) {
+            var that = this;
+            $.ajax({
+                url:"http://pop.10jqka.com.cn/getselfstockinfo.php?jsonp=callback",
+                dataType:"jsonp",
+                jsonpCallback:"callback",
+                success:function(json){
+                    that.selfStockData = that.filterData(json);
+                    that.totalNUm = that.selfStockData.length;
+                    callback(param);
+                }
+            });
+        } else {
+            callback(param);
+        }
+    },
+    getUrlInfo : function(param, refresh){
+        this.getSelfStock(param, this.dealUrlInfo, refresh);
+    },
+    dealUrlInfo : function(param) {
+        var that = perTable;
+        var fiterdata = that.selfStockData;
+        var data;
+        var nomore = $(".nomore");
+        var myFund = $(".my-fund");
+        if(param && param.num && fiterdata.length > param.num){
+            nomore.addClass("hide");
+            myFund.addClass("hide");
+            data = fiterdata.slice((fiterdata.length-param.num));
+            data = fiterdata.slice(0,param.num);
+        }else{
+            data = fiterdata;
+        }
+        if(!param.reload){
+            that.curload = data.length;
+        }
+        var detailurl = that.getCodeInfo(data);
+        that.getTableInfo(detailurl,param,data);
+    },
+    filterData:function(json){
+        var data = [];
+        for(var i=0 ; i < json.length; i++ ){
+            var net = /^\d{4,5}$/;
+            var cur = json[i].code;
+            var flag = net.test(cur);
+            if(!flag){
+                var num = cur.substring(0,1);
+                if(num != "8" && num !="1" && num!="4"){
+                    data.push(json[i]);
+                }
+            }
+        }
+        return data;
+    },
+    moreFund:function(){
+    	window.location.href="http://fund.10jqka.com.cn/zixuan/index.html";
+    },
+    loadAll:function(){
+        var that = this;
+        var loadall = $("<span class='loadallcode' >已显示"+that.secNum+"只股票，查看更多</span>");
+        $(".expand").append(loadall);
+        loadall.on("click",function(){
+            if( that.allloadflag ){
+                that.allloadflag = false;
+                that.getUrlInfo({});
+            }else{
+                that.showAllTr();
+            }
+        });
+    },
+    getTypeCode:function(json,type){
+        var data = [];
+        for(var i = 0 ; i < json.length; i++ ){
+            var code = json[i].code;
+            var flag = perTable.getCodeType(code);
+            if(type == flag){
+                data.push(json[i]);
+            }
+        }
+        return data;
+    },
+    //加载表格信息
+    getTableInfo:function(url,param,codes){
+        var that = perTable;
+        var aimurl = that.basicurl + url +that.basicend;
+        $(".loading").show();
+        $.ajax({
+            url:aimurl,
+            dataType:"jsonp",
+            jsonpCallback:"multimarketreal",
+            success:function(data){
+                $(".loading").hide();
+                var num = that.getHqNum(data,that.curload);
+                if(num == 0 || !param.num || param.num >= that.totalNUm){
+                    that.showTable(data,codes);
+                    if(param && param.callback){
+                        param.callback();
+                    }
+                }else{
+                    param.reload = true;
+                    param.num +=num;
+                    that.getUrlInfo(param,false);
+                }
+            }
+        });
+    },
+    getHqNum :function(data,num){
+        var hq = 0;
+        for( var i in data ){
+            var type = data[i];
+            for(var k in type){
+                hq++;
+            }
+        }
+        return num-hq;
+    },
+    showTable:function(item,codes){
+        var that = perTable;
+        var tbd = that.container.find("tbody");
+        tbd.removeAttr("body-sort");
+        $(".table_sort").removeClass("data-sort").find("i").removeClass();
+        tbd.find("tr").remove();
+        var nameTb = that.container.find(".codename");
+        var contentTb = that.container.find(".colums");
+        var opeTb = that.container.find(".operate");
+        var flag;
+        //for(var k = codes.length-1 ; k >=0  ; k--){
+        for(var k = 0 ; k < codes.length ; k++){
+            var c_code = codes[k].code;
+            for(var i in item){
+                var cur = item[i];
+                var obj = that.getSortedCode(cur,c_code);
+                if(obj){
+                    if(i == 17 || i == 33){
+                        flag = "SZ" ;
+                    }else if(i == "hk"){
+                        flag = "<i>HK</i>";
+                        c_code = c_code.substring(2);
+                    }else if(i == "usa"){
+                        flag = "<i>USA</i>" ;
+                    }
+                    that.sepTable(obj,nameTb,contentTb,opeTb,flag,c_code);
+                }
+
+            }
+        }
+        that.expandTr(nameTb);
+        //1s后去掉股票涨跌幅箭头效果
+        setTimeout(function () {
+            var items = $(".arrflag");
+            items.removeClass("arrflag");
+        },1000)
+    },
+    expandTr:function(item){
+        var that = perTable;
+        var length = item.find("tbody tr").length;
+        var slen = item.find("tbody tr").not(".hide").length;
+        var expand = $(".expand");
+        var loadall = $(".loadallcode"),nomore = $(".nomore");
+        var myFund = $(".my-fund");
+        if( slen == that.totalNUm || slen > that.secNum){
+            nomore.removeClass("hide");
+            myFund.removeClass("hide");	
+            loadall.length > 0 ? loadall.addClass("hide") : '';
+        }else if(slen <= 5){
+            if( $(".expand").find("a").length == 0  ){
+                expand.append("<a href='###'>展开</a>");
+            }
+            loadall.length > 0 ? loadall.addClass("hide") : '';
+            nomore.addClass("hide");
+            myFund.addClass("hide");
+        }else{
+            if(that.secNum >= that.totalNUm){
+                nomore.removeClass("hide");
+                myFund.removeClass("hide");
+            }else{
+                if($(".expand").find("a").length == 0  ){
+                    expand.append("<a href='###' tr-expand='true' class='close'>收起</a>");
+                }
+                nomore.addClass("hide");
+                myFund.addClass("hide");
+                loadall.length == 0 ? that.loadAll() : loadall.removeClass("hide");
+            }
+        }
+    },
+    getSortedCode:function(item,code){
+        for(var i in item){
+            var codenum = item[i];
+            if(i == code){
+                return codenum;
+            }
+        }
+        return ;
+    },
+    sepTable:function(item,nameTb,contentTb,opeTb,flag,code){
+        var that = perTable;
+        var cls = "",hqcls="";
+        var odd = nameTb.find("tbody tr").length;
+        odd%2 == 0 ? ( cls = "odd" ) : ( cls = "" );
+        for( var j in item ){
+            var des = item[j];
+            if(des==""){
+                item[j] ="--";
+            }
+        }
+        var cur = item ;
+        cur[199112] > 0 ? ( hqcls = "hqred" ) : ( cur[199112] == '--' ? hqcls = "equal" : hqcls = "hqgreen" );
+        var nametr = that.setFixTable(cur,cls,hqcls,code,flag);
+        var swiftr = that.setSwiftTable(cur,cls,code,flag);
+        var opetr = that.setOpeTale(cur,cls);
+        nameTb.append($(nametr));
+        contentTb.eq(0).append($(swiftr[0]));
+        contentTb.eq(1).append($(swiftr[1]));
+        opeTb.append(opetr);
+        that.resetColor();
+    },
+    resetColor:function(){
+        var tbods = perTable.container.find("tbody");
+        $.each(tbods,function(i,v){
+            var trs = $(v).find("tr");
+            for(var i = 0 ; i< trs.length; i++){
+                if( i%2 == 0 ){
+                    trs.eq(i).addClass("odd");
+                }else{
+                    trs.eq(i).removeClass("odd");
+                }
+            }
+        });
+    },
+    //分别加载几个表格的信息
+
+    //左边表格信息加载
+    setFixTable:function(item,trcls,hqcls,code,sig){
+        var that = this;
+        //var price = item[10] == '--' ? "停牌" : item[10];
+        var c_code = sig=="<i>HK</i>" ? "HK"+code : code;
+        var nameTr = $('<tr class="'+trcls+'"><td class="graph operate"><a href="http://stockpage.10jqka.com.cn/'+c_code+'" target="_blank"><span class="name">'+item['name']+'</span><span class="code">'+(sig+code)+'</span></a></td><td class="'+hqcls+'" stock-code="'+code+'">'+item[10]+'</td><td class="'+hqcls+'" stock-code="'+code+'"><label class="arrflag"><span>'+that.pieNum(item[264648])+'</span><span>('+that.pieNum(item[199112])+'%)</span></label></td><td></td></tr>');
+        return nameTr;
+    },
+    //中间可切换表格信息加载
+    setSwiftTable:function(item,cls,code,flag){
+        var ths = perTable;
+        var amc = "";
+        if(flag == "<i>US</i>"){
+            amc = "$";
+        }
+        var tr1 = '<tr class="'+cls+'"><td stock-code="'+code+'">'+ths.pieNum(item[13])+'</td><td stock-code="'+code+'">'+ths.pieNum(item[19])+amc+'</td><td stock-code="'+code+'">'+ths.pieNum(item[3541450])+amc+'</td><td stock-code="'+code+'">'+ths.pieNum(item[1968584])+"%"+'</td><td stock-code="'+code+'">'+ths.pieNum(item[2034120])+'</td></tr>';
+        var tr2 = '<tr class="'+cls+'"><td>'+ths.pieNum(item[6])+amc+'</td><td>'+ths.pieNum(item[7])+amc+'</td><td>'+ths.pieNum(item[8])+amc+'</td><td>'+ths.pieNum(item[9])+amc+'</td><td>'+ths.pieNum(item[526792])+"%"+'</td></tr>';
+        return [tr1,tr2];
+    },
+    //转换单位
+    pieNum:function(num){
+        if(num == "--"){
+            return num;
+        }
+        var item = parseFloat(num);
+        if(item >= 10000 && item < 100000000){
+            item = item/10000;
+            item = item.toFixed(2) +"万";
+        }else if(item >= 100000000 && item < 100000000*10000){
+            item = item /100000000;
+            item = item.toFixed(2) + "亿";
+        }else if(item >= 100000000*10000 ){
+            item = item /100000000/10000;
+            item = item.toFixed(2) + "万亿";
+        }else{
+            item = item.toFixed(2);
+        }
+        return item;
+    },
+    //生成操作列表格
+    setOpeTale:function(item,cls){
+        var tr = '<tr class="'+cls+'"><td></td><td class="operate"><i class="rmv"></i></td></tr>';
+        return tr;
+    },
+    //获取股票代码信息
+    getCodeInfo:function(item){
+        var that = perTable;
+        var arrs = {"hu":"","shen":"","hk":"","us":""};
+        var numArr = {"hu":17,"shen":33,"hk":"hk","us":"usa"};
+        var m_url="",s_url="";
+        for(var i = 0 ; i < item.length; i++){
+            var cur = item[i].code;
+            var type = that.getCodeType(cur);
+            var flag = false;
+            for(var k in arrs){
+                if(type== k){
+                    flag = true;
+                    var val = arrs[k];
+                    val.length == 0? (arrs[k] += cur) : (arrs[k] = arrs[k]+"_"+cur);
+                }
+            }
+        }
+        for(var j in arrs){
+            var cur = arrs[j];
+            if(cur.length >0){
+                var head = numArr[j];
+                m_url.length == 0 ? ( m_url += head ) : ( m_url = m_url+","+ head );
+                s_url.length == 0 ? ( s_url += cur ) : ( s_url = s_url + "," + cur ) ;
+            }
+        }
+        return m_url+"/"+s_url;
+    },
+    getCodeType:function(item){
+        var reg = /^\d+$/;
+        var flag = reg.test(item);
+        if(flag && item.length==6){
+            var n1 = item.substring(0,1);
+            return n1 == 6 ? "hu" : "shen";
+        }else{
+            var n2 = item.substring(0,2);
+            return n2=="HK" ? "hk" : "us";
+        }
+    },
+    //删除自选股行
+    removeTr:function(){
+        var that = this;
+        $(".operate").delegate(".rmv","click",function(){
+            var cur = $(this);
+            var idx = cur.parents("tr").index();
+            if(!isLogined()){
+                ThsLogin.showLoginBox('http://news.10jqka.com.cn/yaowen/redir.shtml');
+            }else{
+                dialog.init({
+                    title:"删除自选股",
+                    subtitle:"确定删除该股票吗",
+                    banscroll:false,
+                    ok:function(){
+                        var flag = perTable.removekind(idx);
+                        return true;
+                    },
+                    cancel:function(){
+                    }
+                });
+            }
+        });
+    },
+    removekind:function(idx){
+        var that = perTable;
+        var table = that.container.find("tbody");
+        var code = $(".codename tbody").find("tr").eq(idx).find(".code").html().replace('<i>', '').replace('</i>', '');
+        var codeTag = code.substring(0, 2).toUpperCase();
+        if ('HK' != codeTag) {
+            code = codeTag == 'US' ? code.substring(3) : code.substring(2);
+        }
+        var geturl = "http://stock.10jqka.com.cn/self.php?stockcode="+code+"&op=del&";
+        $.ajax({url: geturl,dataType: "jsonp",jsonp:'jsonp',
+            success: function(json){
+                if (json) {
+                    var _sr = json.result;
+                    $.each(table,function(i,v){
+                        var cur = $(v);
+                        cur.find("tr").eq(idx).remove();
+                    });
+                    that.adjustNumber();
+                    return true;
+                }
+            },
+            error:function(xhr,status,error){
+                return false;
+            }
+        });
+    },
+    //删除后自动调整显示数量
+    adjustNumber:function(){
+        var that = this;
+        var curnum = $(".codename tbody").find("tr").length;
+        var snum = $(".codename tbody").find("tr").not(".hide").length;
+        if(curnum < 5){
+            setTimeout(function(){
+                that.getUrlInfo({
+                    num:5
+                }, true);
+            },700);
+        }else if(snum < 5){
+            setTimeout(function(){
+                that.showAllTr(5);
+            },700);
+        }
+    },
+    //右边滑动
+    rightSlide:function(){
+        var that = perTable.tabTable.eq(1);
+        var btn = $(".arr_r i");
+        btn.on("click",function(){
+            perTable.commonSlide(that,btn,$(".arr_l i"));
+        });
+    },
+    commonSlide:function(item,btn,arr){
+        if(item.hasClass("hide")){
+            item.removeClass("hide").siblings(".colums").addClass("hide");
+            btn.css({
+                opacity:0,
+                '*filter':"alpha(opacity=0)"
+            });
+            arr.css({
+                opacity:1,
+                '*filter':"alpha(opacity=100)"
+            });
+        }
+    },
+    //左边滑动
+    leftSlide:function(){
+        var that = perTable.tabTable.eq(0);
+        var btn = $(".arr_l i");
+        btn.on("click",function(){
+            perTable.commonSlide(that,btn,$(".arr_r i"));
+        });
+    },
+    //选择自选股种类
+    chooseType:function(){
+        var sel = $(".codename .type");
+        var selDown = $("#type_sel");
+        sel.on("click",function(){
+            var ths = $(this);
+            var left = ths.offset().left,
+                top = ths.offset().top+ths.height();
+            if(ths.attr("click-down")=="true"){
+                perTable.hideSel(selDown,ths);
+            }else{
+                perTable.showSel(selDown,ths,left,top);
+                perTable.clickSel(selDown);
+            }
+        });
+    },
+    hideSel:function(item,enter){
+        item.addClass("hide");
+        enter.removeClass("up").attr("click-down",false);
+    },
+    showSel:function(item,enter,left,top){
+        item.css({
+            left:left,
+            top:top
+        }).removeClass("hide");
+        enter.addClass("up").attr("click-down",true);
+    },
+    clickSel:function(item){
+        var sel = $(".codename .type");
+        var lis = item.find("li");
+        $.each(lis,function(i,v){
+            var cur = $(v);
+            cur.unbind("click");
+            cur.on("click",function(){
+                if(!cur.hasClass("active")){
+                    cur.addClass("active").siblings().removeClass("active");
+                    var type = cur.attr("code-id");
+                    //perTable.getUrlInfo(5,type);
+                    //perTable.hideSel(item,sel);
+                }
+            });
+        });
+    },
+    //点击表头排序
+    tableSort:function(){
+        var that = perTable;
+        var btn = that.container.find(".table_sort");
+        var arr = btn.find("i");
+        $.each(btn.find("span"),function(i,v){
+            var cur = $(v);
+            var sort = cur.parents(".table_sort");
+            cur.on("click",function(){
+                var table = cur.parents("table");
+                var trs = table.find("tbody tr").not(".hide").length;
+                var flag = trs <= that.secNum ? false : true;
+                if(that.allloadflag){
+                    that.allloadflag = false;
+                    that.getUrlInfo({
+                        callback:function(data){
+                            perTable.capTableTr(sort.index(),table,flag);
+                            that.headIcon(sort,btn,table);
+                        }
+                    }, true);
+                }else{
+                    perTable.capTableTr(sort.index(),table,flag);
+                    that.headIcon(sort,btn,table);
+                }
+            });
+        });
+    },
+    headIcon:function(item,btn,table){
+        var rem = item.attr("data-sort");
+        btn.removeAttr("data-sort").find("i").removeClass();
+        table.siblings("table").find("tbody").removeAttr("body-sort");
+        item.attr("data-sort",rem);
+        var cls = item.attr("data-sort") == "desc" ? "asc" : "desc" ;
+        item.attr("data-sort",cls);
+        item.find("i").addClass(cls);
+    },
+    //排序当前点击的表格
+    capTableTr:function(idx,box,flag){
+        var that = this;
+        var otable = box[0],
+            otody = otable.tBodies[0],
+            otr = otody.rows,
+            objArr = [],
+            tarr=[];
+        for(var i = 0 ; i < otr.length; i++){
+            tarr[i] = otr[i];
+            objArr[i] = {"tr":otr[i],"index":i};
+        }
+        if($(otody).attr("body-sort")== idx){
+            tarr.reverse();
+        }else{
+            tarr.sort(function(tr1,tr2){
+                var value1 = tr1.cells[idx].innerHTML;
+                var value2 = tr2.cells[idx].innerHTML;
+                if(!isNaN(value1) && !isNaN(value2)){
+                    return value2-value1;
+                }else{
+                    var val1 = perTable.getPureNum(value1);
+                    var val2 = perTable.getPureNum(value2);
+                    //return value1.localeCompare(value2);
+                    return val2-val1;
+                }
+            });
+        }
+        var fragment = document.createDocumentFragment();
+        for(var i = 0; i<tarr.length; i++){
+            fragment.appendChild(tarr[i]);
+        }
+        otody.appendChild(fragment);
+        //otody.sortCol = idx;
+        $(otody).attr("body-sort",idx);
+        that.sortSibTable(objArr,tarr,box,idx);
+        that.showSortedTr($(otody).parents("table"),flag);
+        that.resetColor();
+    },
+    showSortedTr:function(item,tag){
+        var that = this;
+        var box = $(".expand");
+        if(box){
+            var flag = box.find("a").attr("tr-expand");
+            if(flag == "true"){
+                that.expandTr(item);
+            }else{
+                var num = tag? that.secNum : 5;
+                that.hidePartTr(num);
+            }
+        }
+    },
+    //将比较列的内容转换为数字
+    getPureNum:function(val){
+        var value = val;
+        if(isNaN(val)){
+            var slicearr = val.split("(");
+            if(slicearr.length>1){
+                value = slicearr[1].split("%")[0];
+                if(value=="--"){
+                    value = -10000*10000*100000;
+                }
+            }else{
+                if(val == "--"){
+                    value = -10000*10000*100000;
+                }else{
+                    var ins;
+                    var pie = val.substring(val.length-1);
+                    var pie2 = val.substring(val.length-2,val.length-1);
+                    ins = pie=="万" ? 10000 : (pie2 == "万" ? 10000*10000*10000 : 10000*10000) ;
+                    value = parseFloat(val)*ins;
+                }
+            }
+        }
+        return value;
+    },
+    //根据当前排序表格的顺序来排序
+    sortSibTable:function(arr,curArr,box,idx){
+        var state = [];             //记录变化的行下标
+        for(var i = 0; i < curArr.length; i++){
+            var td = curArr[i].cells[idx];
+            //var code = $(td).find(".code").html();
+            var code = $(td).attr("stock-code");
+            for(var j = 0 ; j < arr.length ; j++){
+                var cur = arr[j]['tr'].cells[idx];
+                //var code2 = $(cur).find(".code").html();
+                var code2 = $(cur).attr("stock-code");
+                if(code == code2){
+                    state.push(j);
+                    break;
+                }
+            }
+        }
+        perTable.sortByArr(state,box);
+    },
+
+    sortByArr:function(arr,box){
+        var tables = perTable.container.find("table");
+        var index = box.index();
+        for(var i = 0 ; i < tables.length ; i++){
+            if(i != index){
+                var container = [];
+                var tbd = tables.eq(i).find("tbody");
+                var trs = tbd.find("tr");
+                for(var k= 0 ; k < arr.length ; k++ ){
+                    container.push(trs[arr[k]]);
+                }
+                tbd.find("tr").remove();
+                tbd.append($(container));
+            }
+        }
+    },
+    //获取去掉括号的涨跌幅值
+    getEqualVal:function(item){
+        var arr = item.substring(1,item.length);
+        return arr == '--' ? '0' : parseFloat(arr);
+    },
+    //自选股展开与收起
+    expandTable:function(){
+        var that = this;
+        $(".expand").delegate("a","click",function(){
+            var btn = $(this);
+            var loadall = $(".loadallcode");
+            if( !(btn.attr("tr-expand") == "true" ) ){
+                btn.attr("tr-expand",true).addClass("close");
+                that.curload<that.secNum ? perTable.getUrlInfo({num:that.secNum}) : perTable.showAllTr(that.secNum);
+                btn.html("收起");
+            }else{
+                btn.attr("tr-expand",false).removeClass("close");
+                perTable.hidePartTr(5);
+                btn.html("展开");
+            }
+        });
+    },
+    showAllTr:function(num){
+        var tbds = perTable.container.find("tbody");
+        if(num){
+            tbds.find("tr").addClass("hide");
+            $.each(tbds,function(i,v){
+                var trs = $(v).find("tr");
+                for(var i = 0 ; i <num; i++ ){
+                    var cur = trs.eq(i);
+                    if(cur){
+                        cur.removeClass("hide");
+                    }
+                }
+            });
+            perTable.expandTr(tbds.eq(0).parents("table"));
+        }else{
+            var hides = perTable.container.find("tr.hide");
+            hides.removeClass("hide");
+            if($(".loadallcode").length > 0){
+                $(".loadallcode").addClass("hide");
+            }
+        }
+    },
+    hidePartTr:function(num){
+        var tables = perTable.container.find("table");
+        $.each(tables,function(i,v){
+            var lis = $(v).find("tbody tr");
+            for(var i = num; i < lis.length; i++){
+                lis.eq(i).addClass("hide");
+            }
+            for ( var j = 0 ; j < num ; j++ ) {
+                lis.eq(j).removeClass("hide");
+            }
+        });
+        perTable.expandTr(tables.eq(0));
+    },
+
+    getZuhe:function(cur){
+        var zuhe= '';
+        var _that = cur.find(".code");
+        var il = _that.find("i");
+        if(il.length == 0){
+            var flag = _that.html().substring(2,3)=="6" ? "hs" : "sz";
+            zuhe = flag+"_"+_that.html().substring(2);
+        }else{
+            var code = _that.html().split(">")[2];
+            zuhe = il.html().toLowerCase()+"_"+il.html()+code;
+            if(il.html() == "USA"){
+                zuhe = il.html().toLowerCase() +"_"+code;
+            }
+        }
+        return zuhe;
+    },
+    //鼠标悬浮显示
+    hoverStockTable:function(){
+        var that = this;
+        var framebox = $("#stockframe");
+        // var hoverleaveTimer,hoverenterTimer,leaveTimer,frameenter;
+        var leaveTimer,enterTimer;
+        $(".codename").delegate(".graph","mouseenter",function(){
+            var cur = $(this);
+            if(leaveTimer) clearTimeout(leaveTimer);
+            if(enterTimer) clearTimeout(enterTimer);
+            var zuhe = that.getZuhe(cur);
+            var pos = that.getFramePosition(cur,framebox);
+            var offset = cur.offset();
+            enterTimer = setTimeout(function(){
+                var name = framebox.find(".stockname");
+                name.html(cur.find(".name").html());
+                that.hqFrame(zuhe);
+                framebox.css({
+                    top:pos.top,
+                    left:pos.left
+                }).removeClass("hide");
+                var triangle = framebox.find('.triangle');
+                if(framebox.find('.triangle').length == 0){
+                    framebox.append($("<div class='triangle'><div class='trangle_inner'></div></div>"));
+                }
+                framebox.find('.triangle').css({
+                    left:-14,
+                    top:offset.top - framebox.offset().top + cur.height()/2
+                });
+            },600);
+
+            cur.unbind("mouseleave");
+            cur.on("mouseleave", function () {
+                clearTimeout(enterTimer);
+                leaveTimer = setTimeout(function(){
+                    framebox.addClass("hide");
+                },600);
+            });
+        });
+
+        framebox.on("mouseenter",function(){
+            clearTimeout(leaveTimer);
+            enterTimer = setTimeout(function(){
+                $(this).removeClass("hide");
+            },600);
+        }).on("mouseleave",function(){
+            leaveTimer = setTimeout(function(){
+                framebox.addClass("hide");
+            },600);
+        });
+    },
+
+    hqFrame:function(zuhe){
+        var timer = setInterval(function() {
+            if (window.hx_stockc) {
+                clearInterval(timer);
+                var code = zuhe || '33_300033';
+                var showzjlx = false;
+                var options = {
+                    'element': $('#tcanvas').data({'fsconfig': {
+                        showzjlx: showzjlx,
+                        showGrid: false
+                    }, 'klconfig' : {
+                        showAve: true,
+                        showIndex: true,
+                        startData: '',
+                        endData: '',
+                        //开始绘制K线回调
+                        drawStartFn: function() {
+                            //console.log('start');
+                        },
+                        //结束绘制K线回调
+                        drawEndFn: function() {
+                            //console.log('end');
+                        }
+                    }}),
+                    'callFun':'showFs',
+                    'klConfigs':{
+                        //表示股票类型: 0 日k ，1 周k，2 月k；
+                        'stockType':'0',
+                        //表示复权: 0 不复权，1前复权，2后复权
+                        'rehabilitationType':'1',
+                        // 'betweenTwoDays':['20141225','20150602'],
+                        // 不需要指标就设置为空
+                        'indicator':'MACD'
+                    }
+
+                };
+                window.hx_stockc.showCanvasStock(options, code);
+                $('#new_stockInfo_con').show();
+            }
+        }, 0);
+
+        $('.canvas_tab .button').click(function() {
+            $(this).addClass('tab_current').siblings('li').removeClass('tab_current');
+        });
+    },
+
+    getFramePosition : function(item,box){
+        var final_t;
+        var fixheight = box.height();
+        var height = item.height();
+        var offset = item.offset();
+        var width = item.width();
+
+        //var aim_top = $(window).height()/2 - fixheight/ 2;
+        var aim_top = $(window).scrollTop()+$(window).height()/2- fixheight/ 2;
+        var aim_bottom = aim_top+fixheight;
+
+        //var judge_top = offset.top - $(window).scrollTop();
+        var judge_top = offset.top ;
+        if( aim_top < judge_top && aim_bottom > judge_top+height){
+            final_t = aim_top;
+        }else{
+            if ( aim_bottom <= judge_top+height ) {
+                var dis = judge_top - aim_bottom;
+                final_t = aim_top+dis+height;
+            }else {
+                var dis = judge_top - height;
+                final_t = dis > 1 ? dis : 1;
+            }
+        }
+        return {"top":final_t,"left":offset.left+width-12};
+
+    },
+    //fresh table
+    freshTable:function(){
+        var that = this;
+        var btn = $(".operate .fresh");
+        btn.on("click",function(){
+            var param = {
+                callback:function(){
+                    dialog.init({
+                        "subtitle":"刷新成功"
+                    });
+                }
+            };
+            that.freshload(param, true);
+        });
+    },
+    freshload:function(param, refresh){
+        var params;
+        var num = perTable.container.find(".operate tbody").find("tr").not(".hide").length;
+        if(num <= perTable.secNum){
+            this.allloadflag = true;
+        }else{
+            this.allloadflag = false;
+        }
+        var defaults = {
+            num:num
+        };
+        var params = $.extend(defaults,param);
+        $(".table_sort").removeAttr("data-sort");
+        perTable.getUrlInfo(params, refresh);
+    }
+};
+perTable.init();

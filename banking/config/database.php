@@ -60,7 +60,7 @@ return [
             'password'  => env('DB_PASSWORD', 'root'),
             'charset'   => 'utf8',
             'collation' => 'utf8_unicode_ci',
-            'prefix'    => 'stock_',
+            'prefix'    => '',
             'strict'    => false,
         ],
 

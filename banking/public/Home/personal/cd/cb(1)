@@ -1,0 +1,98 @@
+var THS={module:{},config:{},comment:{},souniu:{},storage:[]};THS.object=THS.object||{};THS.extend=THS.object.extend=function(a,b){for(var c in b)b.hasOwnProperty(c)&&(a[c]=b[c]);return a};
+THS.cookie={set:function(a,b,c,e,d){if(d){var g=new Date;g.setTime(g.getTime()+36E5*d)}document.cookie=a+"="+b+"; "+(d?"expires="+g.toGMTString()+"; ":"")+(e?"path="+e+"; ":"path=/; ")+(c?"domain="+c+";":"domain="+THS.config.DCCookieDomain+";");return!0},get:function(a){a=document.cookie.match(RegExp("(?:^|;+|\\s+)"+a+"=([^;]*)"));return!a?"":unescape(a[1])}};
+THS.css={updateClassName:function(a,b,c){if(!a||1!=a.nodeType)return"";var e=a.className,d,g;if(b&&"string"==typeof b||c&&"string"==typeof c){if("*"==b)e="";else{d=e.split(" ");for(var f=0,i=d.length,h,e={};f<i;++f)d[f]&&(e[d[f]]=!0);if(c){d=c.split(" ");i=d.length;for(f=0;f<i;++f)(h=d[f])&&!e[h]&&(g=e[h]=!0)}if(b){d=b.split(" ");i=d.length;for(f=0;f<i;f++)(h=d[f])&&e[h]&&(g=!0)&&delete e[h]}}if(g){d.length=0;for(var j in e)d.push(j);e=d.join(" ");a.className=e}}return e},hasClassName:function(a,
+b){return a&&(a=a.className)&&b&&(" "+a+" ").indexOf(" "+b+" ")+1},addClassName:function(a,b){return THS.css.updateClassName(a,null,b)},removeClassName:function(a,b){return THS.css.updateClassName(a,b)}};THS.dom={getById:function(a){return document.getElementById(a)},get:function(a){return"string"==typeof a?document.getElementById(a):a},show:function(a){var b;try{b=THS.dom.get(a),b.style.display=""}catch(c){}},hide:function(a){try{obj=THS.dom.get(a),obj.style.display="none"}catch(b){}}};
+THS.event={addEvent:function(a,b,c){a.attachEvent?a.attachEvent("on"+b,c):a.addEventListener(b,c,!1)},delEvent:function(a,b,c){a.detachEvent?a.detachEvent("on"+b,c):a.removeEventListener(b,c,!1)},preventDefault:function(a){a.preventDefault?a.preventDefault():a.returnValue=!1}};
+THS.element={PositionX:function(a){var b=0;if(a.offsetParent)for(;a.offsetParent;)b+=a.offsetLeft,a=a.offsetParent;else a.x&&(eft+=a.x);return b},PositionY:function(a){var b=0;if(a.offsetParent)for(;a.offsetParent;)b+=a.offsetTop,a=a.offsetParent;else a.y&&(b+=a.y);return b}};THS.time={microtime:function(){return(new Date).getTime()/1E3}};
+THS.user={_user:null,_userid:null,_username:null,getUser:function(){if(null==THS.user._user){var a=THS.user.getUserid(),b=THS.user.getUname();THS.user._user={userid:a,username:b}}return THS.user._user},getUname:function(){if(null==THS.user._username)THS.user._username=unescape(THS.cookie.get("escapename"));return THS.user._username},getUserid:function(){if(null==THS.user._userid&&(THS.user._userid=unescape(THS.cookie.get("userid")),!THS.user._userid))THS.user._userid=THS.user.getUaUserid();return THS.user._userid},
+getUaUserid:function(){var a=navigator.userAgent,b=a.indexOf("userid");return-1<b?(a=a.substr(b+7),a=a.split(" "),a[0]):""}};THS.flash={getMovie:function(a){return-1!=navigator.appName.indexOf("Microsoft")?window[a]:void 0!=document[a].length?document[a][1]:document[a]},setChart:function(a,b,c){try{THS.flash.getMovie(a).CallFunction('<invoke name="'+b+'" returntype="xml">'+__flash__argumentsToXML(c,0)+"</invoke>")}catch(e){setTimeout(function(){setChart(a,b,c)},1E3)}}};
+//@charset "gbk";
+THS.quote = {
+	_serverhost:'http://qd.10jqka.com.cn/quote.php?cate=real&type=$type&return=json&callback=showStockData&code=',
+	_flowserverhost:'http://pop.10jqka.com.cn/getcashflow.php?jsonp=showStockData&code=',
+	getServerhost:function(type){
+		if (!type) {
+			return this._serverhost.replace(/\$type/, 'stock');
+		}
+		return this._serverhost.replace(/\$type/, type);
+	},
+	getFlowServerHost:function(){
+		return this._flowserverhost;
+	},
+	getData:function (codes, action, type, loadingaction){
+		if (typeof(loadingaction) == 'object') {
+			loadingaction.render();
+		}
+		var geturl = this.getServerhost(type) + codes;
+		$.ajax({url: geturl,dataType: "jsonp",cache: true,jsonp: false,jsonpCallback: "showStockData",
+    		success: function(json){
+				if (json) {
+					if (typeof(action) == 'object') { 
+						return action.render(json);
+					} else {
+						return json;
+					}
+				}
+			}
+		});
+  	},
+  	getFlowData:function (codes, action){
+		codes = codes.split(',').join('|');
+		var geturl = this.getFlowServerHost() + codes;
+		$.ajax({url: geturl,dataType: "jsonp",cache: true,jsonp: false,jsonpCallback: "showStockData",
+    		success: function(json){
+				if (json) {
+					if (typeof(action) == 'object') { 
+						return action.render(json);
+					} else {
+						return json;
+					}
+				}
+			}
+		});
+  	},
+  	formatResult:function (json) {
+  		var result = new Array(), i=0;
+  		$.each(json.data, function(stockcode, item) {
+			if (item != null) {
+				if (item[10] > 0) {
+					var changeamount = Math.round((item[10]-item[6])*100)/100;
+					var perc = Math.round((changeamount/item[6])*10000)/100;
+					result[i++] = {code:stockcode,change:changeamount,nowprice:item[10],preprice:item[6],percent:perc};
+				} else  {
+					result[i++] = {code:stockcode,change:'0',nowprice:'-',preprice:'-',percent:'0'};
+				}
+			} else {
+				result[i++] = {code:stockcode,change:'0',nowprice:'-',preprice:'-',percent:'0'};
+			}
+		});
+  		$.each(json.info, function(stockcode, item) {
+			var stockname = item.name;
+			for (var i=0; i<result.length;i++) {
+				if (result[i].code == stockcode) {
+					result[i].name = item.name;
+				}
+			}
+		});
+  		return result;
+  	},
+  	formatStockFlowResult:function (json) {
+  		var result = new Array(), i=0;
+  		$.each(json.list, function(stockcode, item) {
+  			if (item != null) {
+				var inrmb = parseInt(item.inrmb);
+				var outrmb = parseInt(item.outrmb);
+				if (!(inrmb > 0)) 
+					inrmb = 0;
+				if (!(outrmb > 0)) 
+					outrmb = 0;
+				var diff = inrmb - outrmb;
+				inrmb = Math.round(inrmb/100)/100;
+				outrmb = Math.round(outrmb/100)/100;
+				diff = parseFloat(Math.round(diff/100)/100);
+				result[i++] = {code:item.code,name:item.name,percent:item.zdf,inrmb:inrmb,outrmb:outrmb, diff:diff};
+  			}
+		});
+  		return result.sort(function compare(a, b){return b.diff-a.diff});;
+  	}
+};
