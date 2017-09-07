@@ -1,0 +1,43 @@
+var init = {
+	avatarUrl:'',
+	'init' : function() {
+		this.userInit();
+		this.pageInit();
+	},
+	'headerInit' : function() {
+		var date = new Date(),
+			curHour = date.getHours(),
+			css = '',
+		    style = document.createElement('style');
+	    if (curHour > 6 && curHour < 18 ) {
+	    	//white
+			css = 'url(http://s.thsi.cn/css/ucenter/website/images/back.png) no-repeat center';
+		} else {
+			//black
+			css = 'url(http://s.thsi.cn/css/ucenter/website/images/night.png) no-repeat center';
+		}
+		$(".info_panel").css("background",css);
+	},
+	'userInit' : function() {
+		try {
+			var userId = snsNotify.Util.Cookies.get("userid");
+			if (!userId) {
+				window.location.href = 'http://upass.10jqka.com.cn/login?redir=HTTP_REFERER';
+			}
+			this.avatarUrl = 'http://space.10jqka.com.cn/avatar/' + (parseInt(userId)%10000) + '/' + userId + '.gif';
+		} catch (e) {}
+	},
+	'pageInit' : function() {
+		$(document).ready(function(){
+			//var curDate = ownDate.getMonth() + '-' + ownDate.getDate() + ownDate.getWeek();
+			//$('#curDate-box').html(curDate);
+			$(".person_pic i").css({
+				"background":"url("+init.avatarUrl+") no-repeat center"
+			});
+		});
+	}
+};
+init.init();
+$(function(){
+	init.headerInit();
+});

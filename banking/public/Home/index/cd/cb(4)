@@ -182,7 +182,7 @@ var loginIssue = {
 $(document).ready(function(){
     loginIssue.getInfo();
     if($('#J_username').length) {
-        var cls = '<link rel="stylesheet" type="text/css" href="http://s.thsi.cn/css/ucenter/website/subMenu.min.css">';
+        var cls = '<link rel="stylesheet" type="text/css" href="{{URL::asset('2.png')}}">';
         $("head").append(cls);
         $("#J_username").subMenu({
             container:'login-box',

@@ -1,0 +1,128 @@
+//@charset "gbk"
+var mine = {
+	list : new Array('stockcode','stockname','zxj', 'zde', 'zdf', 'zs', 'jk', 'zgj', 'zdj', 'jlr','cjl', 'cje', 'hsl'),
+	compare : {
+		'zxj' : 'r[i].zdf',
+		'zde' : 'r[i].zdf',
+		'zdf' : 'r[i].zdf',
+		'jk'  : 'r[i].jk-r[i].zs',
+		'zgj' : 'r[i].zgj-r[i].zs',
+		'zdj' : 'r[i].zdj-r[i].zs',
+		'jlr' : 'r[i].jlr'
+	},
+	/*c : new autoComplete({
+		//odbc: 		global.baseurl + "js/stockjson.js",
+		odbc:		"http://s.thsi.cn/js/ucenter/stockjson.js",
+		searchBox:	"addStock",
+		parentBox:	"wrapSel",
+		autoBox: 	"autocompleteMine",
+		callback:   "mine.addStock"
+	}),*/
+	init : function () {
+		$("body").on("click", ".j_delStock", function(){
+			var stockcode = $(this).parent("td").siblings("td").eq(0).text();
+			var stockname = $(this).parent("td").siblings("td").eq(1).text();
+			$("#delStock .warn_con p").html("确认删除股票<a target='_blank' href='http://stockpage.10jqka.com.cn/"+stockcode+"/'>"+stockcode+stockname+"</a>？");
+			//把弹窗定位到屏幕中间
+			$("#delStock").css('top',$(window).height()/2 + $(window).scrollTop() + 'px').show();
+			mine.delCon(stockcode, stockname);
+		});
+//		setTimeout("mine.update()", 10000);
+	},
+	addStock : function (stockcode) {
+		if (isLogined()) {
+			var geturl = "http://stock.10jqka.com.cn/self.php?stockcode="+stockcode+"&op=add&";
+			$.ajax({url: geturl,dataType: "jsonp",jsonp:'jsonp',
+				success: function(json){
+					if (json) {
+						var _sr = json.result;
+						if(_sr == "修改自选股成功"){
+							_sr = "加入自选股成功";
+							setTimeout(function(){
+								perTable.freshload({}, true);
+							},1000);
+						}else if(_sr == "该股票/基金/港股代码不存在"){
+							_sr = "该代码不存在";
+						}
+						dialog.init({
+							"subtitle":_sr
+						});
+					}
+				},
+				error:function(xhr,status,error){
+				}
+			});
+		} else {
+			ThsLogin.showLoginBox('http://news.10jqka.com.cn/yaowen/redir.shtml');
+		}
+		return false;
+	},
+	delCon : function (stockcode, stockname) {
+		TA.log({id:'qs_del', nj:1});
+		$("#delCon").one("click", function () {
+			$.ajax({
+				url : global.baseurl + "interface/data/delstock/",
+				type : "post",
+				data :  "stockcode="+stockcode,
+				dataType : "json",
+				success: function(msg){
+					$("#delStock").hide();
+					if (msg.success) {
+						$("#resBox .warn_con p").html("您已成功将股票<a target='_blank' href='http://stockpage.10jqka.com.cn/"+stockcode+"/'>"+stockcode+stockname+"</a>删除！")
+						$("#resBox").css('top',$(window).height()/2 + $(window).scrollTop() + 'px').show();
+						common.getList(global.page);
+					} else {
+						$("#resBox .warn_con p").html("删除股票<a target='_blank' href='http://stockpage.10jqka.com.cn/"+stockcode+"/'>"+stockcode+stockname+"</a>失败，请重试！")
+						$("#resBox").css('top',$(window).height()/2 + $(window).scrollTop() + 'px').show();
+					}
+					common.t = setTimeout("$('#resBox').hide();",5000);
+			   }
+			});
+		});
+	},
+	update : function () {
+		$.ajax({
+			url : global.baseurl+global.url,
+			data : {page:global.page,field:global.field,sort:global.sort},
+			type : "post",
+			dataType : 'json',
+			success : function (msg) {
+				if (msg) {
+					var r = msg.result;
+					var color,c;
+					for (var i in r) {
+						$a = $(".m_table tbody tr").eq(i);
+						for (var j=0;j<13;j++) {
+							if (r[i][mine.list[j]]!=$a.children("td").eq(j).text()) {
+								if (mine.compare[mine.list[j]]) {
+									c = mine.compare[mine.list[j]];
+									color = eval(c)>0?'c_red':(eval(c)<0?'c_green':'');
+									if ($a.children("td").eq(j).hasClass("cur")) {
+										color += " cur";
+									}
+									$a.children("td").eq(j).attr("class", color);	
+								}
+								if (mine.list[j] == 'stockcode') {
+									$a.children("td").eq(j).html('<a target="_blank" href="http://stockpage.10jqka.com.cn/'+r[i]['stockcode']+'/">'+r[i]['stockcode']+'</a>');
+								} else if( mine.list[j] == 'stockname') {
+									$a.children("td").eq(j).html('<a target="_blank" href="http://stockpage.10jqka.com.cn/'+r[i]['stockcode']+'/">'+r[i]['stockname']+'</a>');
+								} else {
+									$a.children("td").eq(j).text(r[i][mine.list[j]]);
+								}	
+							}
+						}
+					}
+					$(".update_time").html("更新时间："+ msg.rtime);
+				}
+				return false;
+			}
+		})
+	}
+};
+$(function(){
+	mine.init();
+	//mine.c.ini();
+	common.toggleCategory();
+	common.closeAlertBox();
+	common.triggerAddStockEvent();
+});

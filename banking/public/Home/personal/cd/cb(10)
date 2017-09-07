@@ -1,0 +1,543 @@
+//@charset "utf-8";
+/**
+ * 键盘精灵
+ * author: huaxiaolong
+ * date: 2012-05-16 13:07
+ * update : 2013-07-29 16:46
+ * 修复容器的定位功能
+ * 新增容器的宽度自适应功能
+ * 新增配置参数stock=股票搜索,fund=基金搜索,extra=社区等搜索
+ * update : 2013-08-02 11:21
+ * 新增地址跳转方式参数window,new=打开新窗口,self=当前页面
+ * 新增跳转地址格式urlPattern
+ * 新增字符串格式化方法$.format
+ * 新增回车发送统计代码statid
+ * update : 2013-11-19 12:16
+ * 输入内容间隔一定时间才触发事件
+ * 保存历史记录减少请求次数
+ * update : 2013-12-26 18:21
+ * 代码重构，可配置指数类型
+ * 支持点击，回车方法绑定，支持提交搜索按钮方法绑定
+ * update : 2014-07-02
+ * 增加港股支持，修改了可配置参数
+ * update : 2015-6-29
+ * 增加美股支持
+ * update : 2015-10-22
+ * 增加新三板支持
+ * update : 2016-01-11
+ * 增加剔除新三板的股票
+ */
+(function($) {
+    $.format = function(source, params) {
+        if (arguments.length == 1) return function() {
+            var args = $.makeArray(arguments);
+            args.unshift(source);
+            return $.format.apply(this, args);
+        };
+        if (arguments.length > 2 && params.constructor != Array) {
+            params = $.makeArray(arguments).slice(1);
+        }
+        if (params.constructor != Array) {
+            params = [params];
+        }
+        $.each(params, function(i, n) {
+            source = source.replace(new RegExp("\\{" + i + "\\}", "g"), n);
+        });
+        return source;
+    };
+    $.fn.autocomplete = function(options) {
+        var opt = {
+            isSpeech : false,
+            container : [],
+            data : [],
+            valueList : [],
+            boxList : [],
+            type : [],
+            extra : true,
+            text : null,
+            count : 5,
+            index : 0,
+            input : null,
+            window : 'new',
+            urlPattern : null,
+            displaycode : true
+        };
+        var typeList = [
+            'fund',
+            'stock',
+            'company',
+            'field',
+            'concept',
+            'area',
+            'hk',
+            'yyb',
+            'xxgn',
+            'usa',
+            'xsb',
+            'stocknoxsb'
+        ];
+        var typeInfo = {
+           'fund' : {
+                name : '\u57FA\u91D1',
+                mark : 0
+            },
+            'stock' : {
+                name : '\u80A1\u7968',
+                mark : 1
+            },
+            'company' : {
+                name : '基金公司',
+                mark : 2
+            },
+            'field' : {
+                name : '行业',
+                mark : 3
+            },
+            'concept' : {
+                name : '概念',
+                mark : 4
+            },
+            'area' : {
+                name : '地域',
+                mark : 5
+            },
+            'hk' : {
+                name : '港股',
+                mark : 6
+            },
+            'yyb' : {
+                name : '营业部',
+                mark : 7
+            },
+            'yyb' : {
+                name : '新兴概念',
+                mark : 8
+            },
+            'usa' : {
+                name : '美股',
+                mark : 9
+            },
+            'xsb' : {
+                name : '新三板',
+                mark : 10
+            },
+            'stocknoxsb' : {
+                name : '股票',
+                mark : 11
+            }
+        };
+        var prefix = 'autocomplete';
+
+        var init = function(self) {
+            var defaultType = {
+                stock: true,
+                stocknoxsb : false,
+                hk: true,
+                fund: true,
+                usa:true
+            };
+            for (var a in options) {
+                if (options[a] != null) {
+                    if (typeInfo[a]) {
+                        defaultType[a] = options[a];
+                    } else {
+                        opt[a] = options[a]
+                    }
+                }
+            }
+            for (var a in defaultType) {
+                if (defaultType[a]) {
+                    opt.type.push(a);
+                }
+            }
+            opt.input = self;
+            $("#" + prefix + "_" + self.id).remove();
+            opt.container[self.id] = $("<div>").addClass("autocomplete").attr("id", prefix + "_" + self.id).hide().css({"z-index":parseInt(new Date().getTime() / 1000),"position":"absolute"}).appendTo($("body"));
+            $(self).attr("autocomplete", "off");
+            var $container = opt.container[self.id];
+            if (opt.width) {
+                $container.width(opt.width);
+            } else {
+/*                $container.outerWidth(Math.max($container.width("").outerWidth() + 1, $(self).outerWidth()));*/
+                $container.outerWidth($(self).outerWidth());
+            }
+            if (opt.func) {
+                $.each(opt.func, function(i, func){
+                    if (typeof(func) == 'object') {
+                        func.bindFunc($container, self)
+                    }
+                })
+            }
+            if (self.webkitSpeech != undefined) {
+                opt.isSpeech = true
+            }
+        };
+
+        var clean = function() {
+            var self = opt.input;
+            opt.container[self.id].hide();
+        };
+
+        var setIndex = function(index) {
+            var self = opt.input;
+            var $div = opt.container[self.id];
+            var total = $div.find('dd').size() + $div.find('dt').size();
+            if (index < 1 || index > total) {
+                return;
+            }
+            opt.index = index;
+            /*var $target = $div.find(".auto-item[did='" + index + "']");
+            $div.find('dd,dt').removeClass('selected');*/
+            var $target = $div.find("dd");
+            $target.removeClass('selected');
+            $target.eq(index-1).addClass("selected");
+            $div.show();
+        };
+
+        var talog = function() {
+            if (opt.statid && window.TA) {
+                TA.log({
+                    id : opt.statid,
+                    nj : 1,
+                    _sid : 'img_' + opt.statid
+                });
+            }
+        };
+
+        var redirect = function(url) {
+            if (opt.window == 'self') {
+                window.location.href = url;
+            }
+            if (opt.window == 'new') {
+                window.open(url);
+            }
+        };
+
+        var addStock = function(code){
+            var stock;
+            var net = /^\d{4,5}$/;
+            var flag = net.test(code);
+            if(flag){
+                stock = "HK"+code.substring(1);
+            }else{
+               stock = code;
+            }
+            eval(opt.callback+"('"+stock+"')");
+            clean();
+        };
+
+        var submit = function() {
+            var text = opt.text,
+            encodeText = encodeURIComponent(text),
+            self = opt.input,
+            index = opt.index,
+            defaultText = self.defaultValue,
+            $div = opt.container[self.id];
+            var $target = $div.find(".auto-item[did='" + index + "']");
+            talog();
+            if (!opt.stype || !opt.scode) {
+                //解析index
+                if ($target) {
+                    opt.stype = $target.parent().attr('data-type');
+                    if ($target[0].nodeName.toUpperCase() == 'DD') {
+                        opt.scode = $target.attr('data-code');
+                        opt.spy = $target.attr('data-py');
+                    }
+                }
+            }
+            if (opt.clickFunc) {
+                $.each(opt.clickFunc, function(i, func){
+                    if (typeof(func) == 'object' && opt.scode) {
+                        func.run(opt.scode, opt)
+                    }
+                });
+                return
+            }
+            if (text == '' || text == defaultText) {
+                redirect('http://search.10jqka.com.cn');
+                return
+            }
+            if (!opt.stype) {
+                return
+            }
+            switch (opt.stype) {
+                case 'blog' :
+                    redirect("http://search.10jqka.com.cn/search?tid=blog&qs=box_ths&w=" + encodeText);
+                    break;
+                case 'forum' :
+                    redirect("http://search.10jqka.com.cn/search?tid=forum&qs=box_ths&w=" + encodeText);
+                    break;
+                case 'news' :
+                    redirect("http://search.10jqka.com.cn/search?tid=news&qs=box_ths&w=" + encodeText);
+                    break;
+                case 'stock' :
+                case 'xsb' :
+                case 'stocknoxsb' :
+                    if (opt.scode) {
+                        var url = "http://stockpage.10jqka.com.cn/" + opt.scode + "/";
+                        if (opt.urlPattern && opt.urlPattern['stock']) {
+                            url = $.format(opt.urlPattern['stock'], opt.scode)
+                        }
+                        //redirect(url)
+                        addStock(opt.scode);
+                    }
+                    break;
+                case 'fund' :
+                    if (opt.scode) {
+                        var url = "http://fund.10jqka.com.cn/" + opt.scode + "/";
+                        if (opt.urlPattern && opt.urlPattern['fund']) {
+                            url = $.format(opt.urlPattern['fund'], opt.scode)
+                        }
+                        redirect(url)
+                    }
+                    break;
+                case 'hk' :
+                    if (opt.scode) {
+                        var url = "http://stockpage.10jqka.com.cn/HK" + opt.scode.substr(1,4) + "/";
+                        if (opt.urlPattern && opt.urlPattern['hk']) {
+                            url = $.format(opt.urlPattern['hk'], opt.scode)
+                        }
+                        addStock(opt.scode)
+                    }
+                    break;
+                case 'company' :
+                    if (opt.scode) {
+                        var url = "http://fund.10jqka.com.cn/company/" + opt.scode + "/";
+                        if (opt.urlPattern && opt.urlPattern['company']) {
+                            url = $.format(opt.urlPattern['company'], opt.scode)
+                        }
+                        redirect(url)
+                    }
+                    break;
+                case 'field' :
+                    if (opt.spy) {
+                        var url = "http://q.10jqka.com.cn/stock/thshy/" + opt.spy + "/";
+                        if (opt.urlPattern && opt.urlPattern['field']) {
+                            url = $.format(opt.urlPattern['field'], opt.spy)
+                        }
+                        redirect(url)
+                    }
+                    break;
+                case 'concept' :
+                    if (opt.spy) {
+                        var url = "http://q.10jqka.com.cn/stock/gn/" + opt.spy + "/";
+                        if (opt.urlPattern && opt.urlPattern['concept']) {
+                            url = $.format(opt.urlPattern['concept'], opt.spy)
+                        }
+                        redirect(url)
+                    }
+                    break;
+                case 'area' :
+                    if (opt.spy) {
+                        var url = "http://q.10jqka.com.cn/stock/dy/" + opt.spy + "/";
+                        if (opt.urlPattern && opt.urlPattern['area']) {
+                            url = $.format(opt.urlPattern['area'], opt.spy)
+                        }
+                        redirect(url)
+                    }
+                    break;
+                case 'usa' :
+                    if (opt.scode) {
+                        var url = "http://stockpage.10jqka.com.cn/" + opt.scode + "/";
+                        if (opt.urlPattern && opt.urlPattern['usa']) {
+                            url = $.format(opt.urlPattern['usa'], opt.scode)
+                        }
+                        addStock(opt.scode);
+                    }
+                    break;
+                default:
+                    break;
+            }
+            opt.stype = null;
+            opt.scode = null;
+            opt.spy = null;
+        };
+
+        var enter = function () {
+            var self = opt.input,
+                $div = opt.container[self.id],
+                $target = $div.find('dd.selected').eq(0);
+            opt.stype = $target.parent().attr('data-type');
+            opt.scode = null;
+            opt.spy = null;
+            if ($target[0].nodeName.toUpperCase() == 'DD') {
+                opt.scode = $target.attr('data-code');
+                opt.spy = $target.attr('data-py');
+            }
+            submit()
+        };
+
+        var bindEvent = function() {
+            var self = opt.input,
+                $div = opt.container[self.id];
+            $div.find('.auto-item').each(function(index, el) {
+                $(this).attr('did', index + 1);
+            });
+            $div.find('dd').each(function(index, el) {
+                $(this).mouseover(function(event) {
+                    $div.find('dd,dt').removeClass('selected');
+                    $(this).addClass('selected')
+                });
+            });
+            $div.find('dt').each(function(index, el) {
+                $(this).mouseover(function(event) {
+                    $div.find('dd,dt').removeClass('selected');
+                    $(this).addClass('selected')
+                });
+            });
+            $div.find('dd').each(function(index, el) {
+                $(this).click(function(event) {
+                    opt.stype = $(event.target).parent().attr('data-type');
+                    opt.scode = null;
+                    opt.spy = null;
+                    if (event.target.nodeName.toUpperCase() == 'DD') {
+                        opt.scode = $(event.target).attr('data-code');
+                        opt.spy = $(event.target).attr('data-py');
+                    }
+                    submit()
+                });
+            });
+        };
+
+        var render = function(data) {
+            var self = opt.input,
+                type = opt.type,
+                $div = opt.container[self.id],
+                $box = [];
+            for (var i = 0; i < type.length; i++) {
+               $box[type[i]] = $("<dl data-type='" + type[i] + "'><dt class='auto-item'>搜\"<strong></strong>\"相关" + typeInfo[type[i]].name + "</dt></dl>");
+            }
+            $.each(data, function(keyData, items) {
+                if (items instanceof Array) {
+                    opt.data[keyData] = [];
+                    $.each(items, function(key, item) {
+                        opt.data[keyData][key] = item.split("||");
+                        var codeInfo = opt.data[keyData][key][1].split(" "),
+                            mark = opt.data[keyData][key][0];
+                        if (typeof (codeInfo[3]) != 'undefined') {
+                            $("<dd class='auto-item' data-code='" + codeInfo[0] + "' data-py='" + codeInfo[2] + "'></dd>").append("<span>" + (opt.displaycode ? codeInfo[0] : '') + "</span>" + codeInfo[1]).appendTo($box[typeList[mark]]);
+                        } else {
+                            $("<dd class='auto-item' data-code='" + codeInfo[0] + "'></dd>").append("<span>" + (opt.displaycode ? codeInfo[0] : '') + "</span>" + codeInfo[1]).appendTo($box[typeList[mark]]);
+                        }
+                    });
+                } else {
+                    opt.data[keyData] = items.split("||");
+                    var codeInfo = opt.data[keyData][1].split(" "),
+                        mark = opt.data[keyData][0];
+                    if (typeof (codeInfo[3]) != 'undefined') {
+                        $("<dd class='auto-item' data-code='" + codeInfo[0] + "' data-py='" + codeInfo[2] + "'></dd>").append("<span>" + (opt.displaycode ? codeInfo[0] : '') + "</span>" + codeInfo[1]).appendTo($box[typeList[mark]]);
+                    } else {
+                        $("<dd class='auto-item' data-code='" + codeInfo[0] + "'></dd>").append("<span>" + (opt.displaycode ? codeInfo[0] : '') + "</span>" + codeInfo[1]).appendTo($box[typeList[mark]]);
+                    }
+                }
+            });
+            $div.empty();
+            for (a in $box) {
+                $div.append($box[a])
+            }
+            if (opt.extra) {
+                $("<dl data-type='news'><dt class='auto-item'>搜\"<strong></strong>\"相关新闻&gt;&gt;</dt></dl>").appendTo($div);
+                $("<dl data-type='forum'><dt class='auto-item'>搜\"<strong></strong>\"相关论坛&gt;&gt;</dt></dl>").appendTo($div);
+                $("<dl data-type='blog'><dt class='auto-item'>搜\"<strong></strong>\"相关博客&gt;&gt;</dt></dl>").appendTo($div);
+            }
+            $div.find('strong').each(function() {
+                $(this).html(opt.text)
+            });
+            bindEvent();
+            setIndex(1)
+        };
+
+        var show = function() {
+            var self = opt.input;
+            var newtype = opt.type;
+            opt.data = [];
+            if (opt.isSpeech) {
+                opt.text = self.value
+            }
+            if (opt.valueList[opt.text]) {
+                render(opt.valueList[opt.text])
+            } else {
+                if (opt.type == 1) {
+                    newtype = 0;//类型为1的时候，当做0全量获取数据
+                }
+                $.ajax({
+                    url: 'http://news.10jqka.com.cn/public/index_keyboard_' + encodeURIComponent(opt.text) + '_' + newtype + '_' + opt.count + '_jsonp.html',
+                    type: 'GET',
+                    dataType: 'jsonp',
+                    jsonpCallback: 'jsonp',
+                    jsonp: false,
+                    cache: true
+                }).done(function(json) {
+                    opt.valueList[opt.text] = json;
+                    render(json)
+                })
+            }
+        };
+
+        this.each(function() {
+            var self = this,
+                requestTimer = 0,
+                focus = false;
+            init(self);
+            if (opt.isSpeech) {
+                self.onwebkitspeechchange = function() {
+                    show()
+                }
+            }
+            $(self).focus(function() {
+                //只定位一次
+                if (!focus) {
+                    /*opt.container[self.id].position($.extend({
+                        of: $(self)
+                    }, {
+                        my: "left top",
+                        at: "left bottom",
+                        collision: "none"
+                    }));*/
+                    var t_p = $(self).offset().top+$(self).height();
+                    var t_l = $(self).offset().left;
+                    $(opt.container[self.id]).css({
+                        left:t_l,
+                        top:t_p
+                    });
+                }
+                focus = true;
+            }).keyup(function(event) {
+                opt.text = self.value;
+                var length = opt.text.length,
+                    keycode = event.keyCode,
+                    index = opt.index;
+                if (keycode > 40 || keycode == 8 || keycode == 32) {
+                    if (length > 0 && length < 8) {
+                        if (requestTimer == 0) {
+                            //延迟100毫秒请求接口
+                            requestTimer = setTimeout(function() {
+                                show()
+                            }, 100)
+                        }
+                    } else {
+                        clean()
+                    }
+                } else if (index !== null) {
+                    if (keycode == 38) {
+                        setIndex(index - 1)
+                    } else if (keycode == 40) {
+                        setIndex(index + 1)
+                    } else if (keycode == 27) {
+                        setIndex(0)
+                    } else if (keycode == 13) {
+                        enter()
+                    }
+                }
+                event.preventDefault()
+            }).keydown(function(event) {
+                clearTimeout(requestTimer);
+                requestTimer = 0
+            }).blur(function(event) {
+                setTimeout(function() {
+                    clean()
+                }, 200)
+            });
+        })
+    }
+})(jQuery);

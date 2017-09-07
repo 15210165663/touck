@@ -1,0 +1,139 @@
+//charset "gbk";
+(function(window,document,$){
+    "use strict";
+    var methods = {
+        posflag:true,
+        init : function(item){
+            return this.each(function(){
+                var that = $(this);
+                var box;
+                methods.createDom(item,function(btr){
+                    var cls = btr.attr("id");
+                    box = $("body").find("#"+cls);
+                });
+                if(item && item.fresh){//判断是否有更新
+                    methods.roundHover(that);
+                }
+                //methods.getAimPos(that,box);
+                methods.operate(that,box);
+                methods.itemClick(box);
+                methods.hoverListen();
+                methods.userNameClick();
+            });
+        },
+        userNameClick : function(){
+            $('#J_username').click(function(){
+                if (typeof(TA) != 'undefined') {
+                    TA.log({id:'grxlk_djid',fid:'grxlk_djall',nj:1});
+                }
+            });
+        },
+        hoverListen: function(){
+            window.personTagsHover = 0;
+            $('.person_infos').hover(function(){
+                window.personTagsHoverTime = new Date().getTime();
+            },function(){
+                var curTime = new Date().getTime();
+                if (curTime - window.personTagsHoverTime > 1000) {
+                    TA.log({id:'grxlk_yr',nj:1});
+                }
+            });
+        },
+        itemClick:function(item){
+            var lis = item.find("li");
+            $.each(lis,function(i,v){
+                var link = $(v).find("a");
+                link.on("click",function(){
+                    if(link.hasClass("freshIcon")){
+                        link.removeClass("freshIcon");
+                    }
+                });
+            });
+        },
+        roundHover : function (item) {
+            var dis = item.height()-28;
+            /*if(item.height() > 40){
+             item.addClass("gat");
+             }*/
+            if(dis > 0 ){
+                item.css("background-position","right "+dis+"px");
+            }
+            item.on( "mouseenter",function() {
+                if(item.hasClass("freshIcon")){
+                    item.removeClass("freshIcon");
+                }
+            });
+        },
+        //定位目标位置
+        getAimPos : function( item,box ) {
+            var l;
+            var screen_w = $(window).width(),
+                i_w = item.width(),
+                offset = item.offset(),
+                wdt = box.width();
+            var dis = screen_w - offset.left -i_w/2 -wdt/3*2 ;
+            if ( dis >= 0 ){
+                l = offset.left + i_w/2 - wdt/3 ;
+            } else {
+                l = offset.left + i_w/2 - wdt/3 + dis ;
+            }
+            box.css({
+                "left" : l ,
+                //"top" : offset.top + item.height()
+                "top" : item.height()
+            });
+            methods.judgeFix(item,box);
+        },
+        judgeFix :function(item,box){
+            var fixnode1 = item.parents(".topheader");
+            var fixnode2 = item.parents(".topHeader-log");
+            var fixflag = fixnode1.length > 0 || fixnode2.length > 0 ? true : false;
+            //if(fixflag && fixnode.css("position") === "fixed" ){
+            if(fixflag ){
+                box.css("position","fixed");
+            }
+        },
+        //悬浮显示操作
+        operate : function( item, box ) {
+            methods.hideAndShow(item,box);
+            methods.hideAndShow(box);
+        },
+        hideAndShow : function(item,box){
+            if(!box) { box = item; }
+            item.on('mouseenter',function() {
+                if(methods.posflag){
+                    methods.posflag = false;
+                    methods.getAimPos(item,box);
+                }
+                box.removeClass("hide");
+            }).on('mouseleave',function() {
+                box.addClass("hide");
+            });
+        },
+        //渲染节点
+        createDom : function(flag,item) {
+            var rod = "";
+            if(flag && flag.fresh) {rod = "freshIcon";}
+            var btr = '<div class="person_infos hide" id="person_infos"><div class="triangle"></div><ul>'+
+                '<li class="s_choice"><a href="http://stock.10jqka.com.cn/my/" target="_blank" class="'+rod+'" onclick="TA.log({\'id\':\'grxlk_djzx\',\'fid\':\'grxlk_djall\',\'nj\':1});">我的自选</a></li>'+
+                '<li class="s_famouse"><a href="http://stock.10jqka.com.cn/my/focus.shtml" target="_blank" onclick="TA.log({\'id\':\'grxlk_djmj\',\'fid\':\'grxlk_djall\',\'nj\':1});">我的名家</a></li>'+
+                '<li class="s_round"><a href="http://t.10jqka.com.cn/newcircle/user/joinedCircle/" target="_blank" onclick="TA.log({\'id\':\'grxlk_djqz\',\'fid\':\'grxlk_djall\',\'nj\':1});">加入的圈子</a></li>'+
+                '<li class="b_methods"><a href="http://t.10jqka.com.cn/newcircle/user/myBook/" target="_blank" onclick="TA.log({\'id\':\'grxlk_djcl\',\'fid\':\'grxlk_djall\',\'nj\':1});">订阅的策略</a></li>'+
+                '<li class="c_center"><a href="http://stock.10jqka.com.cn/my/collection.shtml" target="_blank" onclick="TA.log({\'id\':\'grxlk_djsc\',\'fid\':\'grxlk_djall\',\'nj\':1});">收藏中心</a></li>'+
+                '<li class="s_news"><a href="http://t.10jqka.com.cn/newcircle/user/chatComment/" target="_blank" onclick="TA.log({\'id\':\'grxlk_djxx\',\'fid\':\'grxlk_djall\',\'nj\':1});">我的消息</a></li>'+
+                '</ul></div>';
+            $("body").append($(btr));
+            item($(btr));
+        }
+    };
+    $.fn.subMenu = function(params){
+        return methods.init.apply(this,arguments);
+    };
+    $(document).ready(function(){
+        if($('#J_username').length) {
+            $("#J_username").subMenu({
+                fresh:true
+            });
+        }
+    });
+})(window,document,jQuery);
