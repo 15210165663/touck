@@ -55,7 +55,7 @@
                     <iframe allowtransparency="true" scrolling="no" src="http://tianqi.2345.com/plugin/widget/index.htm?s=2&amp;z=2&amp;t=1&amp;v=2&amp;d=1&amp;bd=0&amp;k=000000&amp;f=ffffff&amp;q=0&amp;e=0&amp;a=1&amp;c=54511&amp;w=255&amp;h=64&amp;align=center" width="255" height="64" frameborder="0"></iframe>
                 </div>
             </div>
-            <p>成功的投资在本质上是内在的独立自主的结果。</p>
+            <p>成功的投资在本质上是内在的独立自主的结果。.</p>
         </div>
     </div>
 </div>
