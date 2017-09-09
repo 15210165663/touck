@@ -182,46 +182,6 @@ if (bIsIpad || bIsIphoneOs || bIsMidp || bIsUc7 || bIsUc || bIsAndroid || bIsCE 
     var ad_obj = null
 }
 </script>
-<div class="header-wrap">
-	<div class="header clearfix">
-		<h1 class="circle-logo">
-			<a href="http://t.10jqka.com.cn" data-statid="c_c_logo">同花顺-圈子</a>
-		</h1>
-		<ul class="nav ffyh">
-			<li><a class="fz14 c777" href="http://t.10jqka.com.cn" data-statid="c_c_shouye">首页</a></li>
-			<li><a data-login="login" data-redir="http://t.10jqka.com.cn/newcircle/feed/myLikes/" class="fz14 c777" href="http://t.10jqka.com.cn/newcircle/feed/myLikes/" data-statid="c_c_view">我的关注</a></li>
-			<li><a class="fz14 c777" href="http://t.10jqka.com.cn/view/" data-statid="c_c_view">精选文章</a></li>
-			<li><a class="fz14 c777" href="http://t.10jqka.com.cn/newcircle/" data-statid="c_c_zb">直播</a></li>
-			<li><a class="fz14 c777" href="http://t.10jqka.com.cn/trace/" data-statid="c_c_tcl">T策略</a></li>
-			<!-- <li><a class="fz14 c777" href="" data-statid="">视角</a></li> -->
-			<li><a class="fz14 c777" href="//t.10jqka.com.cn/rights/" data-statid="c_c_weiquan">维权</a></li>
-			<li><a class="fz14 c777" href="//t.10jqka.com.cn/guba/1A0001/" data-statid="c_c_guba">论股堂</a></li>
-					</ul>
-		<div class="search-input">
-			<div class="search-input-wrap">
-				<div class="png search-boder-left"></div>
-		        <div class="icon-header header-input">
-		            <input class="c444" data-statid="c_c_search" id="J_SearchInput1" placeholder="搜个股圈/主题圈/高手/策略名" type="text" autocomplete="off">
-		        </div>
-		        <div class="png search-boder-right"></div>
-            </div>
-        </div>
-        <ul class="nav-right fr ffyh">
-        	<li>
-        		<a class="nav-mirror" href="javascript:;">
-        			<i class="icon-main-mirror db icon-main"></i>
-        		</a>
-        	</li>
-        	<li class="show-active">
-        		<a href="//t.10jqka.com.cn/app/" data-statid="c_c_gsjlapp"><i class="icon-main icon-main-phone"></i><span class="navright-text redtext">APP下载</span></a>
-        	</li>
-        	<!-- <li>
-        		<a href="//t.10jqka.com.cn/newcircle/debate/index/?pid=70610846" data-statid="c_c_hyjlb" title="签约会员中心"><i class="icon-main icon-main-member"></i><span class="navright-text">签约会员中心</span></a>
-        	</li> -->
-        </ul>
-	</div>
-    
-</div>
 
 
 <!-- 股市教练App下载二维码2 -->
@@ -443,8 +403,7 @@ if (bIsIpad || bIsIphoneOs || bIsMidp || bIsUc7 || bIsUc || bIsAndroid || bIsCE 
 					</div>
 					<div class="fs16 c444 ffyh block-title por">
 						实名认证
-						<a href="http://upass.10jqka.com.cn/identify?platform=pc&redir=http://t.10jqka.com.cn/newcircle/user/profile/" class="bluelink fz12 ml20">点击认证</a>
-																		
+						<a href="http://upass.10jqka.com.cn/identify?platform=pc&redir=http://t.10jqka.com.cn/newcircle/user/profile/" class="bluelink fz12 ml20">点击认证</a>										
 					</div>
 					<div class="homepage-realname">
 						<ul class="pt0">
