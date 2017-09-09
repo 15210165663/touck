@@ -55,7 +55,7 @@
                     <iframe allowtransparency="true" scrolling="no" src="http://tianqi.2345.com/plugin/widget/index.htm?s=2&amp;z=2&amp;t=1&amp;v=2&amp;d=1&amp;bd=0&amp;k=000000&amp;f=ffffff&amp;q=0&amp;e=0&amp;a=1&amp;c=54511&amp;w=255&amp;h=64&amp;align=center" width="255" height="64" frameborder="0"></iframe>
                 </div>
             </div>
-            <p>成功的投资在本质上是内在的独立自主的结果。.</p>
+            <p>成功的投资在本质上是内在的独立自主的结果。</p>
         </div>
     </div>
 </div>
@@ -66,6 +66,7 @@
     <li class="nav-btn person_sel active" data-id="zixuan" data-title="我的自选"><a href="#">我的自选</a></li>
     <li class="nav-btn pconcern" data-id="focus" data-title="我的名家"><a href="#">我的名家</a></li>
     <li class="nav-btn receive" data-id="collection" data-title="我的收藏"><a href="#">我的收藏</a></li>
+    <li class="nav-btn hqcenter" data-id="collection" data-title="申请大师"><a href="{{url('project/Apply')}}">申请大师</a></li>
 </ul>
 <script>
 var url = window.location.href,
@@ -390,7 +391,6 @@ if (!active) {
                 <span class="nomore">没有更多</span>
                 <span class="my-fund" onclick="window.open(&#39;http://fund.10jqka.com.cn/zixuan/index.html&#39;)">自选基金</span>      
             </p>
-            <div class="loading hide" style="display: block;"><img src="./img/loading.gif"></div>
         </div>
 
 
