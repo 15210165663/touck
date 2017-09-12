@@ -40,75 +40,156 @@
 <div class="main-wrap">
 <div class="w750 main-border">
 <div class="homepage-wrap">
-	<div class="homepage-self">
+<div class="homepage-self">
+	<form action="{{url('project/applyadd')}}" method="post" enctype="multipart/form-data">
 		<div class="fs16 c444 ffyh block-title por">
-			大师名称：&nbsp;&nbsp;&nbsp;<input type="text" name="" id="">		
+			大师名称：&nbsp;&nbsp;&nbsp;<input type="text" class="name" name="Master_name">
+			<span class="span"></span>
 		</div>
 		<div class="homepage-realname">
 			<ul class="pt0">
 			</ul>
 		</div>
 		<div class="fs16 c444 ffyh block-title por">
-			工作年份：&nbsp;&nbsp;&nbsp;<input type="text" name="" id="">		
+			工作年份：&nbsp;&nbsp;&nbsp;<input type="text" class="suffer" name="Master_suffer">
+			<span class="span1"></span>
 		</div>
 		<div class="homepage-realname">
 			<ul class="pt0">
 			</ul>
 		</div>
 		<div class="fs16 c444 ffyh block-title por">
-			大师手机号：<input type="text" name="" id="">		
+			大师手机号：<input type="text" class="phone" name="Master_phone">		
+			<span class="span2"></span>
 		</div>
 		<div class="homepage-realname">
 			<ul class="pt0">
 			</ul>
 		</div>
 		<div class="fs16 c444 ffyh block-title por">
-			大师照片：&nbsp;&nbsp;&nbsp;<input type="text" name="" id="">		
+			大师照片：&nbsp;&nbsp;&nbsp;<input type="file" name="Master_url">
 		</div>
 		<div class="homepage-realname">
 			<ul class="pt0">
 			</ul>
 		</div>
 		<div class="fs16 c444 ffyh block-title por">
-			身份证：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="" id="">		
+			身份证号码：<input type="text" class="prove" name="Master_prove">		
+			<span class="span3"></span>
 		</div>
 		<div class="homepage-realname">
 			<ul class="pt0">
 			</ul>
 		</div>
 		<div class="fs16 c444 ffyh block-title por">
-			大师邮箱：&nbsp;&nbsp;&nbsp;<input type="text" name="" id="">		
+			大师邮箱：&nbsp;&nbsp;&nbsp;<input type="text" class="email" name="Master_email">
+			<span class="span4"></span>
 		</div>
 		<div class="homepage-realname">
 			<ul class="pt0">
 			</ul>
 		</div>
 		<div class="fs16 c444 ffyh block-title por">
-			大师介绍：&nbsp;&nbsp;&nbsp;<input type="text" name="" id="">		
+			大师级别：&nbsp;&nbsp;&nbsp;<select name="master_jib" id="">
+				<option value="">请选择大师级别</option>
+				<option value="1">初级</option>
+				<option value="2">中级</option>
+				<option value="3">高级</option>
+			</select>
 		</div>
 		<div class="homepage-realname">
 			<ul class="pt0">
 			</ul>
 		</div>
 		<div class="fs16 c444 ffyh block-title por">
-			大师级别：&nbsp;&nbsp;&nbsp;<input type="text" name="" id="">		
+			大师资格证：<input type="file" name="Prove_url">		
 		</div>
 		<div class="homepage-realname">
 			<ul class="pt0">
 			</ul>
 		</div>
 		<div class="fs16 c444 ffyh block-title por">
-			大师资格证：<input type="text" name="" id="">		
+			大师介绍：&nbsp;&nbsp;&nbsp;<input type="text" class="text" name="Master_text">
 		</div>
 		<div class="homepage-realname">
 			<ul class="pt0">
 			</ul>
 		</div>
-		<input type="button" style="background:red;width:150px;height:35px;cursor:pointer;" class="btn btn-success" value="点击申请">
+		<input type="submit" class="sub" style="background:red;width:150px;height:35px;cursor:pointer;display:none;" class="btn btn-success;" value="点击申请">
+		<span class="tishi"><font color="red">友情提示：必须通过所有验证规则才可以显示此按钮</font></span>
+	</form>
 	</div>
 </div>
 </div>
 </div>
+<script>
+	$(function(){
+		$(".name").blur(function(){
+			var name = $(this).val();
+			var reg= /[\u4E00-\u9FA5\uF900-\uFA2D]/;
+			if(reg.test(name)){
+				$(".span").html('&nbsp;<font color="green">昵称可用！</font>');
+				return true;
+			}else{
+				$(".span").html('&nbsp;<font color="red">请输入中文昵称！</font>');
+				return false;
+			}
+			window.getSelection().removeAllRanges();
+		})
+		$(".suffer").blur(function(){
+			var name = $(this).val();
+			var num = name.length;
+			if(name != '' & num <= '2' && name <= '50'){
+				$(".span1").html('&nbsp;<font color="green">正确！</font>');
+				return true;
+			}else{
+				$(".span1").html('&nbsp;<font color="red">请正确输入工龄！</font>');
+				return false;
+			}
+			window.getSelection().removeAllRanges();
+		})
+		$(".prove").blur(function(){
+			var name = $(this).val();
+			var reg = /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d)$)/;
+			if(reg.test(name)){
+				$(".span3").html('&nbsp;<font color="green">正确！</font>');
+				return true;
+			}else{
+				$(".span3").html('&nbsp;<font color="red">身份证输入不合法！</font>');
+				return false;
+			}
+			window.getSelection().removeAllRanges();
+		})
+		$(".phone").blur(function(){
+			var name = $(this).val();
+			var reg = /^1[34578]\d{9}$/;
+			if(reg.test(name)){
+				$(".span2").html('&nbsp;<font color="green">正确！</font>');
+				return true;
+			}else{
+				$(".span2").html('&nbsp;<font color="red">手机号码有误，请重填</font>');
+				return false;
+			}
+			window.getSelection().removeAllRanges();
+		})
+		$(".email").blur(function(){
+			var name = $(this).val();
+			var reg = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
+			if(reg.test(name)){
+				$(".span4").html('&nbsp;<font color="green">正确！</font>');
+				return true;
+			}else{
+				$(".span4").html('&nbsp;<font color="red">请输入有效的E_mail</font>');
+				return false;
+			}
+			window.getSelection().removeAllRanges();
+		})
+		$(".text").blur(function(){
+			$(".sub").show();
+			$(".tishi").hide();
+		})
+	})
+</script>
 <script type="text/javascript" src="//s.thsi.cn/cb?js/home/;ths_core.min.js"></script>
 <script src="//s.thsi.cn/cb?sns/js/lib/ueditor/;ueditor.config.min.js;ueditor.all.require.min.js&20170522"></script>
 </body>
