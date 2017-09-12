@@ -22,25 +22,19 @@
             <a href="{{url('project/meigu')}}" class="cur">美国市场</a>
             <a href="http://q.10jqka.com.cn/global/">财务分析</a>
             <a href="http://q.10jqka.com.cn/gn/" data-type="bk">资金流向</a>
-            <a href="http://q.10jqka.com.cn/xsb/" target="_blank">炒股大师</a>
+            <a href="{{url('project/master')}}">炒股大师</a>
         </div>
-
-
-        <div class="login-box hide">
-
-            <a href="http://upass.10jqka.com.cn/login?redir=HTTP_REFERER" target="_blank">登录</a>
-
-        </div>
-
-        <div class="logined_box fr">
-
-            <a href="http://stock.10jqka.com.cn/my/" target="_blank" id="J_username" style="background-position: right 36px;">co_412608137</a>
-
-            <span>|</span>
-
-            <a href="javascript:;" id="header_logined_out" target="_self" class="homeloginout">退出</a>
-
-        </div>
+        @if($name != '')
+            <div class="login-box he">
+               <a href="{{url('project/personal')}}"  style="background-position: right 36px;">{{$name}}</a> 
+               | 
+               <a href="{{url('project/del_login')}}">退出</a>
+            </div>
+        @else
+            <div class="login-box he">
+                <a href="{{url('project/login')}}">登录</a>
+            </div>
+        @endif
 
     </div>
 
@@ -168,7 +162,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                    <?php foreach($data as $k=>$v){?>
+                    <?php foreach($list['data'] as $k=>$v){?>
                         <?php if($v['diff']<0){?>
                         <tr style="color:green">
                         <?php }else{?>
@@ -203,7 +197,7 @@
                     <p>美股要闻</p><span class="more"><a href="{{url('project/meigu_newpage')}}?type=mgyw" target="_blank">更多&gt;&gt;</a></span>
                 </div>
                 <ul>
-                    @foreach($yw as $v)
+                    @foreach($list['yw'] as $v)
                     <li>
                         <a href="{{url('project/meigu_new')}}?link={{$v['link']}}&type=mgyw" target="_blank" title="{{$v['title']}}">
                             @if(mb_strlen($v['title'])>17)
@@ -223,7 +217,7 @@
                     <p>中概股新闻</p><span class="more"><a href="{{url('project/meigu_newpage')}}?type=zggng" target="_blank">更多&gt;&gt;</a></span>
                 </div>
                 <ul>
-                    @foreach($gng as $v)
+                    @foreach($list['gng'] as $v)
                     <li>
                         <a href="{{url('project/meigu_new')}}?link={{$v['link']}}&type=zggng" target="_blank" title="{{$v['title']}}">
                             @if(mb_strlen($v['title'])>17)
@@ -243,7 +237,7 @@
                     <p>研究分析</p><span class="more"><a href="{{url('project/meigu_newpage')}}?type=yjfx" target="_blank">更多&gt;&gt;</a></span>
                 </div>
                 <ul>
-                    @foreach($yjfx as $v)
+                    @foreach($list['yjfx'] as $v)
                     <li>
                         <a href="{{url('project/meigu_new')}}?link={{$v['link']}}&type=yjfx" target="_blank" title="{{$v['title']}}">
                             @if(mb_strlen($v['title'])>17)

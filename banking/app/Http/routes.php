@@ -61,9 +61,6 @@ Route::get('/', function () {
 
 
 // });
-
-
-
 /**
  * 前台
  */
@@ -97,6 +94,14 @@ Route::group(['middleware'=>'web','namespace' => 'Home'], function(){
         Route::match(['get','post'], '/info','FileController@info');
         //上传文件
         Route::match(['get','post'], '/ajax','loginController@ajax');
+        //炒股大师
+        Route::match(['get','post'], '/master','MasterController@master');
+        //炒股大师点赞
+        Route::match(['get','post'], '/dianz','MasterController@dianz');
+        //炒股大师关注
+        Route::match(['get','post'], '/guan','MasterController@guan');
+        //炒股大师详情页
+        Route::match(['get','post'], '/mastershow','MasterController@mastershow');
 
     });
 });

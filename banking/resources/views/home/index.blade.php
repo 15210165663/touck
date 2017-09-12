@@ -12,11 +12,10 @@
     <link rel="stylesheet" href="./cd/cb(1)">  
     <link rel="stylesheet" type="text/css" href="./css/subMenu.min.css"></head>
 <body class="reversedColor">
-<div class="header fixed">
+<div class="header fixed" style="background:#000; color:#FFF">
     <div class="w1200">
         <div class="hdlogo">
-            <a target="_blank" class="site-logo" href="http://www.10jqka.com.cn/"> <img src="./img/logo-ths.jpg" title="同花顺" alt="同花顺"></a>
-            <h1><a target="_blank" title="炒股中心" class="sub-logo">炒股中心</a></h1>
+            <a target="_blank" class="site-logo" href="http://www.10jqka.com.cn/"> <img src="{{url('Home/2.png')}}" title="同花顺" alt="同花顺" style="width:200px;height: 50px;"></a>
         </div>
 
         <div class="nav">
@@ -24,7 +23,7 @@
             <a href="{{url('project/meigu')}}" >美国市场</a>
             <a href="http://q.10jqka.com.cn/global/">财务分析</a>
             <a href="http://q.10jqka.com.cn/gn/" data-type="bk">资金流向</a>
-            <a href="http://q.10jqka.com.cn/xsb/" target="_blank">炒股大师</a>
+            <a href="{{url('project/master')}}">炒股大师</a>
         </div>
         @if($name != '')
             <div class="login-box he">

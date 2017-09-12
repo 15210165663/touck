@@ -11,7 +11,7 @@ class MeiguController extends CommonController
 	 * 美股页面
 	 * @return [type] [description]
 	 */
-	public function index()
+	public function index(Request $request)
 	{
 		$data = $this->curl_contents('http://web.juhe.cn:8080/finance/stock/usaall?page=&type=&key=869fc55897a8cfa99ad7029e86459972');
 		$datas = json_decode($data,true);
@@ -23,7 +23,10 @@ class MeiguController extends CommonController
 		$list['gng'] = $this->meigu_index('http://usstock.jrj.com.cn/list/zggng.shtml');
 		//研究分析
 		$list['yjfx'] = $this->meigu_index('http://usstock.jrj.com.cn/list/yjfx.shtml');
-		return view('home.meigu',$list);
+		// echo '<pre>';
+		// print_r($list);die;
+		$name = $request->session()->get('Username');
+		return view('home.meigu',['list'=>$list,'name'=>$name]);
 	}
 	//美股市场首页显示新闻
 	public function meigu_index($url)
