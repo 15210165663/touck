@@ -43,7 +43,12 @@ class LoginController extends Controller
         if($pwd != $pwd1){
             return redirect('project/register')->with('hasExists','两次密码不相等请重新输入');
         }
+<<<<<<< .merge_file_a08436
     	$list = DB::insert('insert into stock_users(name,email,password) values(?,?,?)',[$name,$email,$pwd]);
+=======
+        $pwds = md5($pwd);
+    	$list = DB::insert('insert into stock_users(user_name,email,user_password) values(?,?,?)',[$name,$email,$pwds]);
+>>>>>>> .merge_file_a08312
     	if($list){
     		return redirect('project/login');
     	}else{
@@ -55,6 +60,7 @@ class LoginController extends Controller
     {
         $name = $login->input('Username');
         $pwd = $login->input('Password');
+<<<<<<< .merge_file_a08436
         $brand = $login->check;
         // echo $login->session()->get('hang');
         $lists = Users::where(['name'=>$name,'password'=>$pwd])->first()->toArray();
@@ -62,9 +68,16 @@ class LoginController extends Controller
         // echo "<pre>";
         // print_r($lists);die;
         if($name == $lists['name'] && $pwd == $lists['password']){
+=======
+        $pwds = md5($pwd);
+        $brand = $login->check;
+        $lists = DB::select("select * from stock_users where user_name = '$name' and user_password = '$pwds'");
+        $lists1 = json_decode(json_encode($lists),true);
+        if($lists1){
+>>>>>>> .merge_file_a08312
             $login->session()->put('Password',$pwd);
             $login->session()->put('Username',$name);
-	    	$login->session()->put('user_id',$lists['id']);
+	    	$login->session()->put('user_id',$lists1[0]['id']);
 			if($brand != ' '){
                 $login->session()->put('pwd',$pwd);
                 $login->session()->put('name',$name);
@@ -90,33 +103,60 @@ class LoginController extends Controller
 			$oppo[$k] = $v['img_url'];
 		}
 		$name = $request->session()->get('Username');
-    	return view('home.personal',['name'=>$name,'lists'=>$lists[0]]);
+        $opp = DB::select('select * from stock_zixuan');
+        $ppo = json_decode(json_encode($opp),true);
+        // foreach ($ppo as $k => $v) {
+        //     $vivo[$k] = $v;
+        // }
+        // echo "<pre>";
+        // print_r($ppo);die;
+    	return view('home.personal',['name'=>$name,'lists'=>$lists[0],'ppo'=>$ppo]);
     }
     //个人资料修改
     public function ge(Request $request)
     {
 		$id = $request->session()->get('user_id');
+<<<<<<< .merge_file_a08436
 		$nam = DB::select("select name from stock_users where id = $id");
+=======
+		$nam = DB::select("select user_name,center from stock_users where id = $id");
+>>>>>>> .merge_file_a08312
 		$name = json_decode(json_encode($nam),true);
-		$list = DB::select('select * from stock_image  ORDER BY img_id DESC limit 1');
+		$list = DB::select('select * from stock_image ORDER BY img_id DESC limit 1');
 		$lists = json_decode(json_encode($list),true);
 		foreach ($lists as $k => $v) {
 			$oppo[$k] = $v['img_url'];
 		}
 		foreach ($name as $k => $v) {
+<<<<<<< .merge_file_a08436
 			$name2 = $v['name'];
+=======
+            $name2 = $v['user_name'];
+			$center = $v['center'];
+>>>>>>> .merge_file_a08312
 		}
-    	return view('home.ge',['name'=>$name2,'lists'=>$lists[0]]);
+    	return view('home.ge',['name'=>$name2,'lists'=>$lists[0],'center'=>$center]);
     }
     public function ajax(Request $request)
     {
     	$name = $request->name;
     	$id = $request->session()->get('user_id');
-    	$upda = DB::update("update users set users_name = '$name' where id = '$id'");
+    	$upda = DB::update("update stock_users set user_name = '$name' where id = '$id'");
     	if($upda){
     		echo "1";
     	}else{
     		echo "0";
     	}
+    }
+    public function center(Request $request)
+    {
+        $name = $request->name;
+        $id = $request->session()->get('user_id');
+        $upda = DB::update("update stock_users set center = '$name' where id = '$id'");
+        if($upda){
+            echo "1";
+        }else{
+            echo "0";
+        }
     }
 }

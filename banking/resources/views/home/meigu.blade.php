@@ -237,11 +237,11 @@
                     <tbody>
                     <?php foreach($data as $k=>$v){?>
                         <?php if($v['diff']<0){?>
-                        <tr style="color:green">
+                            <tr style="color:green">
                         <?php }else{?>
-                        <tr style="color:red">
+                            <tr style="color:red">
                         <?php }?>
-                            <td><a href="{{url('project/firmshow')}}?code=<php echo $v['symbol']>"><?php echo $v['cname']?></a></td>
+                            <td><a href="{{url('project/firmshow')}}?code=<?php echo $v['symbol']?>"><?php echo $v['cname']?></a></td>
                             <td><?php echo $v['category']?></td>
                             <td><?php echo $v['symbol']?></td>
                             <td><?php echo $v['price']?></td>
@@ -254,14 +254,31 @@
                             <td><?php echo round($v['volume']/10000,2)?>万</td>
                             <td><?php echo round($v['mktcap']/100000000,2)?>亿</td>
                             <td><?php echo $v['market']?></td>
-                            <td><a class="j_addStock" title="加自选" href="javascript:void(0);"><img src="./img/plus_logo.png" alt=""></a></td>
+                            <td><a class="j_addStock" title="加自选" href="javascript:void(0);" data-name="<?=$v['symbol']?>"><img src="./img/plus_logo.png" alt=""></a></td>
                         </tr>  
                     <?php }?>                 
                     </tbody>
                 </table>
             </div>
         </div>
-        
+<script src="{{URL::asset('jq.js')}}"></script>
+<script>
+    $(function(){
+        $(".j_addStock").click(function(){
+            var name = $(this).data('name');
+            $.ajax({
+                type:"get",
+                url:"{{url('project/zixuan')}}",
+                data:{'name':name},
+                success:function(data){
+                    if(data == 1){
+                        alert('加入自选成功！')
+                    }
+                }
+            })
+        })
+    })
+</script>  
         
             <div class="cf">
                 <div class="news_l ">
@@ -351,7 +368,6 @@
             </dl>
         </div>
     </div>  
-
 <!-- 频道资讯 结束-->
 
 
