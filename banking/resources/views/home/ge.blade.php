@@ -99,6 +99,7 @@ var SEAJSMAP={"myProtoMain.js":"211d34","common.js":"8c38d9","chatCommentMain.js
 <script>var loginUserJson	= {"userid":"412608137","nickname":"co_**1373n3"};</script>
 <link rel="stylesheet" href="//s.thsi.cn/sns/css/circle/5.0.1/header-a25f0a.css">
 <script src="//s.thsi.cn/sns/sea-modules/gallery/autoComplete/newAutoComplete.js?20160524"></script>
+<<<<<<< HEAD
 <<<<<<< .merge_file_a08428
 <<<<<<< .merge_file_a06804
 <script type="text/javascript">
@@ -201,6 +202,8 @@ if (bIsIpad || bIsIphoneOs || bIsMidp || bIsUc7 || bIsUc || bIsAndroid || bIsCE 
 >>>>>>> .merge_file_a08720
 =======
 >>>>>>> .merge_file_a08660
+=======
+>>>>>>> b80eec717329b0de8cc59117df04ff846889d1ea
 
 
 <!-- 股市教练app推荐 -->
@@ -300,6 +303,7 @@ if (bIsIpad || bIsIphoneOs || bIsMidp || bIsUc7 || bIsUc || bIsAndroid || bIsCE 
 					</div>
 					<div class="fs16 c444 ffyh block-title por">
 						实名认证
+<<<<<<< HEAD
 <<<<<<< .merge_file_a08428
 <<<<<<< .merge_file_a06804
 						<a href="http://upass.10jqka.com.cn/identify?platform=pc&redir=http://t.10jqka.com.cn/newcircle/user/profile/" class="bluelink fz12 ml20">点击认证</a>										
@@ -309,6 +313,9 @@ if (bIsIpad || bIsIphoneOs || bIsMidp || bIsUc7 || bIsUc || bIsAndroid || bIsCE 
 =======
 					<a href="http://upass.10jqka.com.cn/identify?platform=pc&redir=http://t.10jqka.com.cn/newcircle/user/profile/" class="bluelink fz12 ml20">点击认证</a>	
 >>>>>>> .merge_file_a08660
+=======
+					<a href="http://upass.10jqka.com.cn/identify?platform=pc&redir=http://t.10jqka.com.cn/newcircle/user/profile/" class="bluelink fz12 ml20">点击认证</a>	
+>>>>>>> b80eec717329b0de8cc59117df04ff846889d1ea
 					</div>
 					<div class="homepage-realname">
 						<ul class="pt0">

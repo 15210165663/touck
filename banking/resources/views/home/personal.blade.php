@@ -387,6 +387,7 @@ if (!active) {
                 @endforeach
                 </tbody>
             </table>
+<<<<<<< HEAD
 <<<<<<< .merge_file_a08312
 <<<<<<< .merge_file_a09064
 
@@ -398,6 +399,8 @@ if (!active) {
 >>>>>>> .merge_file_a02460
 =======
 >>>>>>> .merge_file_a05664
+=======
+>>>>>>> b80eec717329b0de8cc59117df04ff846889d1ea
         </div>
 <script>
     $(function(){
