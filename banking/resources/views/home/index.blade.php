@@ -24,7 +24,7 @@
             <a href="{{url('project/meigu')}}" >美国市场</a>
             <a href="http://q.10jqka.com.cn/global/">财务分析</a>
             <a href="http://q.10jqka.com.cn/gn/" data-type="bk">资金流向</a>
-            <a href="http://q.10jqka.com.cn/xsb/" target="_blank">炒股大师</a>
+            <a href="{{url('project/master')}}" class="cur">炒股大师</a>
         </div>
         @if($name != '')
             <div class="login-box he">
