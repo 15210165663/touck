@@ -41,7 +41,7 @@
     <script>
     $(function(){
         var flow=[];
-        for(var i=0;i<7;i++){
+        for(var i=0;i<6;i++){
             flow.push(Math.floor(Math.random()*(30+((i%12)*5)))+10);
         }
         
@@ -68,11 +68,11 @@
                 color:'#f1f1f1'
             },
             footnote : {
-                text:'数据来源：来自于聚合数据',
+                text:'',
                 color:'#f1f1f1'
             },
             width : 800,
-            height : 400,
+            height : 350,
             shadow:true,
             shadow_color : '#20262f',
             shadow_blur : 4,
@@ -177,42 +177,122 @@
                 <div id="info2">
                     <div class="info2-top">
                         <ul>
-                            <li class="now">分时图</li>
-                            <li>5日图</li>
-                            <li>日k图</li>
-                            <li>周k图</li>
-                            <li>月k图</li>
+                            <li class="now">涨幅比</li>
+                    
                         </ul>
                     </div>
+                    <script type="text/javascript">
+                    $(function(){
+                        var pv=[],ip=[],t;
+                        for(var i=0;i<61;i++){
+                            t = Math.floor(Math.random()*(30+((i%12)*5)))+10;
+                            pv.push(t);
+                            t = Math.floor(t*0.5);
+                            t = t-Math.floor((Math.random()*t)/2);
+                            ip.push(t);
+                        }
+                        
+                        var data = [
+                                    {
+                                        name : 'PV',
+                                        value:pv,
+                                        color:'#0d8ecf',
+                                        line_width:2
+                                    },
+                                    {
+                                        name : 'IP',
+                                        value:ip,
+                                        color:'#ef7707',
+                                        line_width:2
+                                    }
+                                 ];
+                         
+                        var labels = ["2012-08-01","2012-08-02","2012-08-03","2012-08-04","2012-08-05","2012-08-06"];
+                        var line = new iChart.LineBasic2D({
+                            render : 'canvasDiv1',
+                            data: data,
+                            align:'center',
+                            title : '美股的跌涨幅比',
+                            subtitle : '美国股票涨浮比例',
+                            footnote : '',
+                            width : 650,
+                            height : 350,
+                            tip:{
+                                enable:true,
+                                shadow:true
+                            },
+                            legend : {
+                                enable : true,
+                                row:1,//设置在一行上显示，与column配合使用
+                                column : 'max',
+                                valign:'top',
+                                sign:'bar',
+                                background_color:null,//设置透明背景
+                                offsetx:-80,//设置x轴偏移，满足位置需要
+                                border : true
+                            },
+                            crosshair:{
+                                enable:true,
+                                line_color:'#62bce9'
+                            },
+                            sub_option : {
+                                label:false,
+                                point_hollow : false
+                            },
+                            coordinate:{
+                                width:500,
+                                height:240,
+                                axis:{
+                                    color:'#9f9f9f',
+                                    width:[0,0,2,2]
+                                },
+                                grids:{
+                                    vertical:{
+                                        way:'share_alike',
+                                        value:5
+                                    }
+                                },
+                                scale:[{
+                                     position:'left',   
+                                     start_scale:0,
+                                     end_scale:100,
+                                     scale_space:100,
+                                     scale_size:2,
+                                     scale_color:'#9f9f9f'
+                                },{
+                                     position:'bottom', 
+                                     labels:labels
+                                }]
+                            }
+                        });
+                    
+                    //开始画图
+                    line.draw();
+                });
+                
+            </script>
+
                     <div class="info2-centent">
+
+<div id='canvasDiv1'></div>
+
                         <img src="" alt="">
+
                     </div>
                 </div>
             </div>
             <div id="content2">
                 <div class="brief">
                     <ul>
-                        <li class="now">公司介绍</li>
-                        <li>基本信息</li>
-                        <li>企业数据</li>
-                        <li>股价涨跌</li>
-                        <li>公司荣誉</li>
-                        <li>公司新闻</li>
+                        <li class="now">美股详情</li>
+                       
                     </ul>
                 </div>
                 <div class="brief2">
                     <div class="brief2-text">
                         <div id='canvasDiv'></div>
 
-                    <div class='ichartjs_info'>
-        <span class='ichartjs_author'>writen by <a title="示例的贡献者" href="mailto:taylor@ichartjs.com">taylor</a></span>
-        <span class='ichartjs_btn' onmouseover="this.style.color='#2f99ff'" onmouseout="this.style.color='#0b2946'" onclick="window.top.viewCode(document);">View Code</span>
-        <div class='ichartjs_sm'>说明</div>
-        <div class='ichartjs_details'>
-            这是一个很常见的的折线图示例，示例展示了网站最近5天的流量统计。每隔2个小时统计一次。通过统计图可以看出每天晚上18：00-22：00访问量较大。
-        </div>
-        <span class='ichartjs_sm'>备注：</span>
-    </div>
+                 
                     </div>
                 </div>
             </div>
@@ -300,16 +380,19 @@
 <script>
     $(function(){
         /*切换颜色*/
-        $("#red_check").click(function(){
+        $("#red_check").click(function(){   
+
           $("body").addClass("reversedColor");
+
 
         });
 
         $("#green_check").click(function(){
+
             $("body").removeClass("reversedColor");
 
         });
-        
+
     }); 
 </script>
 

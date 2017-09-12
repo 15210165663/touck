@@ -9,7 +9,20 @@
     <meta name="description" content="核新同花顺网络信息股份有限公司。">
     <link rel="stylesheet" href="./cd/cb">
     <link rel="stylesheet" href="./cd/cb(1)">  
-    <link rel="stylesheet" type="text/css" href="./css/subMenu.min.css"></head>
+            <script type="text/javascript" src="./tu/ichart.1.2.min.js"></script>
+        <link rel="stylesheet" href="./tu/demo.css" type="text/css"/>
+    <link rel="stylesheet" type="text/css" href="./css/subMenu.min.css">
+    <style>
+    #canvasDiv1{
+        margin-left: 50px; 
+        float:left;
+    }
+    .right_pic{
+        margin-right: 150px;
+        margin-top: 50px;
+    }
+    </style>
+    </head>
 <body class="reversedColor">
 <div class="header fixed">
     <div class="w1200">
@@ -48,50 +61,109 @@
         </div>
 
         <div class="mt30 clearfix">
-            <div class="flash-single flash-small new_wh">
-                <div class="data-line" style="margin-bottom: 15px;">
-                    <strong class="off"><a href="http://q.10jqka.com.cn/usa##">道琼斯工业平均指数(DJI)</a></strong>
-                    <br>
-                    <span class="red">21987.56</span>
-                    <span class="red">0.18%</span>
-                    <span class="red">39.46</span>
-                </div>
-                <svg version="1.1" style="font-family:&quot;Lucida Grande&quot;, &quot;Lucida Sans Unicode&quot;, Arial, Helvetica, sans-serif;font-size:12px;font-family:Arial;" xmlns="http://www.w3.org/2000/svg" width="282" height="120">
-                <path fill="none" d="M 0 55.5 L 282 55.5" stroke="#D75442" stroke-width="1" stroke-dasharray="3,1" zIndex="4">
-                </path>
-                </svg>
-            </div>
+          <input type='text' class="xin" value="{{$add_list}}">
+             <script type="text/javascript">
+                    $(function(){
+                        var price = $('.xin').val();
+                        var arr=[]
+                        arr=price.split(",");
+                        // alert(arr)
+                        var pv=[],ip=[],t;
+                        for(var i=0;i<arr.length;i++){
+                            // t = Math.floor();
+                            pv.push(arr[i]);
+                          
+                        }
+                        
+                        var data = [
+                                    {
+                                        name : '%',
+                                        value:pv,
+                                        color:'#0d8ecf',
+                                        line_width:2
+                                    },
+                                    {
+                                        name : 'IP',
+                                        value:ip,
+                                        color:'#ef7707',
+                                        line_width:2
+                                    }
+                                 ];
+                         
+                        // var labels = ["0-0.5","0.5-1","1-2.5","2.5-5","5-10","10-15","15-20","大于20"];
+                       
+                        var labels = ["10-15","16-20","大于20","5-10","2.5-5","2-2.5","0.5-1","0-0.5"];
 
-            <div class="flash-single flash-small flash-sec new_wh">
-                <div class="data-line" style="margin-bottom: 15px;">
-                    <strong class="off"><a href="http://q.10jqka.com.cn/usa##">
-                    纳斯达克综合指数(IXIC)</a></strong>
-                    <br>
-                    <span class="red">6435.33</span>
-                    <span class="red">0.10%</span>
-                    <span class="red">6.67</span>
-                </div>
+                        var line = new iChart.LineBasic2D({
+                            render : 'canvasDiv1',
+                            data: data,
+                            align:'center',
+                            title : '美股的跌涨幅比',
+                            subtitle : '由于比例较小不足1%,默认为0',
+                            footnote : '',
+                            width : 660,
+                            height : 350,
+                            tip:{
+                                enable:true,
+                                shadow:true
+                            },
+                            legend : {
+                                enable : true,
+                                row:1,//设置在一行上显示，与column配合使用
+                                column : 'max',
+                                valign:'top',
+                                sign:'bar',
+                                background_color:null,//设置透明背景
+                                offsetx:-80,//设置x轴偏移，满足位置需要
+                                border : true
+                            },
+                            crosshair:{
+                                enable:true,
+                                line_color:'#62bce9'
+                            },
+                            sub_option : {
+                                label:false,
+                                point_hollow : false
+                            },
+                            coordinate:{
+                                width:500,
+                                height:240,
+                                axis:{
+                                    color:'#9f9f9f',
+                                    width:[0,0,2,2]
+                                },
+                                grids:{
+                                    vertical:{
+                                        way:'share_alike',
+                                        value:5
+                                    }
+                                },
+                                scale:[{
+                                     position:'left',   
+                                     start_scale:0,
+                                     end_scale:50,
+                                     scale_space:0,
+                                     scale_size:2,
+                                     scale_color:'#9f9f9f'
+                                },{
+                                     position:'bottom', 
+                                     labels:labels
+                                }]
+                            }
+                        });
+                    
+                    //开始画图
+                    line.draw();
+                });
+                
+            </script>
 
-                <svg version="1.1" style="font-family:&quot;Lucida Grande&quot;, &quot;Lucida Sans Unicode&quot;, Arial, Helvetica, sans-serif;font-size:12px;font-family:Arial;" xmlns="http://www.w3.org/2000/svg" width="282" height="120">
-                <path fill="none" d="M 0 55.5 L 282 55.5" stroke="#D75442" stroke-width="1" stroke-dasharray="3,1" zIndex="4">
-                </path>
-                </svg>
-            </div>
+          
 
-            <div class="flash-single flash-small new_wh">
-                <div class="data-line" style="margin-bottom: 15px;">
-                    <strong class="off"><a href="http://q.10jqka.com.cn/usa##">
-                    标准普尔500指数(SPX)</a></strong>
-                    <br>
-                    <span class="red">2476.55</span>
-                    <span class="red">0.20%</span>
-                    <span class="red">4.90</span>
-                </div>
-                <svg version="1.1" style="font-family:&quot;Lucida Grande&quot;, &quot;Lucida Sans Unicode&quot;, Arial, Helvetica, sans-serif;font-size:12px;font-family:Arial;" xmlns="http://www.w3.org/2000/svg" width="282" height="120">
-                <path fill="none" d="M 0 55.5 L 282 55.5" stroke="#D75442" stroke-width="1" stroke-dasharray="3,1" zIndex="4">
-                </path>
-                </svg>
-            </div>
+           
+              
+               <div id='canvasDiv1'></div>
+           
 
 
             <div class="right_pic zhu">
