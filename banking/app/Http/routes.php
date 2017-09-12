@@ -61,9 +61,6 @@ Route::get('/', function () {
 
 
 // });
-
-
-
 /**
  * 前台
  */
@@ -71,8 +68,12 @@ Route::group(['middleware'=>'web','namespace' => 'Home'], function(){
     Route::group(['prefix'=>'project'],function(){
         //首页
         Route::match(['get','post'],'/show','InfoController@index');
+        //个人简介
+        Route::match(['get','post'],'/center','LoginController@center');
         //美国股市页面
         Route::match(['get','post'],'/meigu','MeiguController@index');
+        //加自选
+        Route::match(['get','post'],'/zixuan','MeiguController@zixuan');
         //美股详情页
         Route::match(['get','post'],'/firmshow','MeiguController@index');
         //登录
@@ -93,8 +94,12 @@ Route::group(['middleware'=>'web','namespace' => 'Home'], function(){
         Route::match(['get','post'],'/register','LoginController@register');
         //上传文件
         Route::match(['get','post'], '/info','FileController@info');
+        //删除自选
+        Route::match(['get','post'], '/del','PersonalController@del');
         //上传文件
         Route::match(['get','post'], '/ajax','loginController@ajax');
+        //申请大师资格
+        Route::match(['get','post'], '/applyadd','PersonalController@applyadd');
 
     });
 });
