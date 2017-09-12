@@ -66,6 +66,7 @@
     <li class="nav-btn person_sel active" data-id="zixuan" data-title="我的自选"><a href="#">我的自选</a></li>
     <li class="nav-btn pconcern" data-id="focus" data-title="我的名家"><a href="#">我的名家</a></li>
     <li class="nav-btn receive" data-id="collection" data-title="我的收藏"><a href="#">我的收藏</a></li>
+    <li class="nav-btn hqcenter" data-id="collection" data-title="申请大师"><a href="{{url('project/Apply')}}">申请大师</a></li>
 </ul>
 <script>
 var url = window.location.href,
@@ -390,7 +391,6 @@ if (!active) {
                 <span class="nomore">没有更多</span>
                 <span class="my-fund" onclick="window.open(&#39;http://fund.10jqka.com.cn/zixuan/index.html&#39;)">自选基金</span>      
             </p>
-            <div class="loading hide" style="display: block;"><img src="./img/loading.gif"></div>
         </div>
 
 

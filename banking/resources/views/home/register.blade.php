@@ -11,13 +11,24 @@
 <body>
 <h1>注 册</h1>
 <div class="container w3layouts agileits">
+	<!-- 成功提示框 -->
+	@if(Session::has('hasSuccess'))
+	<div class="alert alert-success alert-dismissible" role="alert">
+		<font color="red">{{Session::get('hasSuccess')}}</font>
+	</div>
+	@endif
+	<!-- 失败提示框 -->
+	@if(Session::has('hasExists'))
+	<div class="alert alert-danger alert-dismissible" role="alert">
+		<font color="red"><strong>Error</strong> - {{Session::get('hasExists')}}</font>
+	</div>
+	@endif
 	<form action="{{url('project/registers')}}" method="post">
 		<input type="hidden" name="_token" value="{{ csrf_token() }}" />
-		<input type="text" Name="Name" placeholder="用户名" required="">
-		<input type="text" Name="Email" placeholder="邮箱" required="">
+		<input type="text" Name="Name" placeholder="请输入2-6位的英文字符" required="">
+		<input type="text" Name="Email" placeholder="请输入你的个人邮箱" required="">
 		<input type="password" Name="Password" placeholder="密码" required="">
 		<input type="password" Name="Password1" placeholder="确认密码" required="">
-		<input type="text" Name="Phone_Number" placeholder="手机号码" required="">
 		<div class="send-button w3layouts agileits">
 			<input type="submit" value="免费注册">
 		</div>

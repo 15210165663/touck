@@ -91,6 +91,8 @@ Route::group(['middleware'=>'web','namespace' => 'Home'], function(){
         Route::match(['get','post'],'/personal','LoginController@personal');
         //个人资料
         Route::match(['get','post'],'/ge','LoginController@ge');
+        //申请大师
+        Route::match(['get','post'],'/Apply','PersonalController@Apply');
         //登录
         Route::match(['get','post'],'/register','LoginController@register');
         //上传文件
