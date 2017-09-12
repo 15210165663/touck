@@ -73,6 +73,10 @@ Route::group(['middleware'=>'web','namespace' => 'Home'], function(){
         Route::match(['get','post'],'/show','InfoController@index');
         //美国股市页面
         Route::match(['get','post'],'/meigu','MeiguController@index');
+        // 添加美股数据
+        Route::match(['get','post'],'/add_meigu','MeiguController@add_meigu');
+          // 大数据统计
+        Route::match(['get','post'],'/shuju','MeiguController@shuju');
         //美股详情页
         Route::match(['get','post'],'/firmshow','MeiguController@index');
         //登录
