@@ -13,6 +13,10 @@ class MeiguController extends CommonController
 	 */
 	public function index(Request $request)
 	{
+
+
+
+		
 		$name = $request->session()->get('Username');
 		$data = file_get_contents('http://web.juhe.cn:8080/finance/stock/usaall?page=&type=&key=869fc55897a8cfa99ad7029e86459972');
 		$datas = json_decode($data,true);
