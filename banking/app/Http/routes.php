@@ -74,8 +74,12 @@ Route::group(['middleware'=>'web','namespace' => 'Home'], function(){
         Route::get('/meigu_newpage','MeiguController@meigu_newpage');
         //美国新闻详情
         Route::get('/meigu_new','MeiguController@meigu_new');
-        //美股详情页
+        //美股
         Route::match(['get','post'],'/firmshow','MeiguController@index');
+        //美国新闻详情
+        Route::get('/meigu_info/{symbol}','MeiguController@meigu_info');
+        //资金流动
+        Route::get('/money_flow','MeiguController@money_flow');
         //登录
         Route::match(['get','post'],'/login','LoginController@index');
         //登录验证
@@ -93,7 +97,10 @@ Route::group(['middleware'=>'web','namespace' => 'Home'], function(){
         //上传文件
         Route::match(['get','post'], '/info','FileController@info');
         //上传文件
-        Route::match(['get','post'], '/ajax','loginController@ajax');
+        Route::match(['get','post'], '/ajax','loginController@ajax');    
+        //财务分析
+        Route::match(['get','post'], '/money_cai','Money_flowController@money_cai');
+
 
     });
 });

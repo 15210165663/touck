@@ -55,7 +55,7 @@
         <div class="mt30 clearfix">
             <div class="flash-single flash-small new_wh">
                 <div class="data-line" style="margin-bottom: 15px;">
-                    <strong class="off"><a href="http://q.10jqka.com.cn/usa##">道琼斯工业平均指数(DJI)</a></strong>
+                    <strong class="off"><a href="http://q.10jqka.com.cn/usa##">涨跌额</a></strong>
                     <br>
                     <span class="red">21987.56</span>
                     <span class="red">0.18%</span>
@@ -70,7 +70,7 @@
             <div class="flash-single flash-small flash-sec new_wh">
                 <div class="data-line" style="margin-bottom: 15px;">
                     <strong class="off"><a href="http://q.10jqka.com.cn/usa##">
-                    纳斯达克综合指数(IXIC)</a></strong>
+                    涨跌幅</a></strong>
                     <br>
                     <span class="red">6435.33</span>
                     <span class="red">0.10%</span>
@@ -174,7 +174,7 @@
                         <?php }else{?>
                         <tr style="color:red">
                         <?php }?>
-                            <td><a href="{{url('project/firmshow')}}?code=<php echo $v['symbol']>"><?php echo $v['cname']?></a></td>
+                            <td><a href="{{url('project/meigu_info')}}/{{$v['symbol']}}"><?php echo $v['cname']?></a></td>
                             <td><?php echo $v['category']?></td>
                             <td><?php echo $v['symbol']?></td>
                             <td><?php echo $v['price']?></td>

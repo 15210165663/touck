@@ -5,12 +5,13 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+
 class MeiguController extends CommonController
 {
 	/**
 	 * 美股页面
 	 * @return [type] [description]
-	 */
+	 */ 
 	public function index()
 	{
 		$data = $this->curl_contents('http://web.juhe.cn:8080/finance/stock/usaall?page=&type=&key=869fc55897a8cfa99ad7029e86459972');
@@ -25,6 +26,52 @@ class MeiguController extends CommonController
 		$list['yjfx'] = $this->meigu_index('http://usstock.jrj.com.cn/list/yjfx.shtml');
 		return view('home.meigu',$list);
 	}
+	//美股公司详情
+	public function meigu_info($symbol)
+	{
+		//美股详情
+		$url = 'http://web.juhe.cn:8080/finance/stock/usa?gid='.$symbol.'&key=c186b517ccac207266d11e1045778190';
+		$jk = json_decode($this->curl_contents($url),true);
+		if($jk['resultcode']==200)
+		{
+			$data = $jk['result'][0];
+			$data['err'] = 1;
+			//公司信息
+			$company = $this->curl_contents('http://www.baike.com/wiki/'.$data['data']['name']);
+			//采集简介
+			$info_prge = '#<div class="summary" name="anchor" id="anchor"><p>(.*)</p>.*</div>#isU';
+			preg_match($info_prge,$company,$arr1);
+			if(empty($arr1)){
+				$info_prge = '#<div id="anchor" name="anchor" class="summary"><p>(.*)</p>.*</div>#isU';
+				preg_match($info_prge,$company,$arr1);
+				if(empty($arr1)){
+					$data['info'] = '没有找到相关信息';
+				}else{
+					$data['info'] = $arr1[1];
+				}
+			}else{
+				$data['info'] = $arr1[1];
+			}
+			//采集基本信息
+			$info_prge2 = '#<div id="datamodule" name="datamodule" appcode="datamodule">.*<table>(.*)</table>#isU';
+			preg_match($info_prge2,$company,$arr2);
+			if(empty($arr2)){
+				$info_prge2 = '#<div name="datamodule" id="datamodule" appcode="datamodule">.*<table>(.*)</table>#isU';
+				preg_match($info_prge2,$company,$arr2);
+				if(empty($arr2)){
+					$data['info2'] = '没有找到相关信息';
+				}else{
+					$data['info2'] = preg_replace('/\r|\n| /','',$arr2[1]);
+				}
+			}else{
+				$data['info2'] = preg_replace('/\r|\n| /','',$arr2[1]);
+			}
+		}else{
+			$data['err'] = 0;
+			$data['msg'] = '没有找到相关信息';
+		}
+		return view('home.meigu_info',$data);
+	}	
 	//美股市场首页显示新闻
 	public function meigu_index($url)
 	{
