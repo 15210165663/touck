@@ -387,6 +387,20 @@ if (!active) {
                 @endforeach
                 </tbody>
             </table>
+<<<<<<< HEAD
+<<<<<<< .merge_file_a08312
+<<<<<<< .merge_file_a09064
+
+            <p class="expand">
+                <span class="nomore">没有更多</span>
+                <span class="my-fund" onclick="window.open(&#39;http://fund.10jqka.com.cn/zixuan/index.html&#39;)">自选基金</span>      
+            </p>
+=======
+>>>>>>> .merge_file_a02460
+=======
+>>>>>>> .merge_file_a05664
+=======
+>>>>>>> b80eec717329b0de8cc59117df04ff846889d1ea
         </div>
 <script>
     $(function(){

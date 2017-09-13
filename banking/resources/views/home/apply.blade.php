@@ -40,88 +40,238 @@
 <div class="main-wrap">
 <div class="w750 main-border">
 <div class="homepage-wrap">
+<<<<<<< HEAD
+<<<<<<< .merge_file_a08444
+<<<<<<< .merge_file_a02388
+	<div class="homepage-self">
+		<div class="fs16 c444 ffyh block-title por">
+			大师名称：&nbsp;&nbsp;&nbsp;<input type="text" name="" id="">		
+=======
+=======
+>>>>>>> .merge_file_a08668
+=======
+>>>>>>> b80eec717329b0de8cc59117df04ff846889d1ea
 <div class="homepage-self">
 	<form action="{{url('project/applyadd')}}" method="post" enctype="multipart/form-data">
 		<div class="fs16 c444 ffyh block-title por">
 			大师名称：&nbsp;&nbsp;&nbsp;<input type="text" class="name" name="Master_name">
 			<span class="span"></span>
+<<<<<<< HEAD
+<<<<<<< .merge_file_a08444
+>>>>>>> .merge_file_a08424
+=======
+>>>>>>> .merge_file_a08668
+=======
+>>>>>>> b80eec717329b0de8cc59117df04ff846889d1ea
 		</div>
 		<div class="homepage-realname">
 			<ul class="pt0">
 			</ul>
 		</div>
 		<div class="fs16 c444 ffyh block-title por">
+<<<<<<< HEAD
+<<<<<<< .merge_file_a08444
+<<<<<<< .merge_file_a02388
+			工作年份：&nbsp;&nbsp;&nbsp;<input type="text" name="" id="">		
+=======
 			工作年份：&nbsp;&nbsp;&nbsp;<input type="text" class="suffer" name="Master_suffer">
 			<span class="span1"></span>
+>>>>>>> .merge_file_a08424
+=======
+			工作年份：&nbsp;&nbsp;&nbsp;<input type="text" class="suffer" name="Master_suffer">
+			<span class="span1"></span>
+>>>>>>> .merge_file_a08668
+=======
+			工作年份：&nbsp;&nbsp;&nbsp;<input type="text" class="suffer" name="Master_suffer">
+			<span class="span1"></span>
+>>>>>>> b80eec717329b0de8cc59117df04ff846889d1ea
 		</div>
 		<div class="homepage-realname">
 			<ul class="pt0">
 			</ul>
 		</div>
 		<div class="fs16 c444 ffyh block-title por">
+<<<<<<< HEAD
+<<<<<<< .merge_file_a08444
+<<<<<<< .merge_file_a02388
+			大师手机号：<input type="text" name="" id="">		
+=======
 			大师手机号：<input type="text" class="phone" name="Master_phone">		
 			<span class="span2"></span>
+>>>>>>> .merge_file_a08424
+=======
+			大师手机号：<input type="text" class="phone" name="Master_phone">		
+			<span class="span2"></span>
+>>>>>>> .merge_file_a08668
+=======
+			大师手机号：<input type="text" class="phone" name="Master_phone">		
+			<span class="span2"></span>
+>>>>>>> b80eec717329b0de8cc59117df04ff846889d1ea
 		</div>
 		<div class="homepage-realname">
 			<ul class="pt0">
 			</ul>
 		</div>
 		<div class="fs16 c444 ffyh block-title por">
+<<<<<<< HEAD
+<<<<<<< .merge_file_a08444
+<<<<<<< .merge_file_a02388
+			大师照片：&nbsp;&nbsp;&nbsp;<input type="text" name="" id="">		
+=======
 			大师照片：&nbsp;&nbsp;&nbsp;<input type="file" name="Master_url">
+>>>>>>> .merge_file_a08424
+=======
+			大师照片：&nbsp;&nbsp;&nbsp;<input type="file" name="Master_url">
+>>>>>>> .merge_file_a08668
+=======
+			大师照片：&nbsp;&nbsp;&nbsp;<input type="file" name="Master_url">
+>>>>>>> b80eec717329b0de8cc59117df04ff846889d1ea
 		</div>
 		<div class="homepage-realname">
 			<ul class="pt0">
 			</ul>
 		</div>
 		<div class="fs16 c444 ffyh block-title por">
+<<<<<<< HEAD
+<<<<<<< .merge_file_a08444
+<<<<<<< .merge_file_a02388
+			身份证：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="" id="">		
+=======
 			身份证号码：<input type="text" class="prove" name="Master_prove">		
 			<span class="span3"></span>
+>>>>>>> .merge_file_a08424
+=======
+			身份证号码：<input type="text" class="prove" name="Master_prove">		
+			<span class="span3"></span>
+>>>>>>> .merge_file_a08668
+=======
+			身份证号码：<input type="text" class="prove" name="Master_prove">		
+			<span class="span3"></span>
+>>>>>>> b80eec717329b0de8cc59117df04ff846889d1ea
 		</div>
 		<div class="homepage-realname">
 			<ul class="pt0">
 			</ul>
 		</div>
 		<div class="fs16 c444 ffyh block-title por">
+<<<<<<< HEAD
+<<<<<<< .merge_file_a08444
+<<<<<<< .merge_file_a02388
+			大师邮箱：&nbsp;&nbsp;&nbsp;<input type="text" name="" id="">		
+=======
 			大师邮箱：&nbsp;&nbsp;&nbsp;<input type="text" class="email" name="Master_email">
 			<span class="span4"></span>
+>>>>>>> .merge_file_a08424
+=======
+			大师邮箱：&nbsp;&nbsp;&nbsp;<input type="text" class="email" name="Master_email">
+			<span class="span4"></span>
+>>>>>>> .merge_file_a08668
+=======
+			大师邮箱：&nbsp;&nbsp;&nbsp;<input type="text" class="email" name="Master_email">
+			<span class="span4"></span>
+>>>>>>> b80eec717329b0de8cc59117df04ff846889d1ea
 		</div>
 		<div class="homepage-realname">
 			<ul class="pt0">
 			</ul>
 		</div>
 		<div class="fs16 c444 ffyh block-title por">
+<<<<<<< HEAD
+<<<<<<< .merge_file_a08444
+<<<<<<< .merge_file_a02388
+			大师介绍：&nbsp;&nbsp;&nbsp;<input type="text" name="" id="">		
+=======
+=======
+>>>>>>> .merge_file_a08668
+=======
+>>>>>>> b80eec717329b0de8cc59117df04ff846889d1ea
 			大师级别：&nbsp;&nbsp;&nbsp;<select name="master_jib" id="">
 				<option value="">请选择大师级别</option>
 				<option value="1">初级</option>
 				<option value="2">中级</option>
 				<option value="3">高级</option>
 			</select>
+<<<<<<< HEAD
+<<<<<<< .merge_file_a08444
+>>>>>>> .merge_file_a08424
+=======
+>>>>>>> .merge_file_a08668
+=======
+>>>>>>> b80eec717329b0de8cc59117df04ff846889d1ea
 		</div>
 		<div class="homepage-realname">
 			<ul class="pt0">
 			</ul>
 		</div>
 		<div class="fs16 c444 ffyh block-title por">
+<<<<<<< HEAD
+<<<<<<< .merge_file_a08444
+<<<<<<< .merge_file_a02388
+			大师级别：&nbsp;&nbsp;&nbsp;<input type="text" name="" id="">		
+=======
 			大师资格证：<input type="file" name="Prove_url">		
+>>>>>>> .merge_file_a08424
+=======
+			大师资格证：<input type="file" name="Prove_url">		
+>>>>>>> .merge_file_a08668
+=======
+			大师资格证：<input type="file" name="Prove_url">		
+>>>>>>> b80eec717329b0de8cc59117df04ff846889d1ea
 		</div>
 		<div class="homepage-realname">
 			<ul class="pt0">
 			</ul>
 		</div>
 		<div class="fs16 c444 ffyh block-title por">
+<<<<<<< HEAD
+<<<<<<< .merge_file_a08444
+<<<<<<< .merge_file_a02388
+			大师资格证：<input type="text" name="" id="">		
+=======
 			大师介绍：&nbsp;&nbsp;&nbsp;<input type="text" class="text" name="Master_text">
+>>>>>>> .merge_file_a08424
+=======
+			大师介绍：&nbsp;&nbsp;&nbsp;<input type="text" class="text" name="Master_text">
+>>>>>>> .merge_file_a08668
+=======
+			大师介绍：&nbsp;&nbsp;&nbsp;<input type="text" class="text" name="Master_text">
+>>>>>>> b80eec717329b0de8cc59117df04ff846889d1ea
 		</div>
 		<div class="homepage-realname">
 			<ul class="pt0">
 			</ul>
 		</div>
+<<<<<<< HEAD
+<<<<<<< .merge_file_a08444
+<<<<<<< .merge_file_a02388
+		<input type="button" style="background:red;width:150px;height:35px;cursor:pointer;" class="btn btn-success" value="点击申请">
+=======
 		<input type="submit" class="sub" style="background:red;width:150px;height:35px;cursor:pointer;display:none;" class="btn btn-success;" value="点击申请">
 		<span class="tishi"><font color="red">友情提示：必须通过所有验证规则才可以显示此按钮</font></span>
 	</form>
+>>>>>>> .merge_file_a08424
+=======
+		<input type="submit" class="sub" style="background:red;width:150px;height:35px;cursor:pointer;display:none;" class="btn btn-success;" value="点击申请">
+		<span class="tishi"><font color="red">友情提示：必须通过所有验证规则才可以显示此按钮</font></span>
+	</form>
+>>>>>>> .merge_file_a08668
+=======
+		<input type="submit" class="sub" style="background:red;width:150px;height:35px;cursor:pointer;display:none;" class="btn btn-success;" value="点击申请">
+		<span class="tishi"><font color="red">友情提示：必须通过所有验证规则才可以显示此按钮</font></span>
+	</form>
+>>>>>>> b80eec717329b0de8cc59117df04ff846889d1ea
 	</div>
 </div>
 </div>
 </div>
+<<<<<<< HEAD
+<<<<<<< .merge_file_a08444
+<<<<<<< .merge_file_a02388
+=======
+=======
+>>>>>>> .merge_file_a08668
+=======
+>>>>>>> b80eec717329b0de8cc59117df04ff846889d1ea
 <script>
 	$(function(){
 		$(".name").blur(function(){
@@ -190,6 +340,13 @@
 		})
 	})
 </script>
+<<<<<<< HEAD
+<<<<<<< .merge_file_a08444
+>>>>>>> .merge_file_a08424
+=======
+>>>>>>> .merge_file_a08668
+=======
+>>>>>>> b80eec717329b0de8cc59117df04ff846889d1ea
 <script type="text/javascript" src="//s.thsi.cn/cb?js/home/;ths_core.min.js"></script>
 <script src="//s.thsi.cn/cb?sns/js/lib/ueditor/;ueditor.config.min.js;ueditor.all.require.min.js&20170522"></script>
 </body>

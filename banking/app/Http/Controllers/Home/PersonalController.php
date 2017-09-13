@@ -5,16 +5,42 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+<<<<<<< HEAD
+<<<<<<< .merge_file_a08792
+<<<<<<< .merge_file_a02424
+header('content-type:text/html;charset=utf-8');
+class PersonalController extends Controller
+{
+=======
+=======
+>>>>>>> .merge_file_a07360
+=======
+>>>>>>> b80eec717329b0de8cc59117df04ff846889d1ea
 use Illuminate\Support\Facades\Input;
 use Storage;
 header('content-type:text/html;charset=utf-8');
 class PersonalController extends Controller
 {
     // 首页
+<<<<<<< HEAD
+<<<<<<< .merge_file_a08792
+>>>>>>> .merge_file_a05196
+=======
+>>>>>>> .merge_file_a07360
+=======
+>>>>>>> b80eec717329b0de8cc59117df04ff846889d1ea
 	public function Apply()
 	{
 		return view('home.apply');
 	}
+<<<<<<< HEAD
+<<<<<<< .merge_file_a08792
+<<<<<<< .merge_file_a02424
+=======
+=======
+>>>>>>> .merge_file_a07360
+=======
+>>>>>>> b80eec717329b0de8cc59117df04ff846889d1ea
     //删除自选
     public function del(Request $res)
     {
@@ -85,4 +111,11 @@ class PersonalController extends Controller
         	return view('home.apply');
         }
 	}
+<<<<<<< HEAD
+<<<<<<< .merge_file_a08792
+>>>>>>> .merge_file_a05196
+=======
+>>>>>>> .merge_file_a07360
+=======
+>>>>>>> b80eec717329b0de8cc59117df04ff846889d1ea
 }
