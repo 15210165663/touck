@@ -15,27 +15,32 @@
     <div class="w1200">
         <div class="hdlogo">
             <a target="_blank" class="site-logo" href="http://www.10jqka.com.cn/"> <img src="./img/logo-ths.jpg" title="同花顺" alt="同花顺"></a>
-            <h1><a target="_blank" title="炒股中心" class="sub-logo">炒股中心</a></h1>
         </div>
 
         <div class="nav">
             <a href="{{url('project/show')}}" data-type="hssc">首页</a>
-            <a href="http://q.10jqka.com.cn/usa/" class="cur">美国市场</a>
+            <a href="{{url('project/meigu')}}" class="cur">美国市场</a>
             <a href="http://q.10jqka.com.cn/global/">财务分析</a>
             <a href="http://q.10jqka.com.cn/gn/" data-type="bk">资金流向</a>
             <a href="http://q.10jqka.com.cn/xsb/" target="_blank">炒股大师</a>
         </div>
-        @if($name != '')
-            <div class="login-box he">
-               <a href="{{url('project/personal')}}"  style="background-position: right 36px;">{{$name}}</a> 
-               | 
-               <a href="{{url('project/del_login')}}">退出</a>
-            </div>
-        @else
-            <div class="login-box he">
-                <a href="{{url('project/login')}}">登录</a>
-            </div>
-        @endif
+
+
+        <div class="login-box hide">
+
+            <a href="http://upass.10jqka.com.cn/login?redir=HTTP_REFERER" target="_blank">登录</a>
+
+        </div>
+
+        <div class="logined_box fr">
+
+            <a href="http://stock.10jqka.com.cn/my/" target="_blank" id="J_username" style="background-position: right 36px;">co_412608137</a>
+
+            <span>|</span>
+
+            <a href="javascript:;" id="header_logined_out" target="_self" class="homeloginout">退出</a>
+
+        </div>
 
     </div>
 
@@ -50,7 +55,7 @@
         <div class="mt30 clearfix">
             <div class="flash-single flash-small new_wh">
                 <div class="data-line" style="margin-bottom: 15px;">
-                    <strong class="off"><a href="http://q.10jqka.com.cn/usa##">道琼斯工业平均指数(DJI)</a></strong>
+                    <strong class="off"><a href="http://q.10jqka.com.cn/usa##">涨跌额</a></strong>
                     <br>
                     <span class="red">21987.56</span>
                     <span class="red">0.18%</span>
@@ -65,7 +70,7 @@
             <div class="flash-single flash-small flash-sec new_wh">
                 <div class="data-line" style="margin-bottom: 15px;">
                     <strong class="off"><a href="http://q.10jqka.com.cn/usa##">
-                    纳斯达克综合指数(IXIC)</a></strong>
+                    涨跌幅</a></strong>
                     <br>
                     <span class="red">6435.33</span>
                     <span class="red">0.10%</span>
@@ -141,7 +146,7 @@
                 <div class="left_border"></div>
                 <p>全部美股涨跌排行榜</p><span class="more"><a href="http://q.10jqka.com.cn/usa/detail/" target="_blank">更多&gt;&gt;</a></span>
             </div>
-            
+           
             <div class="all_maincont">               
                 <table class="m-table m-pager-table">
                     <thead>
@@ -169,7 +174,7 @@
                         <?php }else{?>
                         <tr style="color:red">
                         <?php }?>
-                            <td><a href="{{url('project/firmshow')}}?code=<php echo $v['symbol']>"><?php echo $v['cname']?></a></td>
+                            <td><a href="{{url('project/meigu_info')}}/{{$v['symbol']}}"><?php echo $v['cname']?></a></td>
                             <td><?php echo $v['category']?></td>
                             <td><?php echo $v['symbol']?></td>
                             <td><?php echo $v['price']?></td>
@@ -195,32 +200,60 @@
                 <div class="news_l ">
                 <div class="top_title2">
                     <div class="left_border"></div>
-                    <p>美股要闻</p><span class="more"><a href="http://stock.10jqka.com.cn/usstock/mggsxw_list/" target="_blank">更多&gt;&gt;</a></span>
+                    <p>美股要闻</p><span class="more"><a href="{{url('project/meigu_newpage')}}?type=mgyw" target="_blank">更多&gt;&gt;</a></span>
                 </div>
                 <ul>
+                    @foreach($yw as $v)
                     <li>
-                        <a href="http://stock.10jqka.com.cn/usstock/20170905/c600298431.shtml" target="_blank" title="通用汽车8月中国销量增长12%">通用汽车8月中国销量增长12%</a><span class="right_date">2017-09-05</span>
-                    </li>               
+                        <a href="{{url('project/meigu_new')}}?link={{$v['link']}}&type=mgyw" target="_blank" title="{{$v['title']}}">
+                            @if(mb_strlen($v['title'])>17)
+                                {{mb_substr($v['title'],0,17).'...'}}
+                            @else
+                                {{$v['title']}}
+                            @endif
+                        </a><span class="right_date">{{$v['time']}}</span>
+                    </li>
+                    @endforeach         
                 </ul>
             </div>
 
             <div class="news_l ">
                 <div class="top_title2">
                     <div class="left_border"></div>
-                    <p>中概股新闻</p><span class="more"><a href="http://stock.10jqka.com.cn/usstock/zggxw_list/" target="_blank">更多&gt;&gt;</a></span>
+                    <p>中概股新闻</p><span class="more"><a href="{{url('project/meigu_newpage')}}?type=zggng" target="_blank">更多&gt;&gt;</a></span>
                 </div>
                 <ul>
-                    <li><a href="http://news.10jqka.com.cn/20170905/c600296183.shtml" target="_blank" title="大量使用大众点评信息 百度被判不正当竞争赔323万元">大量使用大众点评信息 百度被判不正...</a><span class="right_date">2017-09-05</span></li>
+                    @foreach($gng as $v)
+                    <li>
+                        <a href="{{url('project/meigu_new')}}?link={{$v['link']}}&type=zggng" target="_blank" title="{{$v['title']}}">
+                            @if(mb_strlen($v['title'])>17)
+                                {{mb_substr($v['title'],0,17).'...'}}
+                            @else
+                                {{$v['title']}}
+                            @endif
+                        </a><span class="right_date">{{$v['time']}}</span>
+                    </li>
+                    @endforeach
                 </ul>
             </div>
 
             <div class="news_l no_r">
                 <div class="top_title2">
                     <div class="left_border"></div>
-                    <p>国际财经</p><span class="more"><a href="http://news.10jqka.com.cn/guojicj_list/" target="_blank">更多&gt;&gt;</a></span>
+                    <p>研究分析</p><span class="more"><a href="{{url('project/meigu_newpage')}}?type=yjfx" target="_blank">更多&gt;&gt;</a></span>
                 </div>
                 <ul>
-                    <li><a href="http://news.10jqka.com.cn/20170905/c600299717.shtml" target="_blank" title="科恩接任美联储主席这事似乎又悬了">科恩接任美联储主席这事似乎又悬了</a><span class="right_date">2017-09-05</span></li>
+                    @foreach($yjfx as $v)
+                    <li>
+                        <a href="{{url('project/meigu_new')}}?link={{$v['link']}}&type=yjfx" target="_blank" title="{{$v['title']}}">
+                            @if(mb_strlen($v['title'])>17)
+                                {{mb_substr($v['title'],0,17).'...'}}
+                            @else
+                                {{$v['title']}}
+                            @endif
+                        </a><span class="right_date">{{$v['time']}}</span>
+                    </li>
+                    @endforeach
                 </ul>
             </div>
 
