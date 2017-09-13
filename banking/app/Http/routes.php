@@ -25,6 +25,17 @@ Route::group(['middleware'=>'web','namespace' => 'Home'], function(){
         Route::match(['get','post'],'/center','LoginController@center');
         //美国股市页面
         Route::match(['get','post'],'/meigu','MeiguController@index');
+
+        Route::match(['get','post'],'/add_meigu','MeiguController@add_meigu');
+          // 大数据统计
+        Route::match(['get','post'],'/shuju','MeiguController@shuju');
+
+        //加自选
+        Route::match(['get','post'],'/zixuan','MeiguController@zixuan');
+
+        //加自选
+        Route::match(['get','post'],'/zixuan','MeiguController@zixuan');
+
         //加自选
         Route::match(['get','post'],'/zixuan','MeiguController@zixuan');
         //美股详情页

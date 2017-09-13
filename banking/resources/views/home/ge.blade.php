@@ -99,6 +99,111 @@ var SEAJSMAP={"myProtoMain.js":"211d34","common.js":"8c38d9","chatCommentMain.js
 <script>var loginUserJson	= {"userid":"412608137","nickname":"co_**1373n3"};</script>
 <link rel="stylesheet" href="//s.thsi.cn/sns/css/circle/5.0.1/header-a25f0a.css">
 <script src="//s.thsi.cn/sns/sea-modules/gallery/autoComplete/newAutoComplete.js?20160524"></script>
+<<<<<<< HEAD
+<<<<<<< .merge_file_a08428
+<<<<<<< .merge_file_a06804
+<script type="text/javascript">
+//广告初始化对象
+//判断是PC还是移动设备，两个平台传的数据不一样
+var sUserAgent = navigator.userAgent.toLowerCase();
+var bIsIpad = sUserAgent.match(/ipad/i) == "ipad";
+var bIsIphoneOs = sUserAgent.match(/iphone os/i) == "iphone os";
+var bIsMidp = sUserAgent.match(/midp/i) == "midp";
+var bIsUc7 = sUserAgent.match(/rv:1.2.3.4/i) == "rv:1.2.3.4";
+var bIsUc = sUserAgent.match(/ucweb/i) == "ucweb";
+var bIsAndroid = sUserAgent.match(/android/i) == "android";
+var bIsCE = sUserAgent.match(/windows ce/i) == "windows ce";
+var bIsWM = sUserAgent.match(/windows mobile/i) == "windows mobile";
+
+if (bIsIpad || bIsIphoneOs || bIsMidp || bIsUc7 || bIsUc || bIsAndroid || bIsCE || bIsWM) {
+	var ad_obj = null;
+
+	/**app推广**/
+
+	require(['store'],function(store){
+		$(document).ready(function() {
+
+			function getPlatform(){
+			    var browser={
+			        versions:function(){
+			            var u = navigator.userAgent, app = navigator.appVersion;
+			            return {
+			                iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1,
+			                iPad: u.indexOf('iPad') > -1
+			            };
+			        }(),
+			        language:(navigator.browserLanguage || navigator.language).toLowerCase()
+			    };
+			    if( browser.versions.iPhone || browser.versions.iPad )
+			    {
+			        var platform = "iphone";
+			    }else{
+			        var platform = "gphone";
+			    }
+			    return platform;
+			}
+
+			var gsjlDownLoad = store.get('gsjldownload');
+			var day = new Date();
+        	var today = ''+day.getDate();
+
+        	// if( getPlatform()=='iphone' ){
+        	// 	$('.suggest-appdownloadhref').attr('href','//a.app.qq.com/o/simple.jsp?pkgname=com.hexin.plat.android');
+        	// 	$('.suggest-appdownloadhref').attr('data-statid','c_c_appdownload_iphone');
+        	// }else{
+        	// 	$('.suggest-appdownloadhref').attr('href','//a.app.qq.com/o/simple.jsp?pkgname=com.hexin.plat.android');
+        	// 	$('.suggest-appdownloadhref').attr('data-statid','c_c_appdownload_gphone');
+        	// }
+	        if(typeof gsjlDownLoad == 'undefined' || gsjlDownLoad != today){
+				$('.myadshow').show();
+				TA.log({'id':'c_p_download_gsjl'});
+	        }
+
+			$('#gsjlDownload').click(function(){
+				TA.log({'id':'c_c_download_gsjl'});
+				window.location.href = '//a.app.qq.com/o/simple.jsp?pkgname=com.hexin.android.stocktrain';
+			});
+			$('.myadclose').click(function(event){
+				store.set('gsjldownload',today);
+				$('.myadshow').hide();
+				TA.log({'id':'c_c_download_gsjl_close'});
+				event.stopPropagation();
+			});
+
+	        /*$('.suggest-appdownload .suggest-appdownloadhref').click(function(event) {
+	        	store.set('gsjldownload',today);
+	        	$('.suggest-appdownload').hide();
+	        });*/
+
+	        // $('.suggest-appdownload .close').click(function(event) {
+	        // 	store.set('gsjldownload',today);
+	        // 	$('.suggest-appdownload').hide();
+	        // });
+		});
+	});
+} else {
+    var ad_obj = null
+}
+</script>
+
+
+<!-- 股市教练App下载二维码2 -->
+<div class="navright-topma">
+	<a href="//t.10jqka.com.cn/app/#R_576b77f7_955" target="_blank">
+		<div class="topma-arrows"><div class="topma-arrows-in"></div></div>
+		<div class="tac topma-wrap">
+			<div class="topma-ewm center"><img src="//i.thsi.cn/sns/circle/img2/gsjl/app.postlist.png" alt=""></div>
+			<p class="mt20 fwb">扫码下载客户端</p>
+			<p class="redtext">看直播&nbsp;选策略&nbsp;找高手</p>
+		</div>
+	</a>
+</div>
+=======
+>>>>>>> .merge_file_a08720
+=======
+>>>>>>> .merge_file_a08660
+=======
+>>>>>>> b80eec717329b0de8cc59117df04ff846889d1ea
 
 
 <!-- 股市教练app推荐 -->
@@ -198,7 +303,19 @@ var SEAJSMAP={"myProtoMain.js":"211d34","common.js":"8c38d9","chatCommentMain.js
 					</div>
 					<div class="fs16 c444 ffyh block-title por">
 						实名认证
+<<<<<<< HEAD
+<<<<<<< .merge_file_a08428
+<<<<<<< .merge_file_a06804
+						<a href="http://upass.10jqka.com.cn/identify?platform=pc&redir=http://t.10jqka.com.cn/newcircle/user/profile/" class="bluelink fz12 ml20">点击认证</a>										
+=======
 					<a href="http://upass.10jqka.com.cn/identify?platform=pc&redir=http://t.10jqka.com.cn/newcircle/user/profile/" class="bluelink fz12 ml20">点击认证</a>	
+>>>>>>> .merge_file_a08720
+=======
+					<a href="http://upass.10jqka.com.cn/identify?platform=pc&redir=http://t.10jqka.com.cn/newcircle/user/profile/" class="bluelink fz12 ml20">点击认证</a>	
+>>>>>>> .merge_file_a08660
+=======
+					<a href="http://upass.10jqka.com.cn/identify?platform=pc&redir=http://t.10jqka.com.cn/newcircle/user/profile/" class="bluelink fz12 ml20">点击认证</a>	
+>>>>>>> b80eec717329b0de8cc59117df04ff846889d1ea
 					</div>
 					<div class="homepage-realname">
 						<ul class="pt0">
