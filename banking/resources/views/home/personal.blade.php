@@ -31,11 +31,11 @@
 <div class="header">
     <div class="control">
         <span class="p_center fl">
-            <a href="http://www.10jqka.com.cn/" target="_blank" class="logo"></a>
-            <a href="http://stock.10jqka.com.cn/my/?qq-pf-to=pcqq.c2c###" target="_blank" class="person">个人中心</a>
+            <a href="#" target="_blank" class="logo"></a>
+            <a href="#" target="_blank" class="person">个人中心</a>
         </span>
         <div class="hd_right fr">
-            <a class="art-collect" href="javascript:alert(&#39;请按Ctrl + D 收藏至浏览器~&#39;);">收藏该页</a>
+            <a class="art-collect" href="{{url('project/show')}}">返回首页</a>
             @if($name != '')
                 <a href="{{url('project/personal')}}"  style="background-position: right 36px;">{{$name}}</a> 
                 | 
@@ -55,7 +55,7 @@
                     <iframe allowtransparency="true" scrolling="no" src="http://tianqi.2345.com/plugin/widget/index.htm?s=2&amp;z=2&amp;t=1&amp;v=2&amp;d=1&amp;bd=0&amp;k=000000&amp;f=ffffff&amp;q=0&amp;e=0&amp;a=1&amp;c=54511&amp;w=255&amp;h=64&amp;align=center" width="255" height="64" frameborder="0"></iframe>
                 </div>
             </div>
-            <p>成功的投资在本质上是内在的独立自主的结果。.</p>
+            <p>成功的投资在本质上是内在的独立自主的结果。</p>
         </div>
     </div>
 </div>
@@ -66,6 +66,7 @@
     <li class="nav-btn person_sel active" data-id="zixuan" data-title="我的自选"><a href="#">我的自选</a></li>
     <li class="nav-btn pconcern" data-id="focus" data-title="我的名家"><a href="#">我的名家</a></li>
     <li class="nav-btn receive" data-id="collection" data-title="我的收藏"><a href="#">我的收藏</a></li>
+    <li class="nav-btn hqcenter" data-id="collection" data-title="申请大师"><a href="{{url('project/Apply')}}">申请大师</a></li>
 </ul>
 <script>
 var url = window.location.href,
@@ -270,47 +271,31 @@ if (!active) {
             <table class="codename fl">
                 <thead>
                     <tr>
-                        <th style="width:120px"><span class="type">全部</span></th>
-                        <th class="table_sort" style="width:67px"><i></i><span>当前</span></th>
+                        <th style="width:120px"><span class="type">全1部</span></th>
+                        <th class="table_sort" style="width:67px"><i></i><span>当前价</span></th>
                         <th style="width:137px" class="table_sort"><i></i><span>涨跌幅</span></th>
                         <th class="arr_l"><i onselectstart="return false;"></i></th>
                     </tr>
                 </thead>
                 <tbody>
+                @foreach($ppo as $v)
                 <tr class="odd">
                     <td class="graph operate">
                         <a href="http://stockpage.10jqka.com.cn/002713" target="_blank">
-                        <span class="name">东易日盛</span>
+                        <span class="name">{{$v['name']}}</span>
                         <span class="code">SZ002713</span>
                         </a>
                     </td>
-                    <td class="hqgreen" stock-code="002713">22.01</td>
+                    <td class="hqgreen" stock-code="002713"><?php echo round($v['lastestpri'],2) ?></td>
                     <td class="hqgreen" stock-code="002713">
                         <label class="">
-                            <span>-0.28</span>
-                            <span>(-1.26%)</span>
+                            <span><?php echo substr($v['uppic'],0,4)?></span>
+                            <span>({{$v['limit']}}%)</span>
                         </label>
                     </td>
                     <td></td>
                 </tr>
-
-                <tr class="">
-                    <td class="graph operate">
-                        <a href="http://stockpage.10jqka.com.cn/600838" target="_blank">
-                            <span class="name">上海九百</span>
-                            <span class="code">SZ600838</span>
-                        </a>
-                    </td>
-                    <td class="hqgreen" stock-code="600838">12.64</td>
-                    <td class="hqgreen" stock-code="600838">
-                        <label class="">
-                            <span>-0.12</span>
-                            <span>(-0.94%)</span>
-                        </label>
-                    </td>
-                    <td></td>
-                </tr>
-
+                @endforeach
                 </tbody>
             </table>
 
@@ -325,20 +310,42 @@ if (!active) {
                 </tr>
                 </thead>
                 <tbody>
+                @foreach($ppo as $v)
                 <tr class="odd">
-                    <td stock-code="002713">118.54万</td>
-                    <td stock-code="002713">2609.23万</td>
-                    <td stock-code="002713">55.85亿</td>
-                    <td stock-code="002713">1.57%</td>
-                    <td stock-code="002713">--</td>
+                <!-- 60000000 -->
+<!--                 6000.00万 -->
+                    <td stock-code="002713">
+                        <?php 
+                            $name = $v['traAmount'];
+                            echo round($name/10000,2).'万';
+                        ?>
+                    </td>
+                    <td stock-code="002713">
+                        <?php 
+                            $name = $v['avgTraNumber'];
+                            echo round($name/10000,2).'万';
+                        ?>
+                    </td>
+                    <td stock-code="002713">
+                        <?php 
+                            $name = $v['markValue'];
+                            echo round($name/100000000,2).'亿';
+                        ?>
+                    </td>
+                    <td stock-code="002713">
+                        <?php 
+                            $name = $v['EPS'];
+                            echo $name.'%';
+                        ?>
+                    </td>
+                    <td stock-code="002713">
+                        <?php 
+                            $name = $v['priearn'];
+                            echo $name.'%';
+                        ?>
+                    </td>
                 </tr>
-                <tr class="">
-                    <td stock-code="600838">441.94万</td>
-                    <td stock-code="600838">5604.98万</td>
-                    <td stock-code="600838">50.67亿</td>
-                    <td stock-code="600838">1.10%</td>
-                    <td stock-code="600838">50.65</td>
-                </tr>
+                @endforeach
                 </tbody>
             </table>
             <table class="colums hide">
@@ -352,20 +359,15 @@ if (!active) {
                 </tr>
                 </thead>
                 <tbody>
+                @foreach($ppo as $v)
                 <tr class="odd">
-                    <td>22.29</td>
-                    <td>22.10</td>
-                    <td>22.29</td>
-                    <td>21.88</td>
-                    <td>1.84%</td>
+                    <td><?php echo round($v['formpri'],2) ?></td>
+                    <td><?php echo round($v['openpri'],2) ?></td>
+                    <td><?php echo round($v['maxpri'],2) ?></td>
+                    <td><?php echo round($v['minpri'],2) ?></td>
+                    <td><?php echo $v['limit'].'%' ?></td>
                 </tr>
-                <tr class="">
-                    <td>20.40</td>
-                    <td>20.35</td>
-                    <td>20.38</td>
-                    <td>20.16</td>
-                    <td>1.08%</td>
-                </tr>
+                @endforeach
                 </tbody>
             </table>
 
@@ -377,23 +379,36 @@ if (!active) {
                     </tr>
                 </thead>
                 <tbody>
-                <tr class="odd">
-                <td></td>
-                <td class="operate">
-                <i class="rmv"></i>
-                </td>
-                </tr>
-                <tr class=""><td></td><td class="operate"><i class="rmv"></i></td></tr></tbody>
+                @foreach($ppo as $v)
+                    <tr class="">
+                        <td></td>
+                        <td class="operate"><i class="rmv" data-id="{{$v['id']}}"></i></td>
+                    </tr>
+                @endforeach
+                </tbody>
             </table>
-
-            <p class="expand">
-                <span class="nomore">没有更多</span>
-                <span class="my-fund" onclick="window.open(&#39;http://fund.10jqka.com.cn/zixuan/index.html&#39;)">自选基金</span>      
-            </p>
-            <div class="loading hide" style="display: block;"><img src="./img/loading.gif"></div>
         </div>
-
-
+<script>
+    $(function(){
+        $(".rmv").click(function(){
+            var id = $(this).data('id');
+            if(confirm("确定要删除吗？")){
+                $.ajax({
+                    type:"get",
+                    url:"{{url('project/del')}}",
+                    data:{"id":id},
+                    success:function(data){
+                        if(data == 1){
+                            location.href=("{{url('project/personal')}}");
+                        }else{
+                            location.href=("{{url('project/personal')}}");
+                        }
+                    }
+                })
+            }
+        })
+    })
+</script>
         <div class="stocklist">
             <div class="head clearfix">
                 <ul class="tab-box">
@@ -542,7 +557,7 @@ if (!active) {
 </div>
 
 <div class="rightCol">
-    <a href="http://stock.10jqka.com.cn/my/?qq-pf-to=pcqq.c2c###" class="bottom" data-flag="false">底部</a>
+    <a style="cursor:pointer;" class="bottom" data-flag="false">bottom</a>
 </div>
 
 <div class="bottom-link">

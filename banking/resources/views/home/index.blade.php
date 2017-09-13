@@ -24,7 +24,7 @@
             <a href="{{url('project/meigu')}}" >美国市场</a>
             <a href="http://q.10jqka.com.cn/global/">财务分析</a>
             <a href="http://q.10jqka.com.cn/gn/" data-type="bk">资金流向</a>
-            <a href="http://q.10jqka.com.cn/xsb/" target="_blank">炒股大师</a>
+            <a href="{{url('project/master')}}" class="cur">炒股大师</a>
         </div>
         @if($name != '')
             <div class="login-box he">
@@ -187,10 +187,9 @@
                         </tr>               
                     </tbody>
                 </table>
-                <input type="hidden" id="baseUrl" value="usa/index">                
-                        </div>
+                <input type="hidden" id="baseUrl" value="usa/index">
+            </div>
         </div>
-
 <div class="mar m-pager-box1" board="all">
             <div class="top_title2" style="margin-bottom: 30px">
                 <div class="left_border"></div>
@@ -385,8 +384,6 @@
                 </table>
             </div>
         </div>
-
-
             <div class="cf">
                 <div class="news_l ">
                 <div class="top_title2">

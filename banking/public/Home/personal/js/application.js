@@ -300,10 +300,10 @@ var application = {
             var distance = $(window).scrollTop();
             if(distance >=1500 || distance >= ( $(document).height() - $(window).height() ) ){
                 _btm.attr("data-flag","true");
-                _btm.html("¶¥²¿");
+                _btm.html("Top");
                 _btm.addClass("top");
             }else{
-                _btm.html("µ×²¿");
+                _btm.html("bottom");
                 _btm.attr("data-flag","false");
                 _btm.removeClass("top");
             }
