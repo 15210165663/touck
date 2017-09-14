@@ -74,13 +74,8 @@ class MeiguController extends CommonController
 
 	}
 public function shuju(){
-
 	$add_list = DB::select('select count(*),round(high-low,2) as shu from stock_meigu_list GROUP BY  shu>0 and shu<=0.5 , shu > 0.5 and shu<1,shu>1 and shu < 2.5 , shu>2.5 and shu <= 5,shu>5 and shu<=10,shu>10 and shu>=15,shu<15 and shu>=20,shu>20');
-
-
-		return view('home.shuju',['add_list'=>$add_list]);
-
-
+	return view('home.shuju',['add_list'=>$add_list]);
 }
 
 

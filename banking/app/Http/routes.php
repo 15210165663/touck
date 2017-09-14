@@ -80,11 +80,15 @@ Route::group(['middleware'=>'web','namespace' => 'Home'], function(){
         //加自选
         Route::match(['get','post'],'/zixuan','MeiguController@zixuan');
 
-        //加自选
-        Route::match(['get','post'],'/zixuan','MeiguController@zixuan');
+        //财务流向
+        Route::match(['get','post'],'/money_liu','Money_flowController@money_liu');
+        //数据分析
+        Route::match(['get','post'],'/Data_analysis','Money_flowController@Data_analysis');
 
-        //加自选
-        Route::match(['get','post'],'/zixuan','MeiguController@zixuan');
+
+
+
+
         //美股详情页
         Route::match(['get','post'],'/firmshow','MeiguController@index');
         //登录
@@ -114,9 +118,11 @@ Route::group(['middleware'=>'web','namespace' => 'Home'], function(){
 
     });
 });
+
 /**
  * 后台
  */
+
 Route::group(['middleware'=>'web','namespace' => 'Admin'], function(){
     Route::group(['prefix'=>'admin'],function(){
     //登录页面

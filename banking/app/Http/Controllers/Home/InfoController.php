@@ -15,7 +15,6 @@ class InfoController extends CommonController
 	{
 		$lists = Users::first()->toArray();
 		$name = $request->session()->get('Username');
-		// echo $name;die;
 		return view('home.index',['name'=>$name]);
 	}
 }
